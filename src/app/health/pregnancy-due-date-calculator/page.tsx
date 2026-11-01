@@ -24,6 +24,11 @@ const PAGE_DESCRIPTION =
 
 export const FAQ_ITEMS = [
   {
+    question: "What's my due date?",
+    answer:
+      "Enter a dating method in the calculator above — last menstrual period (LMP) is selected first — to see an estimated due date (EDD), weeks pregnant when applicable, and related dates. The result is an estimate for planning, not a prediction of the exact day of birth. A healthcare provider may adjust dating based on clinical information.",
+  },
+  {
     question: "How is my due date calculated?",
     answer:
       "This due date calculator estimates an EDD from one of four inputs: last menstrual period (LMP) with cycle length, conception date, IVF embryo transfer (with embryo age), or an ultrasound with gestational age on the scan date. All modes compute an estimated due date, then derive weeks pregnant and key dates from that EDD.",
@@ -198,12 +203,14 @@ export default function PregnancyDueDateCalculatorPage() {
             Pregnancy Due Date Calculator
           </h1>
           <p className="mt-2 text-base leading-relaxed text-muted sm:text-lg">
-            Estimate an EDD from your last menstrual period (LMP), conception
-            date, IVF embryo transfer, or ultrasound. See how many weeks
-            pregnant the dating implies, trimester boundaries, and key dates —
-            in your browser.
+            Use this LMP calculator to estimate an EDD from your last menstrual
+            period, or switch to conception date, IVF embryo transfer, or
+            ultrasound. See how many weeks pregnant the dating implies, trimester
+            boundaries, and key dates — in your browser.
           </p>
-
+          <p className="mt-3 text-[15px] leading-relaxed text-zinc-700 sm:text-base">
+            LMP means the first day of your last menstrual period.
+          </p>
         </header>
 
         <PregnancyDueDateCalculator />
@@ -255,7 +262,7 @@ export default function PregnancyDueDateCalculatorPage() {
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
                 Four common dating methods, each producing an estimated due date
-                (EDD).
+                (EDD). Last menstrual period (LMP) is the default tab above.
               </p>
             </div>
             <div className="max-w-3xl space-y-4 text-[15px] leading-relaxed text-muted">

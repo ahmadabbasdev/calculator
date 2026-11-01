@@ -21,7 +21,7 @@ export const FAQ_ITEMS = [
       "BMI is weight in kilograms divided by height in meters squared: BMI = kg ÷ m². In imperial units, an equivalent formula is BMI = 703 × lb ÷ in². Enter height and weight above — metric (cm, kg) or imperial (feet and inches, pounds) — and the calculator shows the result with a worked step.",
   },
   {
-    question: "How do I calculate BMI in kg and cm?",
+    question: "How do I calculate my BMI in kg and cm?",
     answer:
       "Use BMI = weight in kg ÷ (height in cm ÷ 100)². Convert height from centimetres to metres by dividing by 100, square that value, then divide weight by it. Example: 70 kg and 175 cm → 175 ÷ 100 = 1.75 m, 1.75² = 3.0625, 70 ÷ 3.0625 ≈ 22.9.",
   },
@@ -184,12 +184,16 @@ export default function BmiCalculatorPage() {
             BMI Calculator
           </h1>
           <p className="mt-2 text-base leading-relaxed text-muted sm:text-lg">
-            Calculate body mass index from height and weight in kg and cm, or in
-            pounds and feet (with inches). See WHO adult categories, an optional
-            Asian cut-offs guideline, and the weight range for a BMI of 18.5 to
-            24.9. Metric (kg, cm) is selected by default.
+            Calculate body mass index from height and weight. Metric (kg, cm) is
+            selected by default and shown first in the form. The calculator also
+            supports pounds, feet and inches. See WHO adult categories, an
+            optional Asian cut-offs guideline, and the weight range for a BMI of
+            18.5 to 24.9.
           </p>
-
+          <p className="mt-3 text-[15px] leading-relaxed text-zinc-700 sm:text-base">
+            BMI = weight in kg ÷ (height in metres)². For example, 70 kg and 175
+            cm gives a BMI of 22.9.
+          </p>
         </header>
 
         <BmiCalculator />
@@ -227,6 +231,36 @@ export default function BmiCalculatorPage() {
             </ol>
           </section>
 
+          <section aria-labelledby="bmi-kg-cm-heading">
+            <div className="mb-6 max-w-3xl">
+              <h2
+                id="bmi-kg-cm-heading"
+                className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+              >
+                How to calculate your BMI in kg and cm
+              </h2>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted">
+                Use your weight in kilograms and your height in centimetres, then
+                convert height to metres before dividing.
+              </p>
+            </div>
+            <ol className="max-w-3xl list-decimal space-y-3 pl-5 text-[15px] leading-relaxed text-muted">
+              <li>
+                Convert height from cm to metres by dividing by 100 (for example,
+                175 cm ÷ 100 = 1.75 m).
+              </li>
+              <li>Square that height in metres (1.75 × 1.75 = 3.0625).</li>
+              <li>
+                Divide weight in kg by that squared height (70 ÷ 3.0625 ≈ 22.9).
+              </li>
+            </ol>
+            <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-muted">
+              Worked example: 70 kg and 175 cm → BMI = 70 ÷ (1.75)² = 70 ÷ 3.0625
+              ≈ 22.9. Enter the same figures above with Metric (cm, kg) selected
+              to see the category and healthy weight range for that height.
+            </p>
+          </section>
+
           <section aria-labelledby="how-bmi-calculated-heading">
             <div className="mb-6 max-w-3xl">
               <h2
@@ -236,21 +270,19 @@ export default function BmiCalculatorPage() {
                 How BMI Is Calculated
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Body mass index is a ratio of weight to height squared.
+                Body mass index is a ratio of weight to height squared. The metric
+                steps above use kilograms and metres; imperial units use a
+                conversion factor so the result matches.
               </p>
             </div>
             <div className="max-w-3xl space-y-4 text-[15px] leading-relaxed text-muted">
-              <p>
-                <strong className="font-semibold text-foreground">Metric:</strong>{" "}
-                BMI = weight (kg) ÷ [height (m)]². Example: a person who is 70 kg
-                and 1.75 m tall has BMI = 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 ≈ 22.9.
-              </p>
               <p>
                 <strong className="font-semibold text-foreground">
                   Imperial:
                 </strong>{" "}
                 BMI = 703 × weight (lb) ÷ [height (in)]². The factor 703 converts
                 the pound–inch system so the result matches the metric definition.
+                Switch to Imperial (ft, lb) in the form if you prefer those units.
               </p>
             </div>
           </section>
