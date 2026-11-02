@@ -7,6 +7,7 @@ import {
   CalendarDays,
   CalendarPlus,
   CalendarRange,
+  Clock,
   DollarSign,
   HeartPulse,
   Percent,
@@ -192,7 +193,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
   {
     id: "date-time",
     title: "Date & Time",
-    description: "Count days, ages, and working-day spans.",
+    description: "Count days, ages, working-day spans, and clock-time durations.",
     icon: CalendarDays,
     theme: "date",
     calculators: [
@@ -242,6 +243,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: CalendarPlus,
         status: "live",
         addedAt: "2026-07-01",
+      },
+      {
+        id: "time-duration",
+        slug: "time-duration-calculator",
+        name: "Time Duration Calculator",
+        description:
+          "Hours between two times, add or subtract hours and minutes, and total a simple timecard — wall-clock arithmetic only.",
+        href: "/date-time/time-duration-calculator",
+        icon: Clock,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
       },
     ],
   },

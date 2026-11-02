@@ -325,6 +325,17 @@ export default function DaysBetweenDatesPage() {
                 </span>
               </Link>
               <Link
+                href="/date-time/time-duration-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Time Duration Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Hours between times, add or subtract time, and timecard totals
+                </span>
+              </Link>
+              <Link
                 href="/health/pregnancy-due-date-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >

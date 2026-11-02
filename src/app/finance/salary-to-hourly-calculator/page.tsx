@@ -394,6 +394,17 @@ export default function SalaryToHourlyCalculatorPage() {
                   Monthly payment (EMI), interest, and amortization
                 </span>
               </Link>
+              <Link
+                href="/date-time/time-duration-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Time Duration Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Hours between times and simple timecard totals (not payroll)
+                </span>
+              </Link>
             </div>
           </section>
         </article>
