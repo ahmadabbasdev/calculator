@@ -9,6 +9,7 @@ import {
   CalendarRange,
   Clock,
   DollarSign,
+  HandCoins,
   HeartPulse,
   Percent,
   PiggyBank,
@@ -260,7 +261,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
   {
     id: "finance",
     title: "Finance",
-    description: "Plan loans, interest, and savings goals.",
+    description: "Plan loans, interest, savings goals, and zakat estimates.",
     icon: DollarSign,
     theme: "finance",
     calculators: [
@@ -305,6 +306,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
           "Convert salary to hourly wage — or hourly, weekly, monthly, and other periods to yearly gross pay equivalents.",
         href: "/finance/salary-to-hourly-calculator",
         icon: Wallet,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
+        id: "zakat",
+        slug: "zakat-calculator",
+        name: "Zakat Calculator",
+        description:
+          "Estimate zakat on savings, gold, silver and investments with a chosen nisab — using metal prices you enter.",
+        href: "/finance/zakat-calculator",
+        icon: HandCoins,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
       },

@@ -448,6 +448,17 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                href="/finance/zakat-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Zakat Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Nisab, gold, silver and savings estimates (calculation aid)
+                </span>
+              </Link>
+              <Link
                 href="/finance/loan-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >

@@ -3,6 +3,7 @@
  */
 export const NO_ANALYTICS_PATHS = [
   "/health/pregnancy-due-date-calculator",
+  "/finance/zakat-calculator",
 ] as const;
 
 export function isNoAnalyticsPath(pathname: string): boolean {
