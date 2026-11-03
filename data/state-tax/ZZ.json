@@ -1,0 +1,48 @@
+{
+  "code": "ZZ",
+  "name": "Testland",
+  "taxYear": 2026,
+  "structure": "progressive",
+  "brackets": {
+    "single": [
+      { "from": 0, "to": 10000, "rate": 0.02 },
+      { "from": 10000, "to": 40000, "rate": 0.04 },
+      { "from": 40000, "to": null, "rate": 0.06 }
+    ],
+    "married_joint": [
+      { "from": 0, "to": 10000, "rate": 0.02 },
+      { "from": 10000, "to": 40000, "rate": 0.04 },
+      { "from": 40000, "to": null, "rate": 0.06 }
+    ],
+    "head_of_household": [
+      { "from": 0, "to": 10000, "rate": 0.02 },
+      { "from": 10000, "to": 40000, "rate": 0.04 },
+      { "from": 40000, "to": null, "rate": 0.06 }
+    ]
+  },
+  "standardDeduction": {
+    "single": 5000,
+    "married_joint": 10000,
+    "head_of_household": 7500
+  },
+  "personalExemption": null,
+  "localTaxNote": "Testland has no local income tax in this fixture.",
+  "notes": [
+    {
+      "text": "Fictional progressive brackets used only in automated tests.",
+      "sourceUrl": "https://example.test/testland/tax"
+    },
+    {
+      "text": "Standard deduction for single filers in this fixture is 5,000.",
+      "sourceUrl": "https://example.test/testland/deductions"
+    }
+  ],
+  "sources": [
+    {
+      "label": "Testland Department of Revenue (fictional)",
+      "url": "https://example.test/testland/revenue"
+    }
+  ],
+  "lastVerified": "2026-01-15",
+  "verified": false
+}

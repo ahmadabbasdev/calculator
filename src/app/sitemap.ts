@@ -4,11 +4,13 @@ import {
   LIVE_CALCULATORS,
   isCalculatorLive,
 } from "@/lib/calculators";
+import { getVerifiedStateSitemapEntries } from "@/lib/state-tax/load";
 import { SITE_URL } from "@/lib/site";
 
 /**
  * Sitemap for CalcDaily — home, live category hubs, live calculators,
- * and static trust pages. Coming-soon tools are excluded.
+ * verified state income tax pages, and static trust pages.
+ * Coming-soon tools and unverified fixtures (e.g. Testland) are excluded.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -29,6 +31,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const stateTaxRoutes = getVerifiedStateSitemapEntries(SITE_URL);
+
   const staticRoutes = ["/about", "/privacy", "/contact"].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified,
@@ -45,6 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...categoryRoutes,
     ...calculatorRoutes,
+    ...stateTaxRoutes,
     ...staticRoutes,
   ];
 }

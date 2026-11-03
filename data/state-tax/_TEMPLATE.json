@@ -1,0 +1,25 @@
+{
+  "code": "",
+  "name": "",
+  "taxYear": 0,
+  "structure": "progressive",
+  "brackets": {
+    "single": [{ "from": 0, "to": null, "rate": 0 }],
+    "married_joint": [{ "from": 0, "to": null, "rate": 0 }],
+    "head_of_household": [{ "from": 0, "to": null, "rate": 0 }]
+  },
+  "standardDeduction": {
+    "single": 0,
+    "married_joint": 0,
+    "head_of_household": 0
+  },
+  "personalExemption": null,
+  "localTaxNote": null,
+  "notes": [
+    { "text": "", "sourceUrl": "" },
+    { "text": "", "sourceUrl": "" }
+  ],
+  "sources": [{ "label": "", "url": "" }],
+  "lastVerified": "YYYY-MM-DD",
+  "verified": false
+}

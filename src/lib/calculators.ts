@@ -11,6 +11,7 @@ import {
   DollarSign,
   HandCoins,
   HeartPulse,
+  Landmark,
   Percent,
   PiggyBank,
   ChartColumn,
@@ -261,7 +262,8 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
   {
     id: "finance",
     title: "Finance",
-    description: "Plan loans, interest, savings goals, and zakat estimates.",
+    description:
+      "Plan loans, interest, savings goals, zakat, and verified US state income tax estimates.",
     icon: DollarSign,
     theme: "finance",
     calculators: [
@@ -275,6 +277,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: DollarSign,
         status: "live",
         addedAt: "2026-09-20",
+      },
+      {
+        id: "state-income-tax",
+        slug: "state-income-tax-calculator",
+        name: "US State Income Tax Calculator",
+        description:
+          "Estimate state income tax for verified US states from sourced brackets and deductions — state tax only, not federal advice.",
+        href: "/finance/state-income-tax-calculator",
+        icon: Landmark,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
       },
       {
         id: "compound-interest",
