@@ -22,7 +22,7 @@ function defaultContactEmail(): string {
 
 export const OWNER_NAME = env("NEXT_PUBLIC_OWNER_NAME", "Ahmad");
 
-export const OWNER_LOCATION = env("NEXT_PUBLIC_OWNER_LOCATION", "");
+export const OWNER_LOCATION = env("NEXT_PUBLIC_OWNER_LOCATION", "Pakistan");
 
 /** Two to four sentences in the owner's own words. */
 export const WHY_I_BUILT_THIS = env(
@@ -35,7 +35,7 @@ export const OWNER_PHOTO = env("NEXT_PUBLIC_OWNER_PHOTO", "");
 
 export const CONTACT_EMAIL = env(
   "NEXT_PUBLIC_CONTACT_EMAIL",
-  defaultContactEmail(),
+  "asam4055155@gmail.com",
 );
 
 export const RESPONSE_TIME = env(
@@ -44,5 +44,8 @@ export const RESPONSE_TIME = env(
 );
 
 export function hasOwnerPhoto(): boolean {
-  return Boolean(OWNER_PHOTO) && !OWNER_PHOTO.includes("{{");
+  if (!OWNER_PHOTO) return false;
+  if (OWNER_PHOTO.includes("{{")) return false;
+  if (OWNER_PHOTO === "null" || OWNER_PHOTO === "undefined") return false;
+  return true;
 }
