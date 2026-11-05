@@ -9,6 +9,7 @@ import {
   CalendarRange,
   Clock,
   DollarSign,
+  Gamepad2,
   HandCoins,
   HeartPulse,
   Landmark,
@@ -20,18 +21,19 @@ import {
   Sigma,
   Wallet,
 } from "lucide-react";
-
-
+import { isPalworldVerified } from "@/lib/palworld/load";
+import { SHOW_STATE_TAX_PILOT } from "@/lib/state-tax/config";
 
 /** Theme keys map to `--cat-*` tokens in globals.css */
-export type CategoryTheme = "date" | "finance" | "health" | "math";
+export type CategoryTheme = "date" | "finance" | "health" | "math" | "games";
 
 /** Category slug → theme key (use for route-based calculator pages). */
 export type CategorySlug =
   | "date-time"
   | "finance"
   | "health"
-  | "math";
+  | "math"
+  | "games";
 
 /**
  * Canonical category color map keyed by category slug.
@@ -76,6 +78,13 @@ export const CATEGORY_COLORS: Record<
     cssVar: "--cat-math",
     softCssVar: "--cat-math-soft",
   },
+  games: {
+    theme: "games",
+    hex: "#18181B",
+    softHex: "#F5F5F4",
+    cssVar: "--cat-games",
+    softCssVar: "--cat-games-soft",
+  },
 };
 
 export function getCategoryColors(slug: CategorySlug) {
@@ -86,7 +95,7 @@ export function getCategoryTheme(slug: CategorySlug): CategoryTheme {
   return CATEGORY_COLORS[slug].theme;
 }
 
-export type CalculatorStatus = "live" | "coming-soon";
+export type CalculatorStatus = "live" | "coming-soon" | "draft";
 
 export type CalculatorListing = {
   id: string;
@@ -100,6 +109,11 @@ export type CalculatorListing = {
   status: CalculatorStatus;
   /** ISO date (YYYY-MM-DD) when the tool was added. Used for the optional New badge. */
   addedAt: string;
+  /**
+   * ISO date (YYYY-MM-DD) of the last human content/data review.
+   * Shown on the tool page when set — not the build date.
+   */
+  reviewedAt?: string;
   /** Shown in the homepage popular strip when true. */
   popular?: boolean;
 };
@@ -163,6 +177,18 @@ export const CATEGORY_THEME = {
     toggle: "peer-checked:bg-cat-math peer-focus-visible:ring-cat-math/40",
     borderSoft: "border-cat-math/30",
   },
+  games: {
+    icon: "bg-cat-games-soft text-cat-games",
+    badge: "bg-cat-games-soft text-cat-games",
+    hoverBorder: "hover:border-cat-games",
+    soft: "bg-cat-games-soft",
+    text: "text-cat-games",
+    solid: "bg-cat-games",
+    border: "border-cat-games",
+    ring: "focus:border-cat-games focus:ring-cat-games/20",
+    toggle: "peer-checked:bg-cat-games peer-focus-visible:ring-cat-games/40",
+    borderSoft: "border-cat-games/30",
+  },
 } as const;
 
 const NEW_BADGE_DAYS = 30;
@@ -175,9 +201,54 @@ export function isCalculatorLive(
   return calculator.status === "live" && Boolean(calculator.href);
 }
 
+/** Live or coming-soon — shown on public catalog surfaces. Drafts are omitted. */
+export function isCalculatorCatalogVisible(
+  calculator: CalculatorListing,
+): boolean {
+  return calculator.status === "live" || calculator.status === "coming-soon";
+}
+
+/** Categories that have at least one non-draft tool (homepage, nav, counts). */
+export function getPublicCategories(): CalculatorCategory[] {
+  return CALCULATOR_CATEGORIES.filter((category) =>
+    category.calculators.some(isCalculatorCatalogVisible),
+  );
+}
+
+function palworldBreedingListing(): CalculatorListing {
+  const verified = isPalworldVerified();
+  return {
+    id: "palworld-breeding",
+    slug: "palworld-breeding-calculator",
+    name: "Palworld Breeding Calculator",
+    description:
+      "Estimate Palworld offspring from two parents using rank averages, unique combinations, and same-species rules.",
+    href: "/games/palworld-breeding-calculator",
+    icon: Gamepad2,
+    status: verified ? "live" : "draft",
+    addedAt: new Date().toISOString().slice(0, 10),
+  };
+}
+
+function stateIncomeTaxListing(): CalculatorListing {
+  const live = SHOW_STATE_TAX_PILOT;
+  return {
+    id: "state-income-tax",
+    slug: "state-income-tax-calculator",
+    name: "US State Income Tax Calculator",
+    description:
+      "Estimate state income tax for verified US states from sourced brackets and deductions — state tax only, not federal advice.",
+    href: "/finance/state-income-tax-calculator",
+    icon: Landmark,
+    status: live ? "live" : "draft",
+    addedAt: new Date().toISOString().slice(0, 10),
+    reviewedAt: live ? "2026-11-04" : undefined,
+  };
+}
+
 /**
  * Show a "New" badge when live and addedAt is within the last 30 days
- * (evaluated at call time / build time — never hardcoded per tool).
+ * (evaluated when called — never hardcoded per tool).
  */
 export function isCalculatorNew(
   calculator: CalculatorListing,
@@ -209,6 +280,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: CalendarRange,
         status: "live",
         addedAt: "2026-06-01",
+        reviewedAt: "2026-06-01",
         popular: true,
       },
       {
@@ -221,6 +293,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: CalendarDays,
         status: "live",
         addedAt: "2026-06-01",
+        reviewedAt: "2026-06-01",
         popular: true,
       },
       {
@@ -233,6 +306,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: Briefcase,
         status: "live",
         addedAt: "2026-06-15",
+        reviewedAt: "2026-06-15",
         popular: true,
       },
       {
@@ -245,6 +319,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: CalendarPlus,
         status: "live",
         addedAt: "2026-07-01",
+        reviewedAt: "2026-07-01",
       },
       {
         id: "time-duration",
@@ -256,6 +331,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: Clock,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
+        reviewedAt: "2026-11-04",
       },
     ],
   },
@@ -277,18 +353,9 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: DollarSign,
         status: "live",
         addedAt: "2026-09-20",
+        reviewedAt: "2026-09-20",
       },
-      {
-        id: "state-income-tax",
-        slug: "state-income-tax-calculator",
-        name: "US State Income Tax Calculator",
-        description:
-          "Estimate state income tax for verified US states from sourced brackets and deductions — state tax only, not federal advice.",
-        href: "/finance/state-income-tax-calculator",
-        icon: Landmark,
-        status: "live",
-        addedAt: new Date().toISOString().slice(0, 10),
-      },
+      stateIncomeTaxListing(),
       {
         id: "compound-interest",
         slug: "compound-interest-calculator",
@@ -299,6 +366,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: Percent,
         status: "live",
         addedAt: "2026-09-25",
+        reviewedAt: "2026-09-25",
       },
       {
         id: "savings-goal",
@@ -310,6 +378,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: PiggyBank,
         status: "live",
         addedAt: "2026-10-05",
+        reviewedAt: "2026-10-05",
       },
       {
         id: "salary-to-hourly",
@@ -321,6 +390,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: Wallet,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
+        reviewedAt: "2026-11-04",
       },
       {
         id: "zakat",
@@ -332,6 +402,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: HandCoins,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
+        reviewedAt: "2026-11-04",
       },
     ],
   },
@@ -354,6 +425,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: Activity,
         status: "live",
         addedAt: "2026-09-15",
+        reviewedAt: "2026-09-15",
       },
       {
         id: "calorie",
@@ -365,6 +437,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: HeartPulse,
         status: "live",
         addedAt: "2026-09-18",
+        reviewedAt: "2026-09-18",
       },
       {
         id: "due-date",
@@ -376,6 +449,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: Baby,
         status: "live",
         addedAt: "2026-09-22",
+        reviewedAt: "2026-09-22",
       },
     ],
   },
@@ -396,6 +470,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: Percent,
         status: "live",
         addedAt: "2026-06-01",
+        reviewedAt: "2026-06-01",
         popular: true,
       },
       {
@@ -408,6 +483,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: Sigma,
         status: "live",
         addedAt: "2026-07-15",
+        reviewedAt: "2026-07-15",
       },
       {
         id: "average-per-day",
@@ -419,6 +495,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: ChartColumn,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
+        reviewedAt: "2026-11-04",
       },
       {
         id: "unit-converter",
@@ -431,6 +508,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: Ruler,
         status: "live",
         addedAt: "2026-07-20",
+        reviewedAt: "2026-07-20",
       },
       {
         id: "gpa",
@@ -442,8 +520,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         icon: Scale,
         status: "live",
         addedAt: "2026-06-01",
+        reviewedAt: "2026-06-01",
       },
     ],
+  },
+  {
+    id: "games",
+    title: "Games",
+    description: "Fan tools for game mechanics — unofficial and data-gated.",
+    icon: Gamepad2,
+    theme: "games",
+    calculators: [palworldBreedingListing()],
   },
 ];
 
@@ -456,6 +543,13 @@ export const LIVE_CALCULATORS = ALL_CALCULATORS.filter(isCalculatorLive);
 export const POPULAR_CALCULATORS = LIVE_CALCULATORS.filter(
   (calculator) => calculator.popular,
 );
+
+/** Look up a live catalog entry by its href (exact match). */
+export function findCalculatorByHref(
+  href: string,
+): (CalculatorListing & { href: string }) | undefined {
+  return LIVE_CALCULATORS.find((tool) => tool.href === href);
+}
 
 export const TOTAL_CALCULATOR_COUNT = ALL_CALCULATORS.length;
 export const LIVE_CALCULATOR_COUNT = LIVE_CALCULATORS.length;

@@ -1,0 +1,100 @@
+{
+  "code": "VA",
+  "name": "Virginia",
+  "taxYear": 2026,
+  "structure": "progressive",
+  "wave": 1,
+  "modelFit": "partial",
+  "modelFitReason": "Progressive brackets fit; head-of-household standard deduction currently mirrors single pending a dedicated HoH figure.",
+  "limits": [
+    "Head of household standard deduction and personal exemption on this page currently mirror single-filer amounts pending a dedicated HoH figure from Virginia Tax.",
+    "Additional age or blindness exemptions of $800 per qualifying exemption are not modeled as separate inputs."
+  ],
+  "brackets": {
+    "single": [
+      { "from": 0, "to": 3000, "rate": 0.02 },
+      { "from": 3000, "to": 5000, "rate": 0.03 },
+      { "from": 5000, "to": 17000, "rate": 0.05 },
+      { "from": 17000, "to": null, "rate": 0.0575 }
+    ],
+    "married_joint": [
+      { "from": 0, "to": 3000, "rate": 0.02 },
+      { "from": 3000, "to": 5000, "rate": 0.03 },
+      { "from": 5000, "to": 17000, "rate": 0.05 },
+      { "from": 17000, "to": null, "rate": 0.0575 }
+    ],
+    "head_of_household": [
+      { "from": 0, "to": 3000, "rate": 0.02 },
+      { "from": 3000, "to": 5000, "rate": 0.03 },
+      { "from": 5000, "to": 17000, "rate": 0.05 },
+      { "from": 17000, "to": null, "rate": 0.0575 }
+    ]
+  },
+  "standardDeduction": {
+    "single": 8750,
+    "married_joint": 17500,
+    "head_of_household": 8750
+  },
+  "personalExemption": {
+    "single": 930,
+    "married_joint": 1860,
+    "head_of_household": 930
+  },
+  "localTaxNote": "Virginia counties and cities do not levy a local income tax on wages. Confirm before publishing.",
+  "notes": [
+    {
+      "text": "Virginia's rates are 2% on the first $3,000 of taxable income, 3% up to $5,000, 5% up to $17,000, and 5.75% above $17,000.",
+      "sourceUrl": "https://www.tax.virginia.gov/node/35195"
+    },
+    {
+      "text": "The standard deduction is $8,750 for single filers and $17,500 for married couples filing jointly for taxable year 2025 and after.",
+      "sourceUrl": "https://www.tax.virginia.gov/node/35195"
+    },
+    {
+      "text": "The standard deduction increase is scheduled to sunset after taxable year 2026, reverting to $3,000 (single) and $6,000 (married filing jointly) unless the law changes.",
+      "sourceUrl": "https://www.tax.virginia.gov/node/35195"
+    },
+    {
+      "text": "Each personal or dependent exemption is $930, with an additional $800 for each exemption for age 65 and over or blind.",
+      "sourceUrl": "https://www.tax.virginia.gov/node/35195"
+    },
+    {
+      "text": "Head of household brackets match the supplied schedule; standard deduction and personal exemption currently mirror single-filer amounts pending a dedicated HoH figure before verified true.",
+      "sourceUrl": "https://www.tax.virginia.gov/node/35195"
+    }
+  ],
+  "facts": [
+    {
+      "label": "Rate structure",
+      "text": "Virginia's rates are 2% on the first $3,000 of taxable income, 3% up to $5,000, 5% up to $17,000, and 5.75% above $17,000.",
+      "sourceUrl": "https://www.tax.virginia.gov/node/35195"
+    },
+    {
+      "label": "Standard deduction",
+      "text": "The standard deduction is $8,750 for single filers and $17,500 for married couples filing jointly for taxable year 2025 and after.",
+      "sourceUrl": "https://www.tax.virginia.gov/node/35195"
+    },
+    {
+      "label": "Deduction sunset",
+      "text": "The standard deduction increase is scheduled to sunset after taxable year 2026, reverting to $3,000 (single) and $6,000 (married filing jointly) unless the law changes.",
+      "sourceUrl": "https://www.tax.virginia.gov/node/35195"
+    },
+    {
+      "label": "Personal exemption",
+      "text": "Each personal or dependent exemption is $930, with an additional $800 for each exemption for age 65 and over or blind.",
+      "sourceUrl": "https://www.tax.virginia.gov/node/35195"
+    }
+  ],
+  "sources": [
+    {
+      "label": "Virginia Tax: withholding tables and formula for wages paid after July 1, 2025",
+      "url": "https://www.tax.virginia.gov/node/35195"
+    },
+    {
+      "label": "Virginia Department of Taxation",
+      "url": "https://www.tax.virginia.gov/"
+    }
+  ],
+  "lastVerified": "2026-11-04",
+  "verified": true
+}

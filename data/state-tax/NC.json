@@ -1,0 +1,74 @@
+{
+  "code": "NC",
+  "name": "North Carolina",
+  "taxYear": 2026,
+  "structure": "flat",
+  "wave": 1,
+  "modelFit": "good",
+  "modelFitReason": "Flat rate with published standard deductions by filing status fits the calculator model.",
+  "limits": [],
+  "brackets": {
+    "single": [{ "from": 0, "to": null, "rate": 0.0399 }],
+    "married_joint": [{ "from": 0, "to": null, "rate": 0.0399 }],
+    "head_of_household": [{ "from": 0, "to": null, "rate": 0.0399 }]
+  },
+  "standardDeduction": {
+    "single": 12750,
+    "married_joint": 25500,
+    "head_of_household": 19125
+  },
+  "personalExemption": {
+    "single": 0,
+    "married_joint": 0,
+    "head_of_household": 0
+  },
+  "localTaxNote": "North Carolina does not levy a local income tax on wages. Confirm before publishing.",
+  "notes": [
+    {
+      "text": "North Carolina's individual income tax rate for 2026 is a flat 3.99%. Revenue triggers in state law may reduce it in later years.",
+      "sourceUrl": "https://www.ncacpa.org/wp-content/uploads/2025/11/8D_Donna-Powell-William-Young_FINAL_-Individual-Income-and-PTE-Update-Session-Presentation-Final2.pdf"
+    },
+    {
+      "text": "The standard deduction is $12,750 for single and married filing separately, $25,500 for married filing jointly or surviving spouse, and $19,125 for head of household.",
+      "sourceUrl": "https://ncdor.gov/tax-forms/nc-4p-withholding-allowance-certificate-pension-or-annuity-payments/open"
+    }
+  ],
+  "facts": [
+    {
+      "label": "Rate structure",
+      "text": "North Carolina's individual income tax rate for 2026 is a flat 3.99%.",
+      "sourceUrl": "https://www.ncacpa.org/wp-content/uploads/2025/11/8D_Donna-Powell-William-Young_FINAL_-Individual-Income-and-PTE-Update-Session-Presentation-Final2.pdf"
+    },
+    {
+      "label": "Rate triggers",
+      "text": "Revenue triggers in state law may reduce North Carolina's individual income tax rate in later years.",
+      "sourceUrl": "https://www.ncacpa.org/wp-content/uploads/2025/11/8D_Donna-Powell-William-Young_FINAL_-Individual-Income-and-PTE-Update-Session-Presentation-Final2.pdf"
+    },
+    {
+      "label": "Standard deduction",
+      "text": "The standard deduction is $12,750 for single and married filing separately, $25,500 for married filing jointly or surviving spouse, and $19,125 for head of household.",
+      "sourceUrl": "https://ncdor.gov/tax-forms/nc-4p-withholding-allowance-certificate-pension-or-annuity-payments/open"
+    },
+    {
+      "label": "Local income tax",
+      "text": "North Carolina does not levy a local income tax on wages.",
+      "sourceUrl": "https://www.ncdor.gov/"
+    }
+  ],
+  "sources": [
+    {
+      "label": "NC Department of Revenue staff presentation: 2025 Individual Income Tax Update (hosted by the NC Association of CPAs)",
+      "url": "https://www.ncacpa.org/wp-content/uploads/2025/11/8D_Donna-Powell-William-Young_FINAL_-Individual-Income-and-PTE-Update-Session-Presentation-Final2.pdf"
+    },
+    {
+      "label": "NC Department of Revenue: Form NC-4P allowance worksheet (standard deduction amounts)",
+      "url": "https://ncdor.gov/tax-forms/nc-4p-withholding-allowance-certificate-pension-or-annuity-payments/open"
+    },
+    {
+      "label": "NC Department of Revenue",
+      "url": "https://www.ncdor.gov/"
+    }
+  ],
+  "lastVerified": "2026-11-04",
+  "verified": true
+}

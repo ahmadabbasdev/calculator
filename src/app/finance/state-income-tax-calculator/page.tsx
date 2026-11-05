@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Landmark } from "lucide-react";
-import { StateIncomeTaxCalculator } from "@/components/calculators/StateIncomeTaxCalculator";
+import { notFound } from "next/navigation";
+import { ArrowRight, Landmark } from "lucide-react";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
 import {
-  assertUniqueStateMetaDescriptions,
+  assertStateTaxBuildGates,
   formatRatePercent,
-  getVerifiedNoneStates,
-  getVerifiedTaxableStates,
+  getNoWageTaxRosterEntries,
+  getPoorFitListedStates,
+  getPublishedTaxableStates,
   hubHref,
+  isStateTaxSurfaceEnabled,
   stateHref,
   topMarginalRate,
 } from "@/lib/state-tax/load";
@@ -24,6 +28,9 @@ const PAGE_DESCRIPTION =
   "Estimate state income tax for verified US states using sourced brackets and deductions. State tax only — not federal, FICA or local tax advice.";
 
 export async function generateMetadata(): Promise<Metadata> {
+  if (!isStateTaxSurfaceEnabled()) {
+    return { title: "Not found", robots: { index: false, follow: false } };
+  }
   return {
     title: { absolute: PAGE_TITLE },
     description: PAGE_DESCRIPTION,
@@ -43,44 +50,62 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const webApplicationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "US State Income Tax Calculator",
-  url: CANONICAL_URL,
-  description: PAGE_DESCRIPTION,
-  applicationCategory: "FinanceApplication",
-  operatingSystem: "Any",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-};
-
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Finance",
-      item: `${SITE_URL}/finance`,
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "State Income Tax Calculator",
-      item: CANONICAL_URL,
-    },
-  ],
-};
-
 export default function StateIncomeTaxHubPage() {
-  assertUniqueStateMetaDescriptions();
-  const taxable = getVerifiedTaxableStates();
-  const noneStates = getVerifiedNoneStates();
-  const tableStates = [...taxable, ...noneStates].sort((a, b) =>
-    a.name.localeCompare(b.name),
-  );
+  if (!isStateTaxSurfaceEnabled()) {
+    notFound();
+  }
+
+  assertStateTaxBuildGates();
+  const taxable = getPublishedTaxableStates();
+  const noWage = getNoWageTaxRosterEntries();
+  const poorFit = getPoorFitListedStates();
+
+  const webApplicationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "US State Income Tax Calculator",
+    url: CANONICAL_URL,
+    description: PAGE_DESCRIPTION,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Finance",
+        item: `${SITE_URL}/finance`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "State Income Tax Calculator",
+        item: CANONICAL_URL,
+      },
+    ],
+  };
+
+  const itemListJsonLd =
+    taxable.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Published state income tax calculators",
+          numberOfItems: taxable.length,
+          itemListElement: taxable.map((state, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: `${state.name} State Income Tax Calculator`,
+            url: `${SITE_URL}${stateHref(state)}`,
+          })),
+        }
+      : null;
 
   return (
     <>
@@ -96,6 +121,14 @@ export default function StateIncomeTaxHubPage() {
           __html: JSON.stringify(breadcrumbJsonLd),
         }}
       />
+      {itemListJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(itemListJsonLd),
+          }}
+        />
+      ) : null}
 
       <Header />
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
@@ -111,47 +144,136 @@ export default function StateIncomeTaxHubPage() {
         <header className="mb-8 max-w-3xl">
           <p className="ui-label mb-2 inline-flex items-center gap-1.5 text-[13px] text-cat-finance">
             <Landmark className="size-4.5" aria-hidden="true" />
-            Verified state schedules only
+            Choose a state to continue
           </p>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             US State Income Tax Calculator
           </h1>
           <p className="mt-2 text-base leading-relaxed text-muted sm:text-lg">
-            Estimate state income tax using brackets and deductions copied from
-            official sources and marked verified in our data files. Pages exist
-            only for those states — nothing is invented at build time.
+            Select a published state below to open its calculator. Figures come
+            from official sources for the tax year shown on each state page.
           </p>
+          <LastReviewed
+            reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt}
+          />
         </header>
 
-        <StateIncomeTaxCalculator states={taxable} />
+        <section aria-labelledby="choose-state-heading" className="mb-16">
+          <h2
+            id="choose-state-heading"
+            className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+          >
+            Choose a state
+          </h2>
+          <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-muted">
+            Each state opens its own calculator page with that schedule.
+          </p>
+          {taxable.length === 0 ? (
+            <p className="mt-6 max-w-3xl text-[15px] leading-relaxed text-zinc-700">
+              No state schedules are published yet. When a sourced schedule is
+              verified, it will appear here.
+            </p>
+          ) : (
+            <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {taxable
+                .slice()
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((state) => {
+                  const topRate = formatRatePercent(topMarginalRate(state));
+                  const structureLabel =
+                    state.structure === "flat"
+                      ? "Flat rate"
+                      : state.structure === "progressive"
+                        ? "Progressive"
+                        : state.structure;
+                  return (
+                    <li key={state.code}>
+                      <a
+                        href={stateHref(state)}
+                        className="card-transition group flex h-full flex-col rounded-xl border border-stone-200 bg-white p-5 shadow-card outline-none hover:border-zinc-400 hover:shadow-card-hover focus-visible:border-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900/30"
+                      >
+                        <div className="mb-4 flex items-start justify-between gap-3">
+                          <span className="flex size-11 items-center justify-center rounded-lg border border-stone-200 bg-stone-50 text-[13px] font-bold tracking-wide text-zinc-800">
+                            {state.code}
+                          </span>
+                          <span className="rounded-md border border-stone-200 bg-stone-50 px-2 py-0.5 text-[11px] font-semibold capitalize text-zinc-700">
+                            {structureLabel}
+                          </span>
+                        </div>
 
-        <article className="mt-20 space-y-16">
+                        <span className="block text-lg font-semibold leading-snug text-zinc-900">
+                          {state.name}
+                        </span>
+                        <span className="mt-1 block text-sm leading-relaxed text-zinc-600">
+                          State income tax calculator
+                        </span>
+
+                        <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-stone-100 pt-4">
+                          <div>
+                            <dt className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
+                              Tax year
+                            </dt>
+                            <dd className="mt-0.5 text-[15px] font-semibold tabular-nums text-zinc-900">
+                              {state.taxYear}
+                            </dd>
+                          </div>
+                          <div>
+                            <dt className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
+                              Top rate
+                            </dt>
+                            <dd className="mt-0.5 text-[15px] font-semibold tabular-nums text-zinc-900">
+                              {topRate}
+                            </dd>
+                          </div>
+                          <div className="col-span-2">
+                            <dt className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
+                              Data last verified
+                            </dt>
+                            <dd className="mt-0.5 text-[14px] tabular-nums text-zinc-700">
+                              {state.lastVerified}
+                            </dd>
+                          </div>
+                        </dl>
+
+                        <span className="mt-auto block pt-5" aria-hidden="true">
+                          <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#18181B] px-3.5 py-1.5 text-xs font-semibold text-white shadow-[0_1px_2px_0_rgba(0,0,0,0.25),inset_0_1px_0_0_rgba(255,255,255,0.12)] transition-colors group-hover:bg-zinc-800">
+                            Open calculator
+                            <ArrowRight className="size-3.5" />
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
+            </ul>
+          )}
+        </section>
+
+        <article className="space-y-16">
           <section aria-labelledby="comparison-heading">
             <div className="mb-6 max-w-3xl">
               <h2
                 id="comparison-heading"
                 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
               >
-                Verified states
+                Published states
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Comparison of structure, top rate and single-filer standard
-                deduction from verified data files.
+                Structure, top rate, single-filer standard deduction, tax year,
+                data last verified, and a link to an official source.
               </p>
             </div>
-            {tableStates.length === 0 ? (
+            {taxable.length === 0 ? (
               <p className="max-w-3xl text-[15px] leading-relaxed text-zinc-700">
-                No verified state files are published yet. Add a completed{" "}
-                <code className="text-[13px]">data/state-tax/XX.json</code> with{" "}
-                <code className="text-[13px]">verified: true</code> to list a
-                state here. The fictional Testland fixture is for tests only and
-                never appears on this page.
+                No state schedules are published yet. When a sourced schedule is
+                verified, it will appear in this table with a link to its
+                calculator page.
               </p>
             ) : (
               <div className="overflow-x-auto rounded-xl border border-border/80">
-                <table className="min-w-[40rem] w-full border-collapse text-left text-[14px]">
+                <table className="min-w-[48rem] w-full border-collapse text-left text-[14px]">
                   <caption className="sr-only">
-                    Verified US state income tax schedules
+                    Published US state income tax schedules
                   </caption>
                   <thead>
                     <tr className="border-b border-border bg-stone-50 text-[12px] font-semibold text-zinc-700">
@@ -171,56 +293,148 @@ export default function StateIncomeTaxHubPage() {
                         Tax year
                       </th>
                       <th scope="col" className="px-4 py-3">
+                        Data last verified
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Official source
+                      </th>
+                      <th scope="col" className="px-4 py-3">
                         Page
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {tableStates.map((state) => (
+                    {taxable
+                      .slice()
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map((state) => {
+                        const source = state.sources[0];
+                        return (
+                          <tr
+                            key={state.code}
+                            className="border-b border-border/70 last:border-0"
+                          >
+                            <td className="px-4 py-3 font-medium text-foreground">
+                              {state.name} ({state.code})
+                            </td>
+                            <td className="px-4 py-3 text-zinc-800">
+                              {state.structure}
+                            </td>
+                            <td className="px-4 py-3 tabular-nums text-zinc-800">
+                              {formatRatePercent(topMarginalRate(state))}
+                            </td>
+                            <td className="px-4 py-3 tabular-nums text-zinc-800">
+                              {state.standardDeduction.single.toLocaleString(
+                                "en-US",
+                              )}
+                            </td>
+                            <td className="px-4 py-3 tabular-nums text-zinc-800">
+                              {state.taxYear}
+                            </td>
+                            <td className="px-4 py-3 tabular-nums text-zinc-800">
+                              {state.lastVerified}
+                            </td>
+                            <td className="px-4 py-3">
+                              {source ? (
+                                <a
+                                  href={source.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="font-medium text-foreground underline underline-offset-2"
+                                >
+                                  {source.label}
+                                </a>
+                              ) : (
+                                "—"
+                              )}
+                            </td>
+                            <td className="px-4 py-3">
+                              <a
+                                href={stateHref(state)}
+                                className="font-medium text-foreground underline underline-offset-2"
+                              >
+                                Open calculator
+                              </a>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </section>
+
+          {noWage.length > 0 ? (
+            <section aria-labelledby="no-wage-heading">
+              <h2
+                id="no-wage-heading"
+                className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+              >
+                No state income tax on wages
+              </h2>
+              <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-muted">
+                These jurisdictions are listed for reference only. They do not
+                get a calculator page.
+              </p>
+              <div className="mt-4 overflow-x-auto rounded-xl border border-border/80">
+                <table className="min-w-[20rem] w-full border-collapse text-left text-[14px]">
+                  <thead>
+                    <tr className="border-b border-border bg-stone-50 text-[12px] font-semibold text-zinc-700">
+                      <th scope="col" className="px-4 py-3">
+                        State
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Note
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {noWage.map((entry) => (
                       <tr
-                        key={state.code}
+                        key={entry.code}
                         className="border-b border-border/70 last:border-0"
                       >
                         <td className="px-4 py-3 font-medium text-foreground">
-                          {state.name} ({state.code})
+                          {entry.name} ({entry.code})
                         </td>
-                        <td className="px-4 py-3 text-zinc-800">
-                          {state.structure}
-                        </td>
-                        <td className="px-4 py-3 tabular-nums text-zinc-800">
-                          {state.structure === "none"
-                            ? "—"
-                            : formatRatePercent(topMarginalRate(state))}
-                        </td>
-                        <td className="px-4 py-3 tabular-nums text-zinc-800">
-                          {state.structure === "none"
-                            ? "—"
-                            : state.standardDeduction.single.toLocaleString(
-                                "en-US",
-                              )}
-                        </td>
-                        <td className="px-4 py-3 tabular-nums text-zinc-800">
-                          {state.taxYear}
-                        </td>
-                        <td className="px-4 py-3">
-                          {state.structure === "none" ? (
-                            <span className="text-zinc-600">Hub listing only</span>
-                          ) : (
-                            <Link
-                              href={stateHref(state.code)}
-                              className="font-medium text-foreground underline underline-offset-2"
-                            >
-                              Open calculator
-                            </Link>
-                          )}
+                        <td className="px-4 py-3 text-zinc-700">
+                          No state income tax on wages
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            )}
-          </section>
+            </section>
+          ) : null}
+
+          {poorFit.length > 0 ? (
+            <section aria-labelledby="not-covered-heading">
+              <h2
+                id="not-covered-heading"
+                className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+              >
+                Not covered yet
+              </h2>
+              <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-muted">
+                These states do not fit the calculator model well enough for a
+                page. Plain text only — no calculator links.
+              </p>
+              <ul className="mt-4 max-w-3xl list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-muted">
+                {poorFit.map((state) => (
+                  <li key={state.code}>
+                    <span className="font-medium text-foreground">
+                      {state.name}
+                    </span>
+                    {state.modelFitReason
+                      ? ` — ${state.modelFitReason}`
+                      : null}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
           <section aria-labelledby="how-heading" className="max-w-3xl space-y-4">
             <h2
@@ -230,119 +444,26 @@ export default function StateIncomeTaxHubPage() {
               How state income tax works on this site
             </h2>
             <p className="text-[15px] leading-relaxed text-muted">
-              State income tax is a separate layer from federal income tax. After
-              you estimate taxable income for a filing status, many states apply
-              either a single flat rate or a ladder of progressive brackets. On
-              CalcDaily, taxable income is estimated as annual gross income minus
-              optional pre-tax deductions you enter, minus the standard deduction
-              for the selected filing status, minus a personal exemption when the
-              verified state file includes one. Amounts below zero become zero.
-              State tax is then the sum, across brackets, of the dollars that fall
-              in each bracket multiplied by that bracket&apos;s rate. Money is
-              handled in integer cents so bracket rows add up to the displayed
-              total.
+              State income tax is separate from federal income tax. Taxable
+              income here is estimated as annual gross income minus optional
+              pre-tax deductions, minus the standard deduction for the filing
+              status, minus a personal exemption when the state schedule includes
+              one. Tax is the sum of income in each bracket multiplied by that
+              bracket&apos;s rate, using integer cents so rows add up.
             </p>
             <p className="text-[15px] leading-relaxed text-muted">
-              A <strong className="font-semibold text-foreground">flat</strong>{" "}
-              schedule uses exactly one open-ended bracket starting at zero: every
-              dollar of taxable income is taxed at the same rate. A{" "}
-              <strong className="font-semibold text-foreground">progressive</strong>{" "}
-              schedule uses contiguous brackets that also start at zero; each
-              slice of taxable income is taxed at its own rate, and the top
-              bracket stays open-ended. The effective rate on this site is state
-              tax divided by gross income; the marginal rate is the rate on the
-              highest bracket that actually received taxable dollars. Take-home
-              after state tax here means gross income minus estimated state tax
-              only — it is not a paycheck simulation.
-            </p>
-            <p className="text-[15px] leading-relaxed text-muted">
-              States marked with structure{" "}
-              <code className="text-[13px]">none</code> have no state income tax
-              in the verified data. When such a file is verified, it appears as a
-              row in the comparison table on this hub so readers can see the tax
-              year and sources context, but it never receives a dedicated
-              calculator page. That gate exists because near-identical empty
-              templates at scale are not useful and can look like doorway
-              content. A state page is published only when real, different,
-              sourced schedule data is present and marked verified.
-            </p>
-            <p className="text-[15px] leading-relaxed text-muted">
-              This tool covers{" "}
+              Flat schedules use one open-ended rate. Progressive schedules use
+              contiguous brackets that start at zero. This hub covers{" "}
               <strong className="font-semibold text-foreground">
                 state income tax only
               </strong>
-              . Federal income tax, FICA (Social Security and Medicare), local
-              city or county taxes, credits, itemized deductions beyond the
-              standard deduction in the file, alternative minimum tax, and
-              employer withholding rules are not included. Local notes from a
-              state file may mention locality rules for context, but this
-              calculator does not compute local tax. Every state page repeats
-              that scope limit prominently so estimates are not mistaken for a
-              full tax return.
+              — not federal tax, FICA, local taxes, credits, or withholding.
             </p>
             <p className="text-[15px] leading-relaxed text-muted">
-              Data comes from JSON files under{" "}
-              <code className="text-[13px]">data/state-tax</code>. Each value —
-              brackets, rates, standard deductions, optional exemptions, notes,
-              and official links — must be copied from the state revenue
-              department (or equivalent) for the stated tax year. Verified files
-              need at least one official source, two to five short factual notes
-              with source URLs, and a{" "}
-              <code className="text-[13px]">lastVerified</code> date within 450
-              days. Zod validation at build time rejects unsorted or
-              non-contiguous brackets, rates outside 0–1, a last bracket that is
-              not open-ended, missing sources or notes on verified files, and
-              stale verification dates. Files with{" "}
-              <code className="text-[13px]">verified: false</code>, including the
-              fictional Testland fixture used only in automated tests, never
-              appear in this hub, in{" "}
-              <code className="text-[13px]">generateStaticParams</code>, in the
-              sitemap, or in <code className="text-[13px]">llms.txt</code>.
-            </p>
-            <p className="text-[15px] leading-relaxed text-muted">
-              Titles, descriptions, FAQs, worked examples, and comparison rows
-              are generated from each state&apos;s own numbers so pages differ in
-              substance, not only in the state name. Meta descriptions must be
-              unique across verified pages. Worked examples on each state page
-              recompute single-filer estimates at 40,000, 80,000, and 150,000 of
-              gross income from that file&apos;s brackets and deduction. Inputs
-              stay in the browser: they are not placed in URLs, storage, cookies,
-              or analytics events.
-            </p>
-            {taxable.length > 0 ? (
-              <p className="text-[15px] leading-relaxed text-muted">
-                Verified calculator pages currently published:{" "}
-                {taxable.map((state, index) => (
-                  <span key={state.code}>
-                    {index > 0 ? ", " : null}
-                    <Link
-                      href={stateHref(state.code)}
-                      className="font-medium text-foreground underline underline-offset-2"
-                    >
-                      {state.name}
-                    </Link>
-                  </span>
-                ))}
-                . Open a state page for brackets, deductions, examples, notes,
-                and official sources for that tax year.
-              </p>
-            ) : (
-              <p className="text-[15px] leading-relaxed text-muted">
-                No verified state calculator pages are published in this pilot
-                build yet. When you add completed{" "}
-                <code className="text-[13px]">XX.json</code> files with{" "}
-                <code className="text-[13px]">verified: true</code>, each
-                taxable state appears in the table above and as its own page
-                under this hub. Links will be listed here automatically.
-              </p>
-            )}
-            <p className="text-[13px] leading-relaxed text-zinc-600">
-              Estimates for general information only. Not tax advice. Check
-              official figures with your state&apos;s revenue department or a tax
-              professional. This site does not claim figures are accurate,
-              official, or up to date beyond showing each file&apos;s verified
-              date. There is no ranking of states and no advice about where to
-              live or work.
+              Each published state page shows its tax year, last verified date,
+              notes, facts, and official sources. Estimates are general
+              information only — not tax advice. Confirm figures with the state
+              revenue department or a tax professional.
             </p>
           </section>
 

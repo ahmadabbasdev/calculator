@@ -5,6 +5,8 @@ import { AverageCalculator } from "@/components/calculators/AverageCalculator";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const PAGE_PATH = "/math/average-calculator";
@@ -183,6 +185,9 @@ export default function AverageCalculatorPage() {
             by commas, spaces, or new lines and see results update instantly.
           </p>
         </header>
+
+        <LastReviewed reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt} />
+
 
         <AverageCalculator />
 

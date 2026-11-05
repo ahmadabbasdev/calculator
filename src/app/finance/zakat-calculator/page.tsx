@@ -5,6 +5,8 @@ import { ZakatCalculator } from "@/components/calculators/ZakatCalculator";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
 import {
   GOLD_NISAB_GRAMS_ALT,
   GOLD_NISAB_GRAMS_STANDARD,
@@ -204,6 +206,9 @@ export default function ZakatCalculatorPage() {
             is a calculation aid only — not a religious ruling.
           </p>
         </header>
+
+        <LastReviewed reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt} />
+
 
         <ZakatCalculator />
 

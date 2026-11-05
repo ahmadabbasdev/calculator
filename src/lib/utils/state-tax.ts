@@ -4,7 +4,12 @@
  */
 
 import { fromCents, toCents } from "@/lib/utils/money";
-import type { FilingStatus, StateTaxData, TaxBracket } from "@/lib/state-tax/schema";
+import {
+  personalExemptionForStatus,
+  type FilingStatus,
+  type StateTaxData,
+  type TaxBracket,
+} from "@/lib/state-tax/schema";
 
 export type StateTaxInput = {
   grossIncome: number | null;
@@ -135,7 +140,7 @@ export function calculateStateIncomeTax(input: StateTaxInput): StateTaxResult {
     input.state.standardDeduction[input.filingStatus],
   );
   const personalExemptionCents = toCents(
-    input.state.personalExemption ?? 0,
+    personalExemptionForStatus(input.state, input.filingStatus),
   );
 
   const taxableIncomeCents = Math.max(

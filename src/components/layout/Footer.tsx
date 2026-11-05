@@ -76,16 +76,11 @@ export function Footer() {
             </h3>
             <ul className="space-y-2.5 text-xs">
               <li>
-                <Link href="/#faq" className="transition-colors hover:text-zinc-950">
-                  Calculation accuracy
-                </Link>
-              </li>
-              <li>
                 <Link
-                  href="/privacy"
+                  href="/calculators"
                   className="transition-colors hover:text-zinc-950"
                 >
-                  Privacy
+                  All calculators
                 </Link>
               </li>
               <li>
@@ -102,6 +97,30 @@ export function Footer() {
                   className="transition-colors hover:text-zinc-950"
                 >
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="transition-colors hover:text-zinc-950"
+                >
+                  Privacy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="transition-colors hover:text-zinc-950"
+                >
+                  Terms
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/disclaimer"
+                  className="transition-colors hover:text-zinc-950"
+                >
+                  Disclaimer
                 </Link>
               </li>
               <li>
@@ -125,7 +144,21 @@ export function Footer() {
               href="/privacy"
               className="transition-colors hover:text-zinc-900"
             >
-              Privacy Policy
+              Privacy
+            </Link>
+            <span aria-hidden="true">•</span>
+            <Link
+              href="/terms"
+              className="transition-colors hover:text-zinc-900"
+            >
+              Terms
+            </Link>
+            <span aria-hidden="true">•</span>
+            <Link
+              href="/disclaimer"
+              className="transition-colors hover:text-zinc-900"
+            >
+              Disclaimer
             </Link>
             <span aria-hidden="true">•</span>
             <CookieSettingsButton />

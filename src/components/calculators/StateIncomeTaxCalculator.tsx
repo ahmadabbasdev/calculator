@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Landmark, RefreshCw } from "lucide-react";
 import { CATEGORY_THEME, getCategoryTheme } from "@/lib/calculators";
 import {
@@ -8,7 +9,7 @@ import {
   type FilingStatus,
   type StateTaxData,
 } from "@/lib/state-tax/schema";
-import { formatRatePercent } from "@/lib/state-tax/format";
+import { formatRatePercent, stateHref } from "@/lib/state-tax/format";
 import { formatMoney, fromCents, parseDecimal } from "@/lib/utils/money";
 import { calculateStateIncomeTax } from "@/lib/utils/state-tax";
 
@@ -16,18 +17,20 @@ const financeTheme = CATEGORY_THEME[getCategoryTheme("finance")];
 
 type Props = {
   states: StateTaxData[];
-  /** When set, locks the selector to this state (state pages). */
+  /** When set, preselects this state (state pages). Changing navigates. */
   lockedStateCode?: string;
 };
 
 /**
- * State income tax estimator — verified flat/progressive states only.
+ * State income tax estimator — published flat/progressive states only.
  * Inputs stay in React state (never URL, storage, cookies, or analytics).
+ * Choosing a state navigates to that state's own URL.
  */
 export function StateIncomeTaxCalculator({
   states,
   lockedStateCode,
 }: Props) {
+  const router = useRouter();
   const taxableStates = states.filter((s) => s.structure !== "none");
   const initialCode =
     lockedStateCode ??
@@ -57,6 +60,13 @@ export function StateIncomeTaxCalculator({
     });
   }, [selected, grossRaw, status, pretaxRaw]);
 
+  function handleStateChange(code: string) {
+    const next = taxableStates.find((s) => s.code === code);
+    if (!next) return;
+    setStateCode(code);
+    router.push(stateHref(next));
+  }
+
   function handleReset() {
     setGrossRaw("");
     setPretaxRaw("");
@@ -72,10 +82,8 @@ export function StateIncomeTaxCalculator({
     return (
       <div className="rounded-xl border border-border/80 bg-panel p-5 shadow-card sm:p-6">
         <p className="text-[15px] leading-relaxed text-zinc-700">
-          No verified state tax schedules are published yet. When a state file
-          in <code className="text-[13px]">data/state-tax</code> is marked{" "}
-          <code className="text-[13px]">verified: true</code> with complete
-          sourced figures, it will appear here.
+          No state tax schedules are published on this page yet. When a sourced
+          state schedule is ready, it will appear in the selector here.
         </p>
       </div>
     );
@@ -125,9 +133,8 @@ export function StateIncomeTaxCalculator({
             <select
               id={stateId}
               value={selected?.code ?? ""}
-              disabled={Boolean(lockedStateCode)}
-              onChange={(e) => setStateCode(e.target.value)}
-              className="w-full cursor-pointer rounded-lg border border-border/80 bg-background px-3 py-2.5 text-[15px] text-foreground outline-none transition hover:border-cat-finance/40 focus:border-cat-finance focus:ring-2 focus:ring-cat-finance/20 disabled:cursor-not-allowed disabled:opacity-80"
+              onChange={(e) => handleStateChange(e.target.value)}
+              className="w-full cursor-pointer rounded-lg border border-border/80 bg-background px-3 py-2.5 text-[15px] text-foreground outline-none transition hover:border-cat-finance/40 focus:border-cat-finance focus:ring-2 focus:ring-cat-finance/20"
             >
               {taxableStates.map((state) => (
                 <option key={state.code} value={state.code}>
@@ -135,6 +142,24 @@ export function StateIncomeTaxCalculator({
                 </option>
               ))}
             </select>
+            <nav aria-label="Published state pages" className="mt-2">
+              <ul className="flex flex-wrap gap-x-3 gap-y-1 text-[13px] leading-relaxed">
+                {taxableStates.map((state) => (
+                  <li key={state.code}>
+                    <a
+                      href={stateHref(state)}
+                      className={
+                        state.code === selected?.code
+                          ? "font-semibold text-foreground underline underline-offset-2"
+                          : "text-zinc-700 underline underline-offset-2 hover:text-foreground"
+                      }
+                    >
+                      {state.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
           <div className="flex flex-col gap-1.5">

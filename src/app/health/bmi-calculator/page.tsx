@@ -5,6 +5,8 @@ import { BmiCalculator } from "@/components/calculators/BmiCalculator";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const PAGE_PATH = "/health/bmi-calculator";
@@ -195,6 +197,9 @@ export default function BmiCalculatorPage() {
             cm gives a BMI of 22.9.
           </p>
         </header>
+
+        <LastReviewed reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt} />
+
 
         <BmiCalculator />
 

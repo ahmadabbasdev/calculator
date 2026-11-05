@@ -4,15 +4,15 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { CookieSettingsButton } from "@/components/consent/CookieSettingsButton";
+import { CONTACT_EMAIL } from "@/lib/site-owner";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const PAGE_PATH = "/privacy";
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
-const CONTACT_EMAIL = "asam4055144@gmail.com";
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 const GA_CONTAINER = GA_ID.startsWith("G-") ? GA_ID.slice(2) : GA_ID;
 
-/** Baked at build time — never hardcoded. */
+/** Owner contact values come from site config — never hardcoded here. */
 const LAST_UPDATED = new Date().toLocaleDateString("en-US", {
   year: "numeric",
   month: "long",
@@ -175,10 +175,12 @@ export default function PrivacyPage() {
               4. Advertising
             </h2>
             <p className="mt-2">
-              We may show ads served by Google AdSense. Those ads can use cookies
-              to show ads and measure them. Where required, we will ask for
-              consent first. Calculator inputs are not sent to ad networks. Learn
-              how Google uses data from sites that use its services at{" "}
+              We may show ads served by third parties (for example Google AdSense)
+              in the future. If ads are active, those partners may use cookies or
+              similar technologies to show and measure ads. Where required by law,
+              we will ask for your consent before enabling non-essential ad
+              cookies. Calculator inputs are not sent to ad networks. Learn how
+              Google uses data from sites that use its services at{" "}
               <a
                 href={PARTNER_SITES_URL}
                 className="font-medium text-zinc-950 underline break-all"

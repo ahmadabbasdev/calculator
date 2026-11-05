@@ -1,5 +1,15 @@
 import type { StateTaxData } from "@/lib/state-tax/schema";
 
+/** Public URL slug from the state name (e.g. Illinois → illinois). */
+export function stateSlug(state: Pick<StateTaxData, "name">): string {
+  return state.name
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/** @deprecated Prefer stateSlug — kept for call sites that still pass a code. */
 export function stateCodeToSlug(code: string): string {
   return code.trim().toLowerCase();
 }
@@ -8,8 +18,8 @@ export function slugToStateCode(slug: string): string {
   return slug.trim().toUpperCase();
 }
 
-export function stateHref(code: string): string {
-  return `/finance/state-income-tax-calculator/${stateCodeToSlug(code)}`;
+export function stateHref(state: Pick<StateTaxData, "name">): string {
+  return `/finance/state-income-tax-calculator/${stateSlug(state)}`;
 }
 
 export function hubHref(): string {

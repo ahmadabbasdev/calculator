@@ -5,13 +5,19 @@
   "scripts": {
     "predev": "node scripts/generate-holidays.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/generate-holidays.mjs",
+    "prebuild": "node scripts/generate-holidays.mjs && node scripts/check-placeholders.mjs && node scripts/check-state-tax.mjs",
     "build": "next build",
+    "check:placeholders": "node scripts/check-placeholders.mjs",
+    "audit:content": "node scripts/content-audit.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "generate:holidays": "node scripts/generate-holidays.mjs"
+    "generate:holidays": "node scripts/generate-holidays.mjs",
+    "states:status": "node scripts/states-status.mjs",
+    "states:new": "node scripts/states-new.mjs",
+    "states:audit": "node scripts/states-audit.mjs",
+    "states:roster": "node scripts/generate-roster.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

@@ -3,13 +3,14 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { CONTACT_EMAIL, RESPONSE_TIME } from "@/lib/site-owner";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const PAGE_PATH = "/contact";
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
-const PAGE_TITLE = "Contact & Calculator Requests — CalcDaily";
+const PAGE_TITLE = "Contact CalcDaily";
 const PAGE_DESCRIPTION =
-  "Contact CalcDaily or request a new calculator. Tell us which formula or tool you need next — we prioritize high-demand utilities for students and pros.";
+  "Email CalcDaily about calculator errors, data corrections, or tool requests. No form — messages go to email only.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -33,18 +34,8 @@ const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: SITE_URL,
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Contact",
-      item: CANONICAL_URL,
-    },
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "Contact", item: CANONICAL_URL },
   ],
 };
 
@@ -67,33 +58,44 @@ export default function ContactPage() {
         />
         <header className="mb-8">
           <h1 className="text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl">
-            Contact &amp; requests
+            Contact
           </h1>
           <p className="mt-3 text-base leading-relaxed text-zinc-600">
-            Need a custom formula or a calculator that is not on the site yet? Tell us
-            what to build next.
+            Questions, corrections, or calculator requests — email only. There
+            is no contact form and we do not store messages on this site.
           </p>
         </header>
         <div className="space-y-6 text-[15px] leading-relaxed text-zinc-700">
           <p>
-            Email calculator requests to{" "}
+            Write to{" "}
             <a
-              href="mailto:hello@allcalcs.app"
-              className="font-medium text-zinc-950 underline"
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="font-medium text-zinc-950 underline underline-offset-2"
             >
-              hello@allcalcs.app
-            </a>{" "}
-            with the tool name, inputs you need, and any formula notes. We
-            prioritize clear, high-demand utilities.
+              {CONTACT_EMAIL}
+            </a>
+            . Typical response time: {RESPONSE_TIME}.
           </p>
           <p>
-            You can also browse the{" "}
-            <Link href="/#faq" className="font-medium text-zinc-950 underline">
-              FAQ
+            For a data or formula error, include the page URL and what you
+            expected versus what you saw. For a new calculator idea, describe the
+            inputs and the result you need.
+          </p>
+          <p>
+            You can also read the{" "}
+            <Link href="/about" className="font-medium text-zinc-950 underline">
+              About
             </Link>{" "}
-            for accuracy and privacy details, or return to the{" "}
-            <Link href="/" className="font-medium text-zinc-950 underline">
-              homepage catalog
+            page, the{" "}
+            <Link href="/privacy" className="font-medium text-zinc-950 underline">
+              Privacy Policy
+            </Link>
+            , or browse the{" "}
+            <Link
+              href="/calculators"
+              className="font-medium text-zinc-950 underline"
+            >
+              calculator directory
             </Link>
             .
           </p>

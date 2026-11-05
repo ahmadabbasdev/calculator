@@ -5,6 +5,8 @@ import { GpaCalculator } from "@/components/calculators/GpaCalculator";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
 import { SCALE_OVERVIEW_ROWS } from "@/lib/utils/gpa";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -197,6 +199,9 @@ export default function GpaCalculatorPage() {
             optional weighting, and a clear worked step.
           </p>
         </header>
+
+        <LastReviewed reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt} />
+
 
         <GpaCalculator />
 

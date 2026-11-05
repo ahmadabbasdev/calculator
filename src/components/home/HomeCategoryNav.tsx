@@ -2,21 +2,21 @@
 
 import { useEffect, useState } from "react";
 import {
-  CALCULATOR_CATEGORIES,
+  getPublicCategories,
   LIVE_CALCULATOR_COUNT,
   freeCalculatorsLabel,
+  isCalculatorCatalogVisible,
 } from "@/lib/calculators";
 
 /**
  * Sticky category jump links.
  */
 export function HomeCategoryNav() {
-  const [activeId, setActiveId] = useState<string>(
-    CALCULATOR_CATEGORIES[0]?.id ?? "",
-  );
+  const categories = getPublicCategories();
+  const [activeId, setActiveId] = useState<string>(categories[0]?.id ?? "");
 
   useEffect(() => {
-    const sections = CALCULATOR_CATEGORIES.map((category) =>
+    const sections = categories.map((category) =>
       document.getElementById(category.id),
     ).filter((el): el is HTMLElement => Boolean(el));
 
@@ -38,7 +38,7 @@ export function HomeCategoryNav() {
 
     for (const section of sections) observer.observe(section);
     return () => observer.disconnect();
-  }, []);
+  }, [categories]);
 
   return (
     <nav
@@ -48,8 +48,10 @@ export function HomeCategoryNav() {
     >
       <div className="flex items-center justify-between gap-2 overflow-x-auto pb-1">
         <div className="flex items-center gap-1.5 sm:gap-2">
-          {CALCULATOR_CATEGORIES.map((category) => {
-            const total = category.calculators.length;
+          {categories.map((category) => {
+            const total = category.calculators.filter(
+              isCalculatorCatalogVisible,
+            ).length;
             const isActive = activeId === category.id;
             return (
               <a

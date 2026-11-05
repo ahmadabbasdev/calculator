@@ -5,6 +5,8 @@ import { CalorieCalculator } from "@/components/calculators/CalorieCalculator";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
 import { ACTIVITY_LEVELS, SAFETY_FLOORS } from "@/lib/utils/calories";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -185,6 +187,9 @@ export default function CalorieCalculatorPage() {
             imperial units.
           </p>
         </header>
+
+        <LastReviewed reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt} />
+
 
         <CalorieCalculator />
 

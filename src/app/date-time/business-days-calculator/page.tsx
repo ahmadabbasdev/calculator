@@ -5,6 +5,8 @@ import { BusinessDaysCalculator } from "@/components/calculators/BusinessDaysCal
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const PAGE_PATH = "/date-time/business-days-calculator";
@@ -178,6 +180,9 @@ export default function BusinessDaysCalculatorPage() {
             and SLA planning.
           </p>
         </header>
+
+        <LastReviewed reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt} />
+
 
         <BusinessDaysCalculator />
 

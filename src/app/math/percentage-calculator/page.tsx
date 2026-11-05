@@ -5,6 +5,9 @@ import { PercentageCalculator } from "@/components/calculators/PercentageCalcula
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
+import { SHOW_STATE_TAX_PILOT } from "@/lib/state-tax/config";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const PAGE_PATH = "/math/percentage-calculator";
@@ -176,6 +179,9 @@ export default function PercentageCalculatorPage() {
             only know a percent of it — with a clear worked step every time.
           </p>
         </header>
+
+        <LastReviewed reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt} />
+
 
         <PercentageCalculator />
 
@@ -480,17 +486,19 @@ export default function PercentageCalculatorPage() {
                   Convert salary to hourly wage and other pay periods
                 </span>
               </Link>
-              <Link
-                href="/finance/state-income-tax-calculator"
-                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
-              >
-                <span className="text-[15px] font-semibold text-foreground">
-                  US State Income Tax Calculator
-                </span>
-                <span className="text-sm text-muted">
-                  Verified state brackets and deductions — state tax only
-                </span>
-              </Link>
+              {SHOW_STATE_TAX_PILOT ? (
+                <Link
+                  href="/finance/state-income-tax-calculator"
+                  className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
+                >
+                  <span className="text-[15px] font-semibold text-foreground">
+                    US State Income Tax Calculator
+                  </span>
+                  <span className="text-sm text-muted">
+                    Verified state brackets and deductions — state tax only
+                  </span>
+                </Link>
+              ) : null}
               <Link
                 href="/finance/compound-interest-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"

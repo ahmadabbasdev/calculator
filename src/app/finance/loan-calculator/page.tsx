@@ -5,6 +5,8 @@ import { LoanCalculator } from "@/components/calculators/LoanCalculator";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const PAGE_PATH = "/finance/loan-calculator";
@@ -184,6 +186,9 @@ export default function LoanCalculatorPage() {
             extra payments — in your browser.
           </p>
         </header>
+
+        <LastReviewed reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt} />
+
 
         <LoanCalculator />
 

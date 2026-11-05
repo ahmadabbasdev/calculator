@@ -5,6 +5,8 @@ import { UnitConverter } from "@/components/calculators/UnitConverter";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
 import { COMMON_CONVERSIONS } from "@/lib/utils/unit-conversion";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -177,6 +179,9 @@ export default function UnitConverterPage() {
             Fahrenheit, and more. Results update as you type.
           </p>
         </header>
+
+        <LastReviewed reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt} />
+
 
         <UnitConverter />
 

@@ -1,0 +1,271 @@
+{
+  "pages": [
+    {
+      "href": "/date-time/age-calculator",
+      "name": "Age Calculator",
+      "wordCount": 894,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/date-time/business-days-calculator",
+      "name": "Business Days Calculator",
+      "wordCount": 871,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/date-time/add-subtract-days",
+      "name": "Add or Subtract Days",
+      "wordCount": 855,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/date-time/time-duration-calculator",
+      "name": "Time Duration Calculator",
+      "wordCount": 1161,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/loan-calculator",
+      "name": "Loan Calculator",
+      "wordCount": 1244,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/state-income-tax-calculator",
+      "name": "US State Income Tax Calculator",
+      "wordCount": 677,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/compound-interest-calculator",
+      "name": "Compound Interest Calculator",
+      "wordCount": 1263,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/savings-goal-calculator",
+      "name": "Savings Goal Calculator",
+      "wordCount": 1288,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/salary-to-hourly-calculator",
+      "name": "Salary to Hourly Calculator",
+      "wordCount": 1040,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/zakat-calculator",
+      "name": "Zakat Calculator",
+      "wordCount": 1442,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/health/bmi-calculator",
+      "name": "BMI Calculator",
+      "wordCount": 1330,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/health/calorie-calculator",
+      "name": "Calorie Calculator",
+      "wordCount": 1057,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/health/pregnancy-due-date-calculator",
+      "name": "Pregnancy Due Date Calculator",
+      "wordCount": 1172,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/math/percentage-calculator",
+      "name": "Percentage Calculator",
+      "wordCount": 1095,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/math/average-calculator",
+      "name": "Average Calculator",
+      "wordCount": 1116,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/math/average-per-day-calculator",
+      "name": "Average Per Day Calculator",
+      "wordCount": 1137,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/math/unit-converter",
+      "name": "Unit Converter",
+      "wordCount": 828,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/math/gpa-calculator",
+      "name": "GPA & CGPA Calculator",
+      "wordCount": 1390,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/state-income-tax-calculator/il",
+      "name": "Illinois State Income Tax",
+      "wordCount": 320,
+      "sharedTemplate": true,
+      "kind": "calculator",
+      "thin": true
+    },
+    {
+      "href": "/finance/state-income-tax-calculator/nc",
+      "name": "North Carolina State Income Tax",
+      "wordCount": 321,
+      "sharedTemplate": true,
+      "kind": "calculator",
+      "thin": true
+    },
+    {
+      "href": "/finance/state-income-tax-calculator/va",
+      "name": "Virginia State Income Tax",
+      "wordCount": 320,
+      "sharedTemplate": true,
+      "kind": "calculator",
+      "thin": true
+    },
+    {
+      "href": "/",
+      "name": "/",
+      "wordCount": 489,
+      "sharedTemplate": false,
+      "kind": "site",
+      "thin": false
+    },
+    {
+      "href": "/about",
+      "name": "/about",
+      "wordCount": 101,
+      "sharedTemplate": false,
+      "kind": "site",
+      "thin": true
+    },
+    {
+      "href": "/contact",
+      "name": "/contact",
+      "wordCount": 70,
+      "sharedTemplate": false,
+      "kind": "site",
+      "thin": true
+    },
+    {
+      "href": "/privacy",
+      "name": "/privacy",
+      "wordCount": 263,
+      "sharedTemplate": false,
+      "kind": "site",
+      "thin": true
+    },
+    {
+      "href": "/date-time",
+      "name": "/date-time",
+      "wordCount": 64,
+      "sharedTemplate": false,
+      "kind": "site",
+      "thin": true
+    },
+    {
+      "href": "/finance",
+      "name": "/finance",
+      "wordCount": 58,
+      "sharedTemplate": false,
+      "kind": "site",
+      "thin": true
+    },
+    {
+      "href": "/health",
+      "name": "/health",
+      "wordCount": 63,
+      "sharedTemplate": false,
+      "kind": "site",
+      "thin": true
+    },
+    {
+      "href": "/math",
+      "name": "/math",
+      "wordCount": 61,
+      "sharedTemplate": false,
+      "kind": "site",
+      "thin": true
+    }
+  ],
+  "overlaps": [
+    {
+      "a": "/finance/state-income-tax-calculator/il",
+      "b": "/finance/state-income-tax-calculator/va",
+      "sim": 0.99,
+      "note": "shared-template"
+    },
+    {
+      "a": "/finance/state-income-tax-calculator/il",
+      "b": "/finance/state-income-tax-calculator/nc",
+      "sim": 0.986,
+      "note": "shared-template"
+    },
+    {
+      "a": "/finance/state-income-tax-calculator/nc",
+      "b": "/finance/state-income-tax-calculator/va",
+      "sim": 0.986,
+      "note": "shared-template"
+    },
+    {
+      "a": "/date-time",
+      "b": "/math",
+      "sim": 0.41
+    },
+    {
+      "a": "/health",
+      "b": "/math",
+      "sim": 0.393
+    }
+  ],
+  "thin": [
+    "/finance/state-income-tax-calculator/il",
+    "/finance/state-income-tax-calculator/nc",
+    "/finance/state-income-tax-calculator/va"
+  ]
+}

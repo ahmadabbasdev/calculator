@@ -1,28 +1,33 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronDown, Landmark } from "lucide-react";
 import { StateIncomeTaxCalculator } from "@/components/calculators/StateIncomeTaxCalculator";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
 import {
+  buildStateEditorial,
   buildStateFaqs,
   buildStatePageSections,
   formatExampleSummary,
 } from "@/lib/state-tax/content";
 import {
+  assertStateTaxBuildGates,
   assertUniqueStateMetaDescriptions,
   buildStateMetaDescription,
   buildStatePageTitle,
   formatRatePercent,
-  getVerifiedTaxableStates,
-  getVerifiedStateBySlug,
+  getPublishedTaxableStates,
+  getPublishedStateBySlug,
   hubHref,
-  stateCodeToSlug,
   stateHref,
+  stateSlug,
 } from "@/lib/state-tax/load";
-import { FILING_STATUSES } from "@/lib/state-tax/schema";
+import {
+  FILING_STATUSES,
+  personalExemptionForStatus,
+} from "@/lib/state-tax/schema";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 type PageProps = {
@@ -30,9 +35,10 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
+  assertStateTaxBuildGates();
   assertUniqueStateMetaDescriptions();
-  return getVerifiedTaxableStates().map((state) => ({
-    state: stateCodeToSlug(state.code),
+  return getPublishedTaxableStates().map((state) => ({
+    state: stateSlug(state),
   }));
 }
 
@@ -40,13 +46,13 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { state: slug } = await params;
-  const state = getVerifiedStateBySlug(slug);
+  const state = getPublishedStateBySlug(slug);
   if (!state) {
-    return { title: "Not found" };
+    return { title: "Not found", robots: { index: false, follow: false } };
   }
   const title = buildStatePageTitle(state);
   const description = buildStateMetaDescription(state);
-  const canonical = `${SITE_URL}${stateHref(state.code)}`;
+  const canonical = `${SITE_URL}${stateHref(state)}`;
   return {
     title: { absolute: title },
     description,
@@ -68,7 +74,7 @@ export async function generateMetadata({
 
 export default async function StateIncomeTaxStatePage({ params }: PageProps) {
   const { state: slug } = await params;
-  const state = getVerifiedStateBySlug(slug);
+  const state = getPublishedStateBySlug(slug);
   if (!state) {
     notFound();
   }
@@ -82,10 +88,12 @@ export default async function StateIncomeTaxStatePage({ params }: PageProps) {
 
   const faqs = buildStateFaqs(state);
   const examples = formatExampleSummary(state);
-  const peers = getVerifiedTaxableStates()
+  const editorial = buildStateEditorial(state);
+  const published = getPublishedTaxableStates();
+  const peers = published
     .filter((item) => item.code !== state.code)
-    .slice(0, 3);
-  const canonical = `${SITE_URL}${stateHref(state.code)}`;
+    .slice(0, 2);
+  const canonical = `${SITE_URL}${stateHref(state)}`;
 
   const webApplicationJsonLd = {
     "@context": "https://schema.org",
@@ -183,13 +191,29 @@ export default async function StateIncomeTaxStatePage({ params }: PageProps) {
           </p>
         </header>
 
+        <LastReviewed reviewedAt={state.lastVerified} />
+
+        {state.modelFit === "partial" && state.limits.length > 0 ? (
+          <aside
+            className="mb-8 max-w-3xl rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-[14px] leading-relaxed text-amber-950"
+            aria-label="What this estimate leaves out"
+          >
+            <p className="font-semibold">What this estimate leaves out</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              {state.limits.map((limit) => (
+                <li key={limit}>{limit}</li>
+              ))}
+            </ul>
+          </aside>
+        ) : null}
+
         {sections.includes("calculator") ? (
           <section aria-labelledby="calc-heading" data-section="calculator">
             <h2 id="calc-heading" className="sr-only">
               Calculator
             </h2>
             <StateIncomeTaxCalculator
-              states={[state]}
+              states={published.length > 0 ? published : [state]}
               lockedStateCode={state.code}
             />
           </section>
@@ -273,11 +297,11 @@ export default async function StateIncomeTaxStatePage({ params }: PageProps) {
               <dl className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {FILING_STATUSES.map((status) => (
                   <div
-                    key={status.id}
+                    key={`sd-${status.id}`}
                     className="rounded-lg border border-border/70 bg-panel px-4 py-3"
                   >
                     <dt className="text-[12px] font-semibold text-muted">
-                      {status.label}
+                      {status.label} standard deduction
                     </dt>
                     <dd className="mt-1 text-[15px] font-semibold tabular-nums text-foreground">
                       {state.standardDeduction[status.id].toLocaleString(
@@ -286,19 +310,86 @@ export default async function StateIncomeTaxStatePage({ params }: PageProps) {
                     </dd>
                   </div>
                 ))}
-                {state.personalExemption != null ? (
-                  <div className="rounded-lg border border-border/70 bg-panel px-4 py-3">
-                    <dt className="text-[12px] font-semibold text-muted">
-                      Personal exemption
-                    </dt>
-                    <dd className="mt-1 text-[15px] font-semibold tabular-nums text-foreground">
-                      {state.personalExemption.toLocaleString("en-US")}
-                    </dd>
-                  </div>
-                ) : null}
+                {state.personalExemption != null
+                  ? FILING_STATUSES.map((status) => (
+                      <div
+                        key={`pe-${status.id}`}
+                        className="rounded-lg border border-border/70 bg-panel px-4 py-3"
+                      >
+                        <dt className="text-[12px] font-semibold text-muted">
+                          {status.label} personal exemption
+                        </dt>
+                        <dd className="mt-1 text-[15px] font-semibold tabular-nums text-foreground">
+                          {personalExemptionForStatus(
+                            state,
+                            status.id,
+                          ).toLocaleString("en-US")}
+                        </dd>
+                      </div>
+                    ))
+                  : null}
               </dl>
             </section>
           ) : null}
+
+          <section aria-labelledby="guide-heading" className="max-w-3xl space-y-4">
+            <h2
+              id="guide-heading"
+              className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+            >
+              How {state.name} tax is estimated here
+            </h2>
+            <p className="text-[15px] leading-relaxed text-muted">
+              {editorial.structureBlurb}
+            </p>
+          </section>
+
+          <section aria-labelledby="scenarios-heading" className="max-w-3xl space-y-4">
+            <h2
+              id="scenarios-heading"
+              className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+            >
+              Worked scenarios
+            </h2>
+            {editorial.scenarios.map((scenario) => (
+              <div key={scenario.title}>
+                <h3 className="text-[15px] font-semibold text-foreground">
+                  {scenario.title}
+                </h3>
+                <p className="mt-1 text-[15px] leading-relaxed text-muted">
+                  {scenario.body}
+                </p>
+              </div>
+            ))}
+          </section>
+
+          <section aria-labelledby="mistakes-heading" className="max-w-3xl">
+            <h2
+              id="mistakes-heading"
+              className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+            >
+              Common mistakes
+            </h2>
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-muted">
+              {editorial.mistakes.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section aria-labelledby="limits-heading" className="max-w-3xl">
+            <h2
+              id="limits-heading"
+              className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+            >
+              When this calculator is not enough
+            </h2>
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-muted">
+              {editorial.notEnough.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </section>
 
           {sections.includes("examples") ? (
             <section
@@ -309,11 +400,11 @@ export default async function StateIncomeTaxStatePage({ params }: PageProps) {
                 id="examples-heading"
                 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
               >
-                Worked examples (single filer)
+                Reference table — single filer examples
               </h2>
               <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-muted">
-                Computed from this page&apos;s verified {state.taxYear} data with
-                no pre-tax deductions.
+                Computed from this page&apos;s {state.taxYear} {state.name}{" "}
+                schedule with no pre-tax deductions.
               </p>
               <div className="mt-4 overflow-x-auto rounded-xl border border-border/80">
                 <table className="min-w-[24rem] w-full border-collapse text-left text-[14px]">
@@ -353,6 +444,37 @@ export default async function StateIncomeTaxStatePage({ params }: PageProps) {
                   </tbody>
                 </table>
               </div>
+            </section>
+          ) : null}
+
+          {state.facts.length > 0 ? (
+            <section aria-labelledby="facts-heading">
+              <h2
+                id="facts-heading"
+                className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+              >
+                Key facts
+              </h2>
+              <dl className="mt-4 max-w-3xl space-y-4">
+                {state.facts.map((fact) => (
+                  <div key={fact.label + fact.text}>
+                    <dt className="text-[14px] font-semibold text-foreground">
+                      {fact.label}
+                    </dt>
+                    <dd className="mt-1 text-[15px] leading-relaxed text-muted">
+                      {fact.text}{" "}
+                      <a
+                        href={fact.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-foreground underline underline-offset-2"
+                      >
+                        Source
+                      </a>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </section>
           ) : null}
 
@@ -481,7 +603,7 @@ export default async function StateIncomeTaxStatePage({ params }: PageProps) {
               Related Calculators
             </h2>
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              <Link
+              <a
                 href={hubHref()}
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -489,45 +611,23 @@ export default async function StateIncomeTaxStatePage({ params }: PageProps) {
                   State Income Tax hub
                 </span>
                 <span className="text-sm text-muted">
-                  All verified states and comparison table
+                  All published states and comparison table
                 </span>
-              </Link>
+              </a>
               {peers.map((peer) => (
-                <Link
+                <a
                   key={peer.code}
-                  href={stateHref(peer.code)}
+                  href={stateHref(peer)}
                   className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
                 >
                   <span className="text-[15px] font-semibold text-foreground">
-                    {peer.name} income tax
+                    {peer.name} State Income Tax Calculator
                   </span>
                   <span className="text-sm text-muted">
                     Tax year {peer.taxYear}, {peer.structure} schedule
                   </span>
-                </Link>
+                </a>
               ))}
-              <Link
-                href="/math/percentage-calculator"
-                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
-              >
-                <span className="text-[15px] font-semibold text-foreground">
-                  Percentage Calculator
-                </span>
-                <span className="text-sm text-muted">
-                  Percent of a number and percent change
-                </span>
-              </Link>
-              <Link
-                href="/finance/salary-to-hourly-calculator"
-                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
-              >
-                <span className="text-[15px] font-semibold text-foreground">
-                  Salary to Hourly Calculator
-                </span>
-                <span className="text-sm text-muted">
-                  Convert salary and hourly pay between periods
-                </span>
-              </Link>
             </div>
           </section>
         </article>

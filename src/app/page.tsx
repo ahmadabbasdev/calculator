@@ -14,12 +14,13 @@ import { HomeToolCard } from "@/components/home/HomeToolCard";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import {
-  CALCULATOR_CATEGORIES,
+  getPublicCategories,
   LIVE_CALCULATORS,
   LIVE_CALCULATOR_COUNT,
   POPULAR_CALCULATORS,
   categoryToolCountLabel,
   freeCalculatorsLabel,
+  isCalculatorCatalogVisible,
 } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -265,8 +266,11 @@ export default function HomePage() {
 
           <HomeCategoryNav />
 
-          {CALCULATOR_CATEGORIES.map((category) => {
+          {getPublicCategories().map((category) => {
             const Icon = category.icon;
+            const visible = category.calculators.filter(
+              isCalculatorCatalogVisible,
+            );
             return (
               <section
                 key={category.id}
@@ -295,11 +299,11 @@ export default function HomePage() {
                     </div>
                   </div>
                   <span className="text-xs font-semibold text-zinc-600">
-                    {categoryToolCountLabel(category.calculators.length)}
+                    {categoryToolCountLabel(visible.length)}
                   </span>
                 </div>
                 <div className="grid auto-rows-fr grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-                  {category.calculators.map((calculator) => (
+                  {visible.map((calculator) => (
                     <HomeToolCard
                       key={calculator.id}
                       calculator={calculator}

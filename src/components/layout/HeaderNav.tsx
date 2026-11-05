@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { isPalworldVerified } from "@/lib/palworld/load";
 
-const NAV_ITEMS = [
-  { label: "All Tools", href: "/#all-calculators", match: "all" as const },
+const BASE_NAV = [
+  { label: "All Tools", href: "/calculators", match: "calculators" as const },
   { label: "Date & Time", href: "/date-time", match: "date-time" as const },
   { label: "Financial", href: "/finance", match: "finance" as const },
   {
@@ -13,8 +14,25 @@ const NAV_ITEMS = [
     match: "health" as const,
   },
   { label: "Math & Numbers", href: "/math", match: "math" as const },
-  { label: "FAQ", href: "/#faq", match: "faq" as const },
 ] as const;
+
+const GAMES_NAV = {
+  label: "Games",
+  href: "/games",
+  match: "games" as const,
+} as const;
+
+const ABOUT_NAV = {
+  label: "About",
+  href: "/about",
+  match: "about" as const,
+} as const;
+
+const CONTACT_NAV = {
+  label: "Contact",
+  href: "/contact",
+  match: "contact" as const,
+} as const;
 
 const linkBase =
   "cursor-pointer whitespace-nowrap rounded-lg px-3 py-1.5 text-sm transition-colors";
@@ -27,23 +45,34 @@ type HeaderNavProps = {
   variant?: "bar" | "stack";
 };
 
-function isActive(match: (typeof NAV_ITEMS)[number]["match"], pathname: string) {
-  if (match === "all") return pathname === "/";
+type NavMatch =
+  | (typeof BASE_NAV)[number]["match"]
+  | typeof GAMES_NAV.match
+  | typeof ABOUT_NAV.match
+  | typeof CONTACT_NAV.match;
+
+function isActive(match: NavMatch, pathname: string) {
+  if (match === "calculators") return pathname === "/calculators";
   if (match === "date-time") return pathname.startsWith("/date-time");
   if (match === "math") return pathname.startsWith("/math");
   if (match === "health") return pathname.startsWith("/health");
   if (match === "finance") return pathname.startsWith("/finance");
-  // Hash-only sections: highlight All Tools when already on home
+  if (match === "games") return pathname.startsWith("/games");
+  if (match === "about") return pathname.startsWith("/about");
+  if (match === "contact") return pathname.startsWith("/contact");
   return false;
 }
 
-/** Primary nav — flat category links matching the editorial homepage chrome. */
+/** Primary nav — category links plus directory, About, and Contact. */
 export function HeaderNav({
   onNavigate,
   className = "",
   variant = "bar",
 }: HeaderNavProps) {
   const pathname = usePathname();
+  const items = isPalworldVerified()
+    ? [...BASE_NAV, GAMES_NAV, ABOUT_NAV, CONTACT_NAV]
+    : [...BASE_NAV, ABOUT_NAV, CONTACT_NAV];
 
   return (
     <nav
@@ -54,7 +83,7 @@ export function HeaderNav({
           : `flex items-center gap-1 ${className}`
       }
     >
-      {NAV_ITEMS.map((item) => {
+      {items.map((item) => {
         const active = isActive(item.match, pathname);
         return (
           <Link

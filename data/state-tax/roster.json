@@ -1,0 +1,514 @@
+{
+  "states": [
+    {
+      "code": "AL",
+      "name": "Alabama",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "AK",
+      "name": "Alaska",
+      "taxesWages": false,
+      "structure": "none",
+      "modelFit": "unknown",
+      "modelFitReason": "No state income tax on wages.",
+      "wave": null,
+      "status": "no-wage-tax"
+    },
+    {
+      "code": "AZ",
+      "name": "Arizona",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "AR",
+      "name": "Arkansas",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "CA",
+      "name": "California",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "CO",
+      "name": "Colorado",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "CT",
+      "name": "Connecticut",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "DE",
+      "name": "Delaware",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "DC",
+      "name": "District of Columbia",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "FL",
+      "name": "Florida",
+      "taxesWages": false,
+      "structure": "none",
+      "modelFit": "unknown",
+      "modelFitReason": "No state income tax on wages.",
+      "wave": null,
+      "status": "no-wage-tax"
+    },
+    {
+      "code": "GA",
+      "name": "Georgia",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "HI",
+      "name": "Hawaii",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "ID",
+      "name": "Idaho",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "IL",
+      "name": "Illinois",
+      "taxesWages": true,
+      "structure": "flat",
+      "modelFit": "good",
+      "modelFitReason": "Flat wage tax with a single rate and exemption allowance fits the calculator model.",
+      "wave": 1,
+      "status": "verified"
+    },
+    {
+      "code": "IN",
+      "name": "Indiana",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "IA",
+      "name": "Iowa",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "KS",
+      "name": "Kansas",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "KY",
+      "name": "Kentucky",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "LA",
+      "name": "Louisiana",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "ME",
+      "name": "Maine",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "MD",
+      "name": "Maryland",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "MA",
+      "name": "Massachusetts",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "MI",
+      "name": "Michigan",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "MN",
+      "name": "Minnesota",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "MS",
+      "name": "Mississippi",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "MO",
+      "name": "Missouri",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "MT",
+      "name": "Montana",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "NE",
+      "name": "Nebraska",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "NV",
+      "name": "Nevada",
+      "taxesWages": false,
+      "structure": "none",
+      "modelFit": "unknown",
+      "modelFitReason": "No state income tax on wages.",
+      "wave": null,
+      "status": "no-wage-tax"
+    },
+    {
+      "code": "NH",
+      "name": "New Hampshire",
+      "taxesWages": false,
+      "structure": "none",
+      "modelFit": "unknown",
+      "modelFitReason": "No state income tax on wages.",
+      "wave": null,
+      "status": "no-wage-tax"
+    },
+    {
+      "code": "NJ",
+      "name": "New Jersey",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "NM",
+      "name": "New Mexico",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "NY",
+      "name": "New York",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "NC",
+      "name": "North Carolina",
+      "taxesWages": true,
+      "structure": "flat",
+      "modelFit": "good",
+      "modelFitReason": "Flat rate with published standard deductions by filing status fits the calculator model.",
+      "wave": 1,
+      "status": "verified"
+    },
+    {
+      "code": "ND",
+      "name": "North Dakota",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "OH",
+      "name": "Ohio",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "OK",
+      "name": "Oklahoma",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "OR",
+      "name": "Oregon",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "PA",
+      "name": "Pennsylvania",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "RI",
+      "name": "Rhode Island",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "SC",
+      "name": "South Carolina",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "SD",
+      "name": "South Dakota",
+      "taxesWages": false,
+      "structure": "none",
+      "modelFit": "unknown",
+      "modelFitReason": "No state income tax on wages.",
+      "wave": null,
+      "status": "no-wage-tax"
+    },
+    {
+      "code": "TN",
+      "name": "Tennessee",
+      "taxesWages": false,
+      "structure": "none",
+      "modelFit": "unknown",
+      "modelFitReason": "No state income tax on wages.",
+      "wave": null,
+      "status": "no-wage-tax"
+    },
+    {
+      "code": "TX",
+      "name": "Texas",
+      "taxesWages": false,
+      "structure": "none",
+      "modelFit": "unknown",
+      "modelFitReason": "No state income tax on wages.",
+      "wave": null,
+      "status": "no-wage-tax"
+    },
+    {
+      "code": "UT",
+      "name": "Utah",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "VT",
+      "name": "Vermont",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "VA",
+      "name": "Virginia",
+      "taxesWages": true,
+      "structure": "progressive",
+      "modelFit": "partial",
+      "modelFitReason": "Progressive brackets fit; head-of-household standard deduction currently mirrors single pending a dedicated HoH figure.",
+      "wave": 1,
+      "status": "verified"
+    },
+    {
+      "code": "WA",
+      "name": "Washington",
+      "taxesWages": false,
+      "structure": "none",
+      "modelFit": "unknown",
+      "modelFitReason": "No state income tax on wages.",
+      "wave": null,
+      "status": "no-wage-tax"
+    },
+    {
+      "code": "WV",
+      "name": "West Virginia",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "WI",
+      "name": "Wisconsin",
+      "taxesWages": true,
+      "structure": "unknown",
+      "modelFit": "unknown",
+      "modelFitReason": "",
+      "wave": null,
+      "status": "todo"
+    },
+    {
+      "code": "WY",
+      "name": "Wyoming",
+      "taxesWages": false,
+      "structure": "none",
+      "modelFit": "unknown",
+      "modelFitReason": "No state income tax on wages.",
+      "wave": null,
+      "status": "no-wage-tax"
+    }
+  ]
+}

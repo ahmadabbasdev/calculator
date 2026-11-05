@@ -5,6 +5,8 @@ import { PregnancyDueDateCalculator } from "@/components/calculators/PregnancyDu
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { LastReviewed } from "@/components/layout/LastReviewed";
+import { findCalculatorByHref } from "@/lib/calculators";
 import {
   CONCEPTION_TO_EDD_DAYS,
   CYCLE_LENGTH_DEFAULT,
@@ -212,6 +214,9 @@ export default function PregnancyDueDateCalculatorPage() {
             LMP means the first day of your last menstrual period.
           </p>
         </header>
+
+        <LastReviewed reviewedAt={findCalculatorByHref(PAGE_PATH)?.reviewedAt} />
+
 
         <PregnancyDueDateCalculator />
 

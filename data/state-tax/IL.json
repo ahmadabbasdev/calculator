@@ -1,0 +1,74 @@
+{
+  "code": "IL",
+  "name": "Illinois",
+  "taxYear": 2026,
+  "structure": "flat",
+  "wave": 1,
+  "modelFit": "good",
+  "modelFitReason": "Flat wage tax with a single rate and exemption allowance fits the calculator model.",
+  "limits": [],
+  "brackets": {
+    "single": [{ "from": 0, "to": null, "rate": 0.0495 }],
+    "married_joint": [{ "from": 0, "to": null, "rate": 0.0495 }],
+    "head_of_household": [{ "from": 0, "to": null, "rate": 0.0495 }]
+  },
+  "standardDeduction": {
+    "single": 0,
+    "married_joint": 0,
+    "head_of_household": 0
+  },
+  "personalExemption": {
+    "single": 2925,
+    "married_joint": 5850,
+    "head_of_household": 2925
+  },
+  "localTaxNote": "Illinois does not levy a local income tax on wages. Confirm before publishing.",
+  "notes": [
+    {
+      "text": "Illinois taxes income at a flat 4.95% rate, effective January 1, 2026.",
+      "sourceUrl": "https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html"
+    },
+    {
+      "text": "The Illinois exemption allowance is $2,925 per person for 2026. Illinois has no standard deduction.",
+      "sourceUrl": "https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html"
+    },
+    {
+      "text": "Head of household uses the same flat rate and the single-person exemption allowance ($2,925) from the supplied draft; confirm before setting verified true.",
+      "sourceUrl": "https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html"
+    }
+  ],
+  "facts": [
+    {
+      "label": "Rate structure",
+      "text": "Illinois taxes income at a flat 4.95% rate, effective January 1, 2026.",
+      "sourceUrl": "https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html"
+    },
+    {
+      "label": "Standard deduction",
+      "text": "Illinois has no standard deduction.",
+      "sourceUrl": "https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html"
+    },
+    {
+      "label": "Personal exemption",
+      "text": "The Illinois exemption allowance is $2,925 per person for 2026.",
+      "sourceUrl": "https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html"
+    },
+    {
+      "label": "Local income tax",
+      "text": "Illinois does not levy a local income tax on wages.",
+      "sourceUrl": "https://tax.illinois.gov/"
+    }
+  ],
+  "sources": [
+    {
+      "label": "Illinois Department of Revenue: 2026 IL-700-T withholding guide (rate and exemption allowance)",
+      "url": "https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html"
+    },
+    {
+      "label": "Illinois Department of Revenue",
+      "url": "https://tax.illinois.gov/"
+    }
+  ],
+  "lastVerified": "2026-11-04",
+  "verified": true
+}

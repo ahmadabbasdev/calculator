@@ -1,6 +1,5 @@
 import { z } from "zod";
-
-const MAX_VERIFIED_AGE_DAYS = 450;
+import { MAX_STATE_TAX_VERIFIED_AGE_DAYS } from "@/lib/state-tax/config";
 
 const bracketSchema = z.object({
   from: z.number().finite().nonnegative(),
@@ -20,6 +19,13 @@ const deductionByStatusSchema = z.object({
   head_of_household: z.number().finite().nonnegative(),
 });
 
+/** Per-status amount, a single amount applied to every status, or null. */
+const personalExemptionSchema = z.union([
+  deductionByStatusSchema,
+  z.number().finite().nonnegative(),
+  z.null(),
+]);
+
 const noteSchema = z.object({
   text: z.string().min(1),
   sourceUrl: z.string().url(),
@@ -28,6 +34,12 @@ const noteSchema = z.object({
 const sourceSchema = z.object({
   label: z.string().min(1),
   url: z.string().url(),
+});
+
+const factSchema = z.object({
+  label: z.string().min(1),
+  text: z.string().min(1),
+  sourceUrl: z.string().url(),
 });
 
 function assertBracketLadder(
@@ -74,11 +86,16 @@ export const stateTaxDataSchema = z
     name: z.string().min(1),
     taxYear: z.number().int().gte(2000).lte(2100),
     structure: z.enum(["flat", "progressive", "none"]),
+    wave: z.number().int().positive().nullable(),
+    modelFit: z.enum(["unknown", "good", "partial", "poor"]),
+    modelFitReason: z.string(),
+    limits: z.array(z.string().min(1)),
     brackets: bracketsByStatusSchema,
     standardDeduction: deductionByStatusSchema,
-    personalExemption: z.number().finite().nonnegative().nullable().optional(),
+    personalExemption: personalExemptionSchema.optional(),
     localTaxNote: z.string().min(1).nullable().optional(),
     notes: z.array(noteSchema).max(5),
+    facts: z.array(factSchema),
     sources: z.array(sourceSchema),
     lastVerified: z
       .string()
@@ -125,11 +142,18 @@ export const stateTaxDataSchema = z
           path: ["notes"],
         });
       }
-      if (!data.taxYear) {
+      if (data.facts.length < 4) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: `${data.code}: verified states need a taxYear.`,
-          path: ["taxYear"],
+          message: `${data.code}: verified states need at least four facts.`,
+          path: ["facts"],
+        });
+      }
+      if (data.modelFit === "unknown") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `${data.code}: verified states need modelFit good, partial, or poor.`,
+          path: ["modelFit"],
         });
       }
       const verifiedAt = Date.parse(`${data.lastVerified}T00:00:00.000Z`);
@@ -142,10 +166,10 @@ export const stateTaxDataSchema = z
       } else {
         const ageDays =
           (Date.now() - verifiedAt) / (1000 * 60 * 60 * 24);
-        if (ageDays > MAX_VERIFIED_AGE_DAYS) {
+        if (ageDays > MAX_STATE_TAX_VERIFIED_AGE_DAYS) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            message: `${data.code}: lastVerified is older than ${MAX_VERIFIED_AGE_DAYS} days (${data.lastVerified}).`,
+            message: `${data.code}: lastVerified is older than ${MAX_STATE_TAX_VERIFIED_AGE_DAYS} days (${data.lastVerified}).`,
             path: ["lastVerified"],
           });
         }
@@ -156,6 +180,8 @@ export const stateTaxDataSchema = z
 export type StateTaxData = z.infer<typeof stateTaxDataSchema>;
 export type FilingStatus = keyof StateTaxData["brackets"];
 export type TaxBracket = z.infer<typeof bracketSchema>;
+export type PersonalExemption = z.infer<typeof personalExemptionSchema>;
+export type StateFact = z.infer<typeof factSchema>;
 
 export const FILING_STATUSES: {
   id: FilingStatus;
@@ -166,7 +192,16 @@ export const FILING_STATUSES: {
   { id: "head_of_household", label: "Head of household" },
 ];
 
-export const MAX_STATE_TAX_VERIFIED_AGE_DAYS = MAX_VERIFIED_AGE_DAYS;
+/** Resolve personal exemption for a filing status (0 when absent). */
+export function personalExemptionForStatus(
+  state: Pick<StateTaxData, "personalExemption">,
+  status: FilingStatus,
+): number {
+  const value = state.personalExemption;
+  if (value == null) return 0;
+  if (typeof value === "number") return value;
+  return value[status];
+}
 
 /** Parse and validate one state record; throws with a clear message on failure. */
 export function parseStateTaxData(raw: unknown, fileLabel = "state-tax"): StateTaxData {
@@ -179,3 +214,29 @@ export function parseStateTaxData(raw: unknown, fileLabel = "state-tax"): StateT
   }
   return result.data;
 }
+
+export const rosterEntrySchema = z.object({
+  code: z
+    .string()
+    .length(2)
+    .regex(/^[A-Z]{2}$/),
+  name: z.string().min(1),
+  taxesWages: z.boolean(),
+  structure: z.enum(["unknown", "flat", "progressive", "none"]),
+  modelFit: z.enum(["unknown", "good", "partial", "poor"]),
+  modelFitReason: z.string(),
+  wave: z.number().int().positive().nullable(),
+  status: z.enum([
+    "no-wage-tax",
+    "todo",
+    "data-ready",
+    "verified",
+    "published",
+  ]),
+});
+
+export const rosterFileSchema = z.object({
+  states: z.array(rosterEntrySchema).length(51),
+});
+
+export type RosterEntry = z.infer<typeof rosterEntrySchema>;

@@ -5,6 +5,7 @@ import { CalculatorCard } from "@/components/home/CalculatorCard";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { StateTaxDirectoryLinks } from "@/components/calculators/StateTaxDirectoryLinks";
 import {
   CALCULATOR_CATEGORIES,
   getCategoryTheme,
@@ -105,6 +106,7 @@ export default function FinanceCategoryPage() {
               />
             ))}
           </div>
+          <StateTaxDirectoryLinks />
         </section>
 
         <div className="mt-12 border-t border-border/80 pt-6">

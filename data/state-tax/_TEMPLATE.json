@@ -3,6 +3,10 @@
   "name": "",
   "taxYear": 0,
   "structure": "progressive",
+  "wave": null,
+  "modelFit": "unknown",
+  "modelFitReason": "",
+  "limits": [],
   "brackets": {
     "single": [{ "from": 0, "to": null, "rate": 0 }],
     "married_joint": [{ "from": 0, "to": null, "rate": 0 }],
@@ -13,11 +17,21 @@
     "married_joint": 0,
     "head_of_household": 0
   },
-  "personalExemption": null,
+  "personalExemption": {
+    "single": 0,
+    "married_joint": 0,
+    "head_of_household": 0
+  },
   "localTaxNote": null,
   "notes": [
     { "text": "", "sourceUrl": "" },
     { "text": "", "sourceUrl": "" }
+  ],
+  "facts": [
+    { "label": "", "text": "", "sourceUrl": "" },
+    { "label": "", "text": "", "sourceUrl": "" },
+    { "label": "", "text": "", "sourceUrl": "" },
+    { "label": "", "text": "", "sourceUrl": "" }
   ],
   "sources": [{ "label": "", "url": "" }],
   "lastVerified": "YYYY-MM-DD",

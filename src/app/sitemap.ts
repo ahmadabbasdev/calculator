@@ -33,11 +33,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const stateTaxRoutes = getVerifiedStateSitemapEntries(SITE_URL);
 
-  const staticRoutes = ["/about", "/privacy", "/contact"].map((path) => ({
+  const staticRoutes = [
+    "/calculators",
+    "/about",
+    "/privacy",
+    "/contact",
+    "/terms",
+    "/disclaimer",
+  ].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified,
     changeFrequency: "monthly" as const,
-    priority: 0.4,
+    priority: path === "/calculators" ? 0.85 : 0.4,
   }));
 
   return [
