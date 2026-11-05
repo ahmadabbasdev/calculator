@@ -163,10 +163,8 @@ describe("publish gating", () => {
         await importOriginal<typeof import("@/lib/state-tax/config")>();
       return { ...actual, SHOW_STATE_TAX_PILOT: false };
     });
-    const prevNode = process.env.NODE_ENV;
-    const prevVercel = process.env.VERCEL_ENV;
-    process.env.NODE_ENV = "production";
-    process.env.VERCEL_ENV = "production";
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("VERCEL_ENV", "production");
 
     const {
       getPublishedTaxableStates: getPublished,
@@ -186,8 +184,7 @@ describe("publish gating", () => {
     expect(canAccessStatePage(il)).toBe(false);
     expect(getPublishedStateBySlug("illinois")).toBeNull();
 
-    process.env.NODE_ENV = prevNode;
-    process.env.VERCEL_ENV = prevVercel;
+    vi.unstubAllEnvs();
     vi.doUnmock("@/lib/state-tax/config");
     vi.resetModules();
   });

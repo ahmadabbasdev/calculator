@@ -9,6 +9,10 @@ function flatState(overrides: Partial<StateTaxData> = {}): StateTaxData {
     name: "Testland Flat",
     taxYear: 2026,
     structure: "flat",
+    wave: null,
+    modelFit: "good",
+    modelFitReason: "Flat fixture for unit tests.",
+    limits: [],
     brackets: {
       single: [{ from: 0, to: null, rate: 0.05 }],
       married_joint: [{ from: 0, to: null, rate: 0.05 }],
@@ -25,6 +29,28 @@ function flatState(overrides: Partial<StateTaxData> = {}): StateTaxData {
       { text: "Flat fixture note one.", sourceUrl: "https://example.test/a" },
       { text: "Flat fixture note two.", sourceUrl: "https://example.test/b" },
     ],
+    facts: [
+      {
+        label: "Fixture",
+        text: "Flat fixture fact one.",
+        sourceUrl: "https://example.test/f1",
+      },
+      {
+        label: "Fixture",
+        text: "Flat fixture fact two.",
+        sourceUrl: "https://example.test/f2",
+      },
+      {
+        label: "Fixture",
+        text: "Flat fixture fact three.",
+        sourceUrl: "https://example.test/f3",
+      },
+      {
+        label: "Fixture",
+        text: "Flat fixture fact four.",
+        sourceUrl: "https://example.test/f4",
+      },
+    ],
     sources: [{ label: "Testland Revenue", url: "https://example.test" }],
     lastVerified: "2026-01-15",
     verified: false,
@@ -38,6 +64,10 @@ function progressiveState(): StateTaxData {
     name: "Testland",
     taxYear: 2026,
     structure: "progressive",
+    wave: null,
+    modelFit: "good",
+    modelFitReason: "Progressive fixture for unit tests.",
+    limits: [],
     brackets: {
       single: [
         { from: 0, to: 10000, rate: 0.02 },
@@ -65,6 +95,28 @@ function progressiveState(): StateTaxData {
     notes: [
       { text: "Progressive fixture note one.", sourceUrl: "https://example.test/a" },
       { text: "Progressive fixture note two.", sourceUrl: "https://example.test/b" },
+    ],
+    facts: [
+      {
+        label: "Fixture",
+        text: "Progressive fixture fact one.",
+        sourceUrl: "https://example.test/f1",
+      },
+      {
+        label: "Fixture",
+        text: "Progressive fixture fact two.",
+        sourceUrl: "https://example.test/f2",
+      },
+      {
+        label: "Fixture",
+        text: "Progressive fixture fact three.",
+        sourceUrl: "https://example.test/f3",
+      },
+      {
+        label: "Fixture",
+        text: "Progressive fixture fact four.",
+        sourceUrl: "https://example.test/f4",
+      },
     ],
     sources: [{ label: "Testland Revenue", url: "https://example.test" }],
     lastVerified: "2026-01-15",
