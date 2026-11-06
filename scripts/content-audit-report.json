@@ -41,14 +41,6 @@
       "thin": false
     },
     {
-      "href": "/finance/state-income-tax-calculator",
-      "name": "US State Income Tax Calculator",
-      "wordCount": 677,
-      "sharedTemplate": false,
-      "kind": "calculator",
-      "thin": false
-    },
-    {
       "href": "/finance/compound-interest-calculator",
       "name": "Compound Interest Calculator",
       "wordCount": 1263,
@@ -97,9 +89,17 @@
       "thin": false
     },
     {
+      "href": "/health/ovulation-calculator",
+      "name": "Ovulation Calculator",
+      "wordCount": 915,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
       "href": "/health/pregnancy-due-date-calculator",
       "name": "Pregnancy Due Date Calculator",
-      "wordCount": 1172,
+      "wordCount": 1173,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -107,7 +107,15 @@
     {
       "href": "/math/percentage-calculator",
       "name": "Percentage Calculator",
-      "wordCount": 1095,
+      "wordCount": 1122,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/math/grade-calculator",
+      "name": "Grade Calculator",
+      "wordCount": 916,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -139,7 +147,7 @@
     {
       "href": "/math/gpa-calculator",
       "name": "GPA & CGPA Calculator",
-      "wordCount": 1390,
+      "wordCount": 1417,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -147,7 +155,7 @@
     {
       "href": "/finance/state-income-tax-calculator/il",
       "name": "Illinois State Income Tax",
-      "wordCount": 320,
+      "wordCount": 334,
       "sharedTemplate": true,
       "kind": "calculator",
       "thin": true
@@ -155,7 +163,7 @@
     {
       "href": "/finance/state-income-tax-calculator/nc",
       "name": "North Carolina State Income Tax",
-      "wordCount": 321,
+      "wordCount": 335,
       "sharedTemplate": true,
       "kind": "calculator",
       "thin": true
@@ -163,7 +171,7 @@
     {
       "href": "/finance/state-income-tax-calculator/va",
       "name": "Virginia State Income Tax",
-      "wordCount": 320,
+      "wordCount": 334,
       "sharedTemplate": true,
       "kind": "calculator",
       "thin": true
@@ -171,7 +179,7 @@
     {
       "href": "/",
       "name": "/",
-      "wordCount": 489,
+      "wordCount": 506,
       "sharedTemplate": false,
       "kind": "site",
       "thin": false
@@ -179,7 +187,7 @@
     {
       "href": "/about",
       "name": "/about",
-      "wordCount": 101,
+      "wordCount": 292,
       "sharedTemplate": false,
       "kind": "site",
       "thin": true
@@ -187,7 +195,7 @@
     {
       "href": "/contact",
       "name": "/contact",
-      "wordCount": 70,
+      "wordCount": 198,
       "sharedTemplate": false,
       "kind": "site",
       "thin": true
@@ -195,7 +203,7 @@
     {
       "href": "/privacy",
       "name": "/privacy",
-      "wordCount": 263,
+      "wordCount": 266,
       "sharedTemplate": false,
       "kind": "site",
       "thin": true
@@ -203,7 +211,7 @@
     {
       "href": "/date-time",
       "name": "/date-time",
-      "wordCount": 64,
+      "wordCount": 212,
       "sharedTemplate": false,
       "kind": "site",
       "thin": true
@@ -211,7 +219,7 @@
     {
       "href": "/finance",
       "name": "/finance",
-      "wordCount": 58,
+      "wordCount": 158,
       "sharedTemplate": false,
       "kind": "site",
       "thin": true
@@ -219,7 +227,7 @@
     {
       "href": "/health",
       "name": "/health",
-      "wordCount": 63,
+      "wordCount": 263,
       "sharedTemplate": false,
       "kind": "site",
       "thin": true
@@ -227,7 +235,7 @@
     {
       "href": "/math",
       "name": "/math",
-      "wordCount": 61,
+      "wordCount": 144,
       "sharedTemplate": false,
       "kind": "site",
       "thin": true
@@ -237,30 +245,20 @@
     {
       "a": "/finance/state-income-tax-calculator/il",
       "b": "/finance/state-income-tax-calculator/va",
-      "sim": 0.99,
+      "sim": 0.991,
       "note": "shared-template"
     },
     {
       "a": "/finance/state-income-tax-calculator/il",
       "b": "/finance/state-income-tax-calculator/nc",
-      "sim": 0.986,
+      "sim": 0.987,
       "note": "shared-template"
     },
     {
       "a": "/finance/state-income-tax-calculator/nc",
       "b": "/finance/state-income-tax-calculator/va",
-      "sim": 0.986,
+      "sim": 0.987,
       "note": "shared-template"
-    },
-    {
-      "a": "/date-time",
-      "b": "/math",
-      "sim": 0.41
-    },
-    {
-      "a": "/health",
-      "b": "/math",
-      "sim": 0.393
     }
   ],
   "thin": [

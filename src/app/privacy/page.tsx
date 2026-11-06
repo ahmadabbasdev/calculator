@@ -190,11 +190,14 @@ export default function PrivacyPage() {
             </h2>
             <p className="mt-2">
               We may show ads served by third parties (for example Google AdSense)
-              in the future. If ads are active, those partners may use cookies or
-              similar technologies to show and measure ads. Where required by law,
-              we will ask for your consent before enabling non-essential ad
-              cookies. Calculator inputs are not sent to ad networks. Learn how
-              Google uses data from sites that use its services at{" "}
+              on calculator tool pages that carry substantial publisher content.
+              Ads are not loaded on category hubs, trust pages (About, Contact,
+              Privacy), or sensitive tools listed above. If ads are active, those
+              partners may use cookies or similar technologies to show and measure
+              ads. Where required by law, we will ask for your consent before
+              enabling non-essential ad cookies. Calculator inputs are not sent to
+              ad networks. Learn how Google uses data from sites that use its
+              services at{" "}
               <a
                 href={PARTNER_SITES_URL}
                 className="font-medium text-zinc-950 underline break-all"

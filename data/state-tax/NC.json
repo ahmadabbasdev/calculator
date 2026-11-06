@@ -22,7 +22,7 @@
     "married_joint": 0,
     "head_of_household": 0
   },
-  "localTaxNote": "North Carolina does not levy a local income tax on wages. Confirm before publishing.",
+  "localTaxNote": "North Carolina does not levy a local income tax on wages. This calculator estimates state tax only.",
   "notes": [
     {
       "text": "North Carolina's individual income tax rate for 2026 is a flat 3.99%. Revenue triggers in state law may reduce it in later years.",

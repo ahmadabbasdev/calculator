@@ -76,11 +76,52 @@ export default function ContactPage() {
             </a>
             . Typical response time: {RESPONSE_TIME}.
           </p>
-          <p>
-            For a data or formula error, include the page URL and what you
-            expected versus what you saw. For a new calculator idea, describe the
-            inputs and the result you need.
-          </p>
+
+          <section aria-labelledby="corrections-heading">
+            <h2
+              id="corrections-heading"
+              className="text-lg font-semibold text-zinc-950"
+            >
+              Reporting a calculation or data error
+            </h2>
+            <p className="mt-2">
+              Include the page URL, the inputs you used, the result you saw, and
+              the result you expected (or a link to an official schedule). For
+              state income tax pages, mention the tax year and filing status.
+              Screenshots help when a table or date looks wrong.
+            </p>
+          </section>
+
+          <section aria-labelledby="requests-heading">
+            <h2
+              id="requests-heading"
+              className="text-lg font-semibold text-zinc-950"
+            >
+              Suggesting a new calculator
+            </h2>
+            <p className="mt-2">
+              Describe the inputs, the output you need, and any public formula
+              or official source we should follow. We prioritize tools that can
+              run entirely in the browser with transparent math and a clear
+              worked example — not tools that need an account or a paid data
+              feed.
+            </p>
+          </section>
+
+          <section aria-labelledby="not-heading">
+            <h2
+              id="not-heading"
+              className="text-lg font-semibold text-zinc-950"
+            >
+              What this inbox is not for
+            </h2>
+            <p className="mt-2">
+              We cannot provide personal tax, medical, or legal advice, or
+              complete a filing for you. For those questions, contact a licensed
+              professional or the agency linked on the relevant calculator page.
+            </p>
+          </section>
+
           <p>
             You can also read the{" "}
             <Link href="/about" className="font-medium text-zinc-950 underline">

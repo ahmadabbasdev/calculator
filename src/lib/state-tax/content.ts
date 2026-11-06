@@ -54,14 +54,37 @@ export function buildStateFaqs(state: StateTaxData): {
   const firstNote = state.notes[0]?.text ?? "";
   const sourceLabel = state.sources[0]?.label ?? "the state revenue department";
 
+  const factBlurb = state.facts
+    .slice(0, 2)
+    .map((f) => f.text)
+    .join(" ");
+  const local =
+    state.localTaxNote?.trim() ||
+    `${state.name} local wage taxes are not added in this estimate.`;
+  const pe = state.personalExemption;
+  const peSingle =
+    pe == null ? 0 : typeof pe === "number" ? pe : pe.single;
+  const pePhrase =
+    peSingle > 0
+      ? `A personal exemption of ${peSingle.toLocaleString("en-US")} for a single filer is applied in the estimate when the schedule includes one.`
+      : `${state.name}’s schedule on this page does not add a separate personal exemption beyond the standard deduction shown.`;
+
   return [
     {
       question: `How does ${state.name} state income tax work in ${state.taxYear}?`,
-      answer: `${structurePhrase}. This calculator estimates state income tax only after the single-filer standard deduction of ${singleDeduction} (and other statuses as listed). Federal tax, FICA, credits and local taxes are not included.`,
+      answer: `${structurePhrase}. This calculator estimates state income tax only after the single-filer standard deduction of ${singleDeduction} (and other statuses as listed). ${pePhrase} Federal tax, FICA, credits and local taxes are not included.`,
     },
     {
       question: `What is the ${state.name} standard deduction for a single filer?`,
       answer: `For tax year ${state.taxYear}, the verified single-filer standard deduction in this dataset is ${singleDeduction}. Married filing jointly is ${state.standardDeduction.married_joint.toLocaleString("en-US")}; head of household is ${state.standardDeduction.head_of_household.toLocaleString("en-US")}. Confirm with ${sourceLabel}.`,
+    },
+    {
+      question: `Does this ${state.name} calculator include local income tax?`,
+      answer: `${local} Enter only amounts relevant to ${state.name} state income tax here.`,
+    },
+    {
+      question: `What should I know before trusting the ${state.name} estimate?`,
+      answer: `${factBlurb || firstNote} Part-year residency, credits, and itemized deductions beyond the listed standard deduction are outside this model.`,
     },
     {
       question: `Where do the ${state.name} figures on this page come from?`,

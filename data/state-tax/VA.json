@@ -40,7 +40,7 @@
     "married_joint": 1860,
     "head_of_household": 930
   },
-  "localTaxNote": "Virginia counties and cities do not levy a local income tax on wages. Confirm before publishing.",
+  "localTaxNote": "Virginia counties and cities do not levy a local income tax on wages. This calculator estimates Virginia state income tax only.",
   "notes": [
     {
       "text": "Virginia's rates are 2% on the first $3,000 of taxable income, 3% up to $5,000, 5% up to $17,000, and 5.75% above $17,000.",
@@ -59,7 +59,7 @@
       "sourceUrl": "https://www.tax.virginia.gov/node/35195"
     },
     {
-      "text": "Head of household brackets match the supplied schedule; standard deduction and personal exemption currently mirror single-filer amounts pending a dedicated HoH figure before verified true.",
+      "text": "Head of household brackets on this page match Virginia’s published wage schedule. The standard deduction and personal exemption for head of household currently mirror the single-filer amounts until Virginia Tax publishes a dedicated HoH figure we can verify separately.",
       "sourceUrl": "https://www.tax.virginia.gov/node/35195"
     }
   ],

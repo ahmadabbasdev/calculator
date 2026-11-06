@@ -107,6 +107,79 @@ export default function DateTimeCategoryPage() {
           </div>
         </section>
 
+        <article className="mt-16 max-w-3xl space-y-10 text-[15px] leading-relaxed text-zinc-700">
+          <section aria-labelledby="date-guide-heading">
+            <h2
+              id="date-guide-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950"
+            >
+              Local calendar dates, not timezone math
+            </h2>
+            <p className="mt-3">
+              Every date tool here works on local calendar dates with date-fns
+              helpers. That means a span from 1 March to 31 March counts calendar
+              days the way a wall calendar does — without converting through UTC
+              and risking an off-by-one around daylight saving. Leap years are
+              included in the Gregorian rules the libraries apply.
+            </p>
+            <p className="mt-3">
+              Choose{" "}
+              <Link
+                href="/date-time/days-between-dates"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                Days Between Two Dates
+              </Link>{" "}
+              for an inclusive or exclusive day count. Use the{" "}
+              <Link
+                href="/date-time/age-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                Age Calculator
+              </Link>{" "}
+              for years, months, and days lived. Use{" "}
+              <Link
+                href="/date-time/business-days-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                Business Days
+              </Link>{" "}
+              when weekends (and optional public holidays for a chosen country)
+              should be excluded.{" "}
+              <Link
+                href="/date-time/add-subtract-days"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                Add or Subtract Days
+              </Link>{" "}
+              shifts a start date by days, weeks, months, or years. The{" "}
+              <Link
+                href="/date-time/time-duration-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                Time Duration Calculator
+              </Link>{" "}
+              covers clock times and mixed date-time spans.
+            </p>
+          </section>
+
+          <section aria-labelledby="date-holidays-heading">
+            <h2
+              id="date-holidays-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950"
+            >
+              Holidays and what we cannot promise
+            </h2>
+            <p className="mt-3">
+              Business-day holiday lists come from the community date-holidays
+              project and load as static files in your browser when you pick a
+              country. Lists can lag statute changes; confirm critical deadlines
+              with your employer or the relevant government calendar. None of
+              these tools store your dates on our servers or put them in the URL.
+            </p>
+          </section>
+        </article>
+
         <div className="mt-12 border-t border-border/80 pt-6">
           <Link
             href="/"

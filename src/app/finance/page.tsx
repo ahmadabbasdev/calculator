@@ -109,6 +109,88 @@ export default function FinanceCategoryPage() {
           <StateTaxDirectoryLinks />
         </section>
 
+        <article className="mt-16 max-w-3xl space-y-10 text-[15px] leading-relaxed text-zinc-700">
+          <section aria-labelledby="finance-guide-heading">
+            <h2
+              id="finance-guide-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950"
+            >
+              Transparent money math in the browser
+            </h2>
+            <p className="mt-3">
+              Finance tools on CalcDaily show the formula or schedule behind the
+              result. The{" "}
+              <Link
+                href="/finance/loan-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                loan calculator
+              </Link>{" "}
+              uses reducing-balance amortization so you can see payment, interest,
+              and a schedule shape.{" "}
+              <Link
+                href="/finance/compound-interest-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                Compound interest
+              </Link>{" "}
+              and the{" "}
+              <Link
+                href="/finance/savings-goal-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                savings goal
+              </Link>{" "}
+              tools estimate growth or required contributions.{" "}
+              <Link
+                href="/finance/salary-to-hourly-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                Salary to hourly
+              </Link>{" "}
+              converts pay periods with hours-per-week assumptions you control.
+            </p>
+            <p className="mt-3">
+              The{" "}
+              <Link
+                href="/finance/state-income-tax-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                US state income tax
+              </Link>{" "}
+              hub only lists states we have verified against revenue sources for
+              the published tax year. Each state page carries its own brackets,
+              deductions, worked examples, and official links — we do not invent
+              rates or clone one page across fifty URLs. The{" "}
+              <Link
+                href="/finance/zakat-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                zakat calculator
+              </Link>{" "}
+              uses amounts and metal prices you enter; it does not pull live
+              market feeds, and it does not load analytics or ads.
+            </p>
+          </section>
+
+          <section aria-labelledby="finance-limits-heading">
+            <h2
+              id="finance-limits-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950"
+            >
+              What these estimates leave out
+            </h2>
+            <p className="mt-3">
+              Loan and savings results ignore fees, early repayment penalties,
+              and tax on investment gains unless you model them yourself. State
+              tax pages estimate state income tax only — not federal tax, FICA,
+              credits, or local wage taxes. Nothing here is personalized tax or
+              investment advice. Confirm filings with the linked agency or a
+              licensed professional.
+            </p>
+          </section>
+        </article>
+
         <div className="mt-12 border-t border-border/80 pt-6">
           <Link
             href="/"

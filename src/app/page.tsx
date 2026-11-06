@@ -22,6 +22,7 @@ import {
   freeCalculatorsLabel,
   isCalculatorCatalogVisible,
 } from "@/lib/calculators";
+import { CONTACT_EMAIL } from "@/lib/site-owner";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 // 60 characters — full requested wording was 67; "Online" dropped to fit.
@@ -315,6 +316,62 @@ export default function HomePage() {
           })}
 
           <section
+            aria-labelledby="standards-heading"
+            className="mx-auto max-w-3xl space-y-4"
+          >
+            <h2
+              id="standards-heading"
+              className="text-xl font-bold tracking-tight text-zinc-950 sm:text-2xl"
+            >
+              How CalcDaily keeps tools trustworthy
+            </h2>
+            <p className="text-[15px] leading-relaxed text-zinc-600">
+              Each live calculator ships with the formula or schedule explained
+              on the page, at least one worked example, limits where the estimate
+              fails, and automated tests in the repository. Sourced schedules
+              such as US state income tax stay unpublished until brackets and
+              deductions are checked against the linked revenue pages. Draft
+              tools never appear in this directory or the sitemap. Read more on
+              the{" "}
+              <Link
+                href="/about"
+                className="font-medium text-zinc-900 underline underline-offset-2"
+              >
+                About
+              </Link>{" "}
+              page, or open a category guide for{" "}
+              <Link
+                href="/date-time"
+                className="font-medium text-zinc-900 underline underline-offset-2"
+              >
+                dates
+              </Link>
+              ,{" "}
+              <Link
+                href="/finance"
+                className="font-medium text-zinc-900 underline underline-offset-2"
+              >
+                finance
+              </Link>
+              ,{" "}
+              <Link
+                href="/health"
+                className="font-medium text-zinc-900 underline underline-offset-2"
+              >
+                health
+              </Link>
+              , or{" "}
+              <Link
+                href="/math"
+                className="font-medium text-zinc-900 underline underline-offset-2"
+              >
+                math
+              </Link>
+              .
+            </p>
+          </section>
+
+          <section
             aria-labelledby="faq-heading"
             className="rounded-2xl border border-stone-200 bg-white p-6 shadow-card sm:p-8 lg:p-10"
             id="faq"
@@ -375,7 +432,7 @@ export default function HomePage() {
             </div>
             <div className="flex w-full flex-col items-center gap-3 sm:flex-row md:w-auto">
               <a
-                href="mailto:asam4055144@gmail.com?subject=CalcDaily%20tool%20suggestion"
+                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("CalcDaily tool suggestion")}`}
                 className="w-full rounded-lg bg-white px-5 py-2.5 text-center text-xs font-semibold text-zinc-950 shadow-[0_1px_2px_0_rgba(0,0,0,0.25),inset_0_1px_0_0_rgba(255,255,255,0.12)] transition-colors hover:bg-stone-100 focus:ring-2 focus:ring-white sm:w-auto sm:text-sm"
               >
                 Submit Calculator Request

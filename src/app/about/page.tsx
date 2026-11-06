@@ -112,6 +112,24 @@ export default function AboutPage() {
             </div>
           </section>
 
+          <section aria-labelledby="what-heading">
+            <h2
+              id="what-heading"
+              className="text-lg font-semibold text-zinc-950"
+            >
+              What you get on each calculator page
+            </h2>
+            <p className="mt-3">
+              Every live tool is more than an input form. The page explains what
+              the calculation is for, how the formula or schedule works, at least
+              one worked example with real numbers, limits where the estimate
+              breaks down, and an FAQ written for that tool — not a reused
+              template paragraph with the name swapped. Related tools are linked
+              so you can move between date, finance, health, and math helpers
+              without hunting through a directory of near-identical clones.
+            </p>
+          </section>
+
           <section aria-labelledby="built-heading">
             <h2
               id="built-heading"
@@ -122,11 +140,35 @@ export default function AboutPage() {
             <p className="mt-3">
               Each calculator is implemented as a small TypeScript module with
               automated unit tests. Those tests include hand-checked example
-              values (for example fixed loan payments, date spans, and tax
-              bracket totals). The repository currently contains {UNIT_TEST_COUNT}{" "}
-              such test cases. Results are computed in the browser; we do not
-              claim CPA, medical, or legal credentials, and we do not sell
-              personalized advice.
+              values (for example fixed loan payments, date spans, ovulation
+              calendar dates, and tax bracket totals). The repository currently
+              contains {UNIT_TEST_COUNT} such test cases. Results are computed in
+              the browser; we do not claim CPA, medical, or legal credentials,
+              and we do not sell personalized advice.
+            </p>
+            <p className="mt-3">
+              Pages that show a “last reviewed” date were checked against the
+              sources listed on that page. When a schedule changes — for example
+              a new state tax year — the data file and the review date are
+              updated together, or the page stays unpublished until verification
+              is done.
+            </p>
+          </section>
+
+          <section aria-labelledby="publish-heading">
+            <h2
+              id="publish-heading"
+              className="text-lg font-semibold text-zinc-950"
+            >
+              What we publish — and what we wait on
+            </h2>
+            <p className="mt-3">
+              A tool goes live only when the math module, tests, and page copy
+              are ready. Draft surfaces (for example game helpers still under
+              verification, or US states whose tax model does not fit our
+              calculator yet) stay out of the homepage, sitemap, and directory
+              until they meet that bar. We prefer fewer accurate tools over a
+              large set of thin or unverified pages.
             </p>
           </section>
 
@@ -164,8 +206,9 @@ export default function AboutPage() {
                 <strong className="font-semibold text-zinc-950">Health tools:</strong>{" "}
                 BMI categories follow common WHO adult cut-offs described on the
                 BMI page; calorie estimates use the Mifflin–St Jeor equation
-                described on the calorie page. These are screening helpers, not
-                diagnoses.
+                described on the calorie page; ovulation dates use the calendar
+                method described on the ovulation page. These are screening or
+                planning helpers, not diagnoses or contraception guidance.
               </li>
               <li>
                 <strong className="font-semibold text-zinc-950">Zakat:</strong>{" "}
@@ -173,6 +216,26 @@ export default function AboutPage() {
                 does not fetch live market prices.
               </li>
             </ul>
+          </section>
+
+          <section aria-labelledby="privacy-heading">
+            <h2
+              id="privacy-heading"
+              className="text-lg font-semibold text-zinc-950"
+            >
+              Privacy and advertising
+            </h2>
+            <p className="mt-3">
+              Calculator inputs stay in your browser. Analytics runs only with
+              consent. Sensitive tools (pregnancy due date, ovulation, and zakat)
+              never load analytics or ads. Ads on other calculator pages, when
+              shown, are kept off thin directory and trust pages so advertising
+              sits next to real tool content. Details are in the{" "}
+              <Link href="/privacy" className="font-medium text-zinc-950 underline">
+                Privacy Policy
+              </Link>
+              .
+            </p>
           </section>
 
           <section aria-labelledby="corrections-heading">

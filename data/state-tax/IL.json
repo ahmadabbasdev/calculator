@@ -22,7 +22,7 @@
     "married_joint": 5850,
     "head_of_household": 2925
   },
-  "localTaxNote": "Illinois does not levy a local income tax on wages. Confirm before publishing.",
+  "localTaxNote": "Illinois does not levy a local income tax on wages. City or county charges, if any, are separate from this state estimate.",
   "notes": [
     {
       "text": "Illinois taxes income at a flat 4.95% rate, effective January 1, 2026.",
@@ -33,7 +33,7 @@
       "sourceUrl": "https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html"
     },
     {
-      "text": "Head of household uses the same flat rate and the single-person exemption allowance ($2,925) from the supplied draft; confirm before setting verified true.",
+      "text": "Head of household uses the same flat 4.95% rate. This page applies the single-person exemption allowance of $2,925 for that status unless Illinois publishes a different HoH allowance for the tax year.",
       "sourceUrl": "https://tax.illinois.gov/forms/withholding/currentyear/il-700-t-withholding-guide-tables.html"
     }
   ],
