@@ -477,6 +477,17 @@ export default function GpaCalculatorPage() {
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <Link
+                href="/math/grade-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Grade Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Weighted grades, final exam needed, and test score to letter
+                </span>
+              </Link>
+              <Link
                 href="/math/percentage-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >

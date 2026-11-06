@@ -16,6 +16,7 @@ import {
   Percent,
   PiggyBank,
   ChartColumn,
+  ClipboardList,
   Ruler,
   Scale,
   Sigma,
@@ -456,7 +457,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
   {
     id: "math",
     title: "Math & Education",
-    description: "Percentages, averages, and unit helpers.",
+    description: "Percentages, grades, averages, and unit helpers.",
     icon: Calculator,
     theme: "math",
     calculators: [
@@ -472,6 +473,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         addedAt: "2026-06-01",
         reviewedAt: "2026-06-01",
         popular: true,
+      },
+      {
+        id: "grade",
+        slug: "grade-calculator",
+        name: "Grade Calculator",
+        description:
+          "Weighted course grades, what you need on a final exam, and test scores to letter grades.",
+        href: "/math/grade-calculator",
+        icon: ClipboardList,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
       },
       {
         id: "average",

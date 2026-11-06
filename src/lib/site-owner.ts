@@ -35,7 +35,7 @@ export const OWNER_PHOTO = env("NEXT_PUBLIC_OWNER_PHOTO", "");
 
 export const CONTACT_EMAIL = env(
   "NEXT_PUBLIC_CONTACT_EMAIL",
-  "asam4055155@gmail.com",
+  "ahmadabbas7925@gmail.com",
 );
 
 export const RESPONSE_TIME = env(

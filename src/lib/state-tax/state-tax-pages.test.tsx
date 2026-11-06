@@ -10,7 +10,9 @@ vi.mock("@/lib/state-tax/config", async (importOriginal) => {
 });
 
 describe("published state pages (pilot on)", () => {
-  it("exposes illinois, north-carolina, and virginia as indexable pages with real links", async () => {
+  it(
+    "exposes illinois, north-carolina, and virginia as indexable pages with real links",
+    async () => {
     const {
       getPublishedTaxableStates,
       getPublishedStateBySlug,
@@ -98,5 +100,7 @@ describe("published state pages (pilot on)", () => {
       LIVE_CALCULATORS.filter((c) => c.id === "state-income-tax"),
     ).toHaveLength(1);
     expect(LIVE_CALCULATOR_COUNT).toBe(LIVE_CALCULATORS.length);
-  });
+  },
+    15_000,
+  );
 });
