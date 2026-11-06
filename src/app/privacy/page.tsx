@@ -128,6 +128,20 @@ export default function PrivacyPage() {
               >
                 pregnancy due-date calculator
               </Link>
+              , the{" "}
+              <Link
+                href="/health/ovulation-calculator"
+                className="font-medium text-zinc-950 underline"
+              >
+                ovulation calculator
+              </Link>
+              , or the{" "}
+              <Link
+                href="/finance/zakat-calculator"
+                className="font-medium text-zinc-950 underline"
+              >
+                zakat calculator
+              </Link>
               .
             </p>
             <p className="mt-3">

@@ -412,7 +412,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
 
     title: "Health & Fitness",
     description:
-      "BMI, calorie needs, pregnancy due dates, and wellness screening tools.",
+      "BMI, calorie needs, ovulation and fertile-window estimates, pregnancy due dates, and wellness screening tools.",
     icon: HeartPulse,
     theme: "health",
     calculators: [
@@ -439,6 +439,18 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         status: "live",
         addedAt: "2026-09-18",
         reviewedAt: "2026-09-18",
+      },
+      {
+        id: "ovulation",
+        slug: "ovulation-calculator",
+        name: "Ovulation Calculator",
+        description:
+          "Estimate ovulation day and fertile window from last period and cycle length — calendar method for this cycle and the next three.",
+        href: "/health/ovulation-calculator",
+        icon: CalendarDays,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+        reviewedAt: new Date().toISOString().slice(0, 10),
       },
       {
         id: "due-date",

@@ -486,11 +486,22 @@ export default function PregnancyDueDateCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Shift a date forward or back, or count the days between two
-                dates.
+                Estimate ovulation and a fertile window, or shift a date forward
+                or back.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <Link
+                href="/health/ovulation-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Ovulation Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Fertile window from last period and cycle length
+                </span>
+              </Link>
               <Link
                 href="/date-time/add-subtract-days"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
@@ -500,17 +511,6 @@ export default function PregnancyDueDateCalculatorPage() {
                 </span>
                 <span className="text-sm text-muted">
                   Date plus or minus days, weeks, months, or years
-                </span>
-              </Link>
-              <Link
-                href="/date-time/days-between-dates"
-                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
-              >
-                <span className="text-[15px] font-semibold text-foreground">
-                  Days Between Two Dates
-                </span>
-                <span className="text-sm text-muted">
-                  Exact calendar days between any two dates
                 </span>
               </Link>
             </div>

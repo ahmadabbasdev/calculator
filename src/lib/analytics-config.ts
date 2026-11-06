@@ -3,6 +3,7 @@
  */
 export const NO_ANALYTICS_PATHS = [
   "/health/pregnancy-due-date-calculator",
+  "/health/ovulation-calculator",
   "/finance/zakat-calculator",
 ] as const;
 
