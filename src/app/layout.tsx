@@ -4,6 +4,7 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { Analytics } from "@/components/analytics/Analytics";
 import { GoogleAdSense } from "@/components/analytics/GoogleAdSense";
 import { ConsentBanner } from "@/components/consent/ConsentBanner";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -36,8 +37,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full scroll-smooth antialiased`}>
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground selection:bg-zinc-900 selection:text-white">
+        <ScrollToTop />
         <aside
           aria-label="Announcement"
           className="border-b border-zinc-800 bg-[#121316] px-4 py-2 text-center text-xs text-zinc-300"
