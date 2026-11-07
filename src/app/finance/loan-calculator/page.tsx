@@ -481,6 +481,17 @@ export default function LoanCalculatorPage() {
                   Percent of a number, percent change, and more
                 </span>
               </Link>
+              <Link
+                href="/finance/vat-gst-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  VAT, GST &amp; Sales Tax Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Add or remove VAT/GST, or find the tax rate
+                </span>
+              </Link>
 
               <Link
                 href="/date-time/add-subtract-days"

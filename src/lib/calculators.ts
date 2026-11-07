@@ -17,6 +17,7 @@ import {
   PiggyBank,
   ChartColumn,
   ClipboardList,
+  Receipt,
   Ruler,
   Scale,
   Sigma,
@@ -340,7 +341,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     id: "finance",
     title: "Finance",
     description:
-      "Plan loans, interest, savings goals, zakat, and verified US state income tax estimates.",
+      "Plan loans, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
     icon: DollarSign,
     theme: "finance",
     calculators: [
@@ -392,6 +393,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
         reviewedAt: "2026-11-04",
+      },
+      {
+        id: "vat-gst",
+        slug: "vat-gst-calculator",
+        name: "VAT, GST & Sales Tax Calculator",
+        description:
+          "Add or remove VAT, GST or sales tax, or find the tax rate from net and gross prices — with optional equal tax split.",
+        href: "/finance/vat-gst-calculator",
+        icon: Receipt,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
       },
       {
         id: "zakat",

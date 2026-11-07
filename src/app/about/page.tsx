@@ -22,7 +22,7 @@ const PAGE_DESCRIPTION =
   "Who builds CalcDaily, how the calculators are checked, where data comes from, and how to report an error.";
 
 /** Hand-counted from Vitest it() cases under src/lib in the repository. */
-const UNIT_TEST_COUNT = 196;
+const UNIT_TEST_COUNT = 208;
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
