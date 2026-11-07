@@ -341,7 +341,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     id: "finance",
     title: "Finance",
     description:
-      "Plan loans, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
+      "Plan loans, budgets, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
     icon: DollarSign,
     theme: "finance",
     calculators: [
@@ -381,6 +381,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         status: "live",
         addedAt: "2026-10-05",
         reviewedAt: "2026-10-05",
+      },
+      {
+        id: "budget",
+        slug: "budget-calculator",
+        name: "Budget Calculator",
+        description:
+          "Monthly budget with the 50/30/20 rule, custom percentages, or your own expense list — with a calm leftover comparison.",
+        href: "/finance/budget-calculator",
+        icon: ClipboardList,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
       },
       {
         id: "salary-to-hourly",

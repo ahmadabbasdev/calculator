@@ -141,7 +141,15 @@ export default function FinanceCategoryPage() {
               >
                 savings goal
               </Link>{" "}
-              tools estimate growth or required contributions.{" "}
+              tools estimate growth or required contributions. The{" "}
+              <Link
+                href="/finance/budget-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                budget calculator
+              </Link>{" "}
+              splits monthly after-tax income with 50/30/20, custom percentages, or
+              your own expense list.{" "}
               <Link
                 href="/finance/salary-to-hourly-calculator"
                 className="font-medium text-zinc-950 underline underline-offset-2"

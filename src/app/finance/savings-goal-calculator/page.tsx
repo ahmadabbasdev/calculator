@@ -477,6 +477,17 @@ export default function SavingsGoalCalculatorPage() {
                 </span>
               </Link>
               <Link
+                href="/finance/budget-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Budget Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Monthly 50/30/20, custom percentages, or your own list
+                </span>
+              </Link>
+              <Link
                 href="/finance/loan-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
