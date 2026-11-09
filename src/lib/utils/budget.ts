@@ -239,7 +239,7 @@ export function calculateBudget(input: {
     const n = input.customNeeds;
     const w = input.customWants;
     const s = input.customSavings;
-    if (n === null || w === null || s === null) {
+    if (n == null || w == null || s == null) {
       return {
         ok: false,
         error: "empty",
