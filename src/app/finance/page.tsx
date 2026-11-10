@@ -164,6 +164,15 @@ export default function FinanceCategoryPage() {
                 Salary to hourly
               </Link>{" "}
               converts pay periods with hours-per-week assumptions you control.
+              The{" "}
+              <Link
+                href="/finance/freelance-rate-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                freelance rate calculator
+              </Link>{" "}
+              turns a take-home goal into an hourly rate after expenses, tax and
+              billable capacity.
             </p>
             <p className="mt-3">
               The{" "}

@@ -49,3 +49,16 @@ export function hasOwnerPhoto(): boolean {
   if (OWNER_PHOTO === "null" || OWNER_PHOTO === "undefined") return false;
   return true;
 }
+
+/**
+ * Optional short note for the Freelance Rate Calculator ("From my experience").
+ * Leave empty to hide the section. Must not contain {{placeholders}}.
+ */
+export const FREELANCE_NOTE = env("NEXT_PUBLIC_FREELANCE_NOTE", "");
+
+export function hasFreelanceNote(): boolean {
+  if (!FREELANCE_NOTE) return false;
+  if (FREELANCE_NOTE.includes("{{")) return false;
+  if (FREELANCE_NOTE === "null" || FREELANCE_NOTE === "undefined") return false;
+  return true;
+}

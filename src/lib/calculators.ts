@@ -341,7 +341,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     id: "finance",
     title: "Finance",
     description:
-      "Plan loans, debt payoff, budgets, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
+      "Plan loans, debt payoff, freelance rates, budgets, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
     icon: DollarSign,
     theme: "finance",
     calculators: [
@@ -415,6 +415,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
         reviewedAt: "2026-11-04",
+      },
+      {
+        id: "freelance-rate",
+        slug: "freelance-rate-calculator",
+        name: "Freelance Rate Calculator",
+        description:
+          "Find a freelance hourly rate for your take-home goal, or estimate take-home from a rate — with expenses, tax, fees and billable hours.",
+        href: "/finance/freelance-rate-calculator",
+        icon: Briefcase,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
       },
       {
         id: "vat-gst",
