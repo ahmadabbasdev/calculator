@@ -127,7 +127,14 @@ export default function FinanceCategoryPage() {
                 loan calculator
               </Link>{" "}
               uses reducing-balance amortization so you can see payment, interest,
-              and a schedule shape.{" "}
+              and a schedule shape. The{" "}
+              <Link
+                href="/finance/debt-payoff-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                debt payoff calculator
+              </Link>{" "}
+              compares snowball, avalanche and minimums across several balances.{" "}
               <Link
                 href="/finance/compound-interest-calculator"
                 className="font-medium text-zinc-950 underline underline-offset-2"
