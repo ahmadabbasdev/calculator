@@ -499,6 +499,17 @@ export default function SavingsGoalCalculatorPage() {
                 </span>
               </Link>
               <Link
+                href="/finance/debt-payoff-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Debt Payoff Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Snowball, avalanche, and minimums across multiple debts
+                </span>
+              </Link>
+              <Link
                 href="/finance/salary-to-hourly-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
