@@ -341,7 +341,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     id: "finance",
     title: "Finance",
     description:
-      "Plan loans, budgets, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
+      "Plan loans, debt payoff, budgets, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
     icon: DollarSign,
     theme: "finance",
     calculators: [
@@ -356,6 +356,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         status: "live",
         addedAt: "2026-09-20",
         reviewedAt: "2026-09-20",
+      },
+      {
+        id: "debt-payoff",
+        slug: "debt-payoff-calculator",
+        name: "Debt Payoff Calculator",
+        description:
+          "Compare snowball, avalanche, selected order, and minimums-only plans across multiple debts — with schedule and interest totals.",
+        href: "/finance/debt-payoff-calculator",
+        icon: Scale,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
       },
       stateIncomeTaxListing(),
       {
