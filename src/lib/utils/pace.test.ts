@@ -151,26 +151,26 @@ describe("edge cases", () => {
     expect(findPace({ distance: null, distanceUnit: "km", timeSeconds: null }).ok).toBe(
       false,
     );
-    expect(findPace({ distance: 0, distanceUnit: "km", timeSeconds: 60 }).error).toBe(
-      "zero",
-    );
-    expect(findPace({ distance: 5, distanceUnit: "km", timeSeconds: 0 }).error).toBe(
-      "zero",
-    );
+    const zeroDist = findPace({ distance: 0, distanceUnit: "km", timeSeconds: 60 });
+    expect(zeroDist.ok).toBe(false);
+    if (!zeroDist.ok) expect(zeroDist.error).toBe("zero");
+    const zeroTime = findPace({ distance: 5, distanceUnit: "km", timeSeconds: 0 });
+    expect(zeroTime.ok).toBe(false);
+    if (!zeroTime.ok) expect(zeroTime.error).toBe("zero");
   });
 
   it("negatives are blocked", () => {
-    expect(
-      findPace({ distance: -1, distanceUnit: "km", timeSeconds: 60 }).error,
-    ).toBe("negative");
-    expect(
-      findTime({
-        distance: 5,
-        distanceUnit: "km",
-        paceSeconds: -1,
-        paceUnit: "min-per-km",
-      }).error,
-    ).toBe("negative");
+    const negPace = findPace({ distance: -1, distanceUnit: "km", timeSeconds: 60 });
+    expect(negPace.ok).toBe(false);
+    if (!negPace.ok) expect(negPace.error).toBe("negative");
+    const negTime = findTime({
+      distance: 5,
+      distanceUnit: "km",
+      paceSeconds: -1,
+      paceUnit: "min-per-km",
+    });
+    expect(negTime.ok).toBe(false);
+    if (!negTime.ok) expect(negTime.error).toBe("negative");
   });
 
   it("never returns NaN or Infinity on success", () => {

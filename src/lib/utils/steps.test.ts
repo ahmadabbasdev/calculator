@@ -125,31 +125,31 @@ describe("edge cases", () => {
         stepLengthMode: "known",
       }).ok,
     ).toBe(false);
-    expect(
-      calculateSteps({
-        mode: "steps-to-distance",
-        steps: 0,
-        stepLength: 76.2,
-        stepLengthMode: "known",
-      }).error,
-    ).toBe("zero");
-    expect(
-      calculateSteps({
-        mode: "steps-to-distance",
-        steps: -1,
-        stepLength: 76.2,
-        stepLengthMode: "known",
-      }).error,
-    ).toBe("negative");
-    expect(
-      calculateSteps({
-        mode: "distance-to-steps",
-        distance: -2,
-        distanceUnit: "km",
-        stepLength: 70,
-        stepLengthMode: "known",
-      }).error,
-    ).toBe("negative");
+    const zero = calculateSteps({
+      mode: "steps-to-distance",
+      steps: 0,
+      stepLength: 76.2,
+      stepLengthMode: "known",
+    });
+    expect(zero.ok).toBe(false);
+    if (!zero.ok) expect(zero.error).toBe("zero");
+    const negSteps = calculateSteps({
+      mode: "steps-to-distance",
+      steps: -1,
+      stepLength: 76.2,
+      stepLengthMode: "known",
+    });
+    expect(negSteps.ok).toBe(false);
+    if (!negSteps.ok) expect(negSteps.error).toBe("negative");
+    const negDist = calculateSteps({
+      mode: "distance-to-steps",
+      distance: -2,
+      distanceUnit: "km",
+      stepLength: 70,
+      stepLengthMode: "known",
+    });
+    expect(negDist.ok).toBe(false);
+    if (!negDist.ok) expect(negDist.error).toBe("negative");
   });
 
   it("unusual step length still calculates with a note", () => {

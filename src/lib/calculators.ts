@@ -21,7 +21,9 @@ import {
   Ruler,
   Scale,
   Sigma,
+  Flag,
   Footprints,
+  Table2,
   Timer,
   Wallet,
 } from "lucide-react";
@@ -459,7 +461,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
 
     title: "Health & Fitness",
     description:
-      "BMI, calorie needs, running and walking pace, steps to distance, ovulation and fertile-window estimates, pregnancy due dates, and wellness screening tools.",
+      "BMI, calorie needs, running pace, pace charts and race splits, race-time predictions, steps to distance, ovulation and fertile-window estimates, pregnancy due dates, and wellness screening tools.",
     icon: HeartPulse,
     theme: "health",
     calculators: [
@@ -492,9 +494,31 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         slug: "pace-calculator",
         name: "Pace Calculator",
         description:
-          "Running and walking pace from distance and time — convert min/km and min/mile, find finish time or distance, and see splits.",
+          "Running and walking pace from distance and time — convert min/km and min/mile, find finish time or distance, and see km/h and mph.",
         href: "/health/pace-calculator",
         icon: Timer,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
+        id: "pace-chart",
+        slug: "pace-chart",
+        name: "Pace Chart & Splits Calculator",
+        description:
+          "Marathon, half marathon, 5K and 10K pace charts plus goal-time splits — even or adjusted first half, print and CSV.",
+        href: "/health/pace-chart",
+        icon: Table2,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
+        id: "race-time-predictor",
+        slug: "race-time-predictor",
+        name: "Race Time Predictor",
+        description:
+          "Predict equivalent race times from a recent finish with Peter Riegel’s formula — 5K, 10K, half, marathon, and more.",
+        href: "/health/race-time-predictor",
+        icon: Flag,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
       },

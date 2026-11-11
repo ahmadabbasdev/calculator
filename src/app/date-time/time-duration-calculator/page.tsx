@@ -530,6 +530,17 @@ export default function TimeDurationCalculatorPage() {
                 </span>
               </Link>
               <Link
+                href="/health/pace-chart"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Pace Chart &amp; Splits Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Marathon to 5K charts and goal-time splits
+                </span>
+              </Link>
+              <Link
                 href="/health/steps-to-distance-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >
@@ -538,6 +549,17 @@ export default function TimeDurationCalculatorPage() {
                 </span>
                 <span className="text-sm text-muted">
                   Convert steps to km and miles, or estimate walk time
+                </span>
+              </Link>
+              <Link
+                href="/health/race-time-predictor"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Race Time Predictor
+                </span>
+                <span className="text-sm text-muted">
+                  Equivalent race times from a recent finish
                 </span>
               </Link>
             </div>

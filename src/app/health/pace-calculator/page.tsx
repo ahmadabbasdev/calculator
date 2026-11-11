@@ -19,9 +19,9 @@ import {
 const PAGE_PATH = "/health/pace-calculator";
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
 
-const PAGE_TITLE = "Pace Calculator — Running Pace, Speed & Splits";
+const PAGE_TITLE = "Pace Calculator — min/km, min/mile & Speed";
 const PAGE_DESCRIPTION =
-  "Free running and walking pace calculator. Convert min/km and min/mile, find time or distance, and see km/h, mph, and split tables. Results stay in your browser.";
+  "Free running and walking pace calculator. Convert min/km and min/mile, find time or distance, and see km/h and mph. For race charts, use Pace Chart & Splits.";
 
 const COMMON_PACE_ROWS = buildCommonPaceTable();
 
@@ -192,15 +192,22 @@ export default function PaceCalculatorPage() {
           <p className="mt-2 text-base leading-relaxed text-muted sm:text-lg">
             Find running or walking pace from distance and time, solve for finish
             time or distance, or convert min/km, min/mile, km/h, and mph. Includes
-            race presets and a splits table. For clock spans between two times,
-            use the{" "}
+            race presets and a splits table. For full race pace charts and
+            goal-time splits, use the{" "}
+            <Link
+              href="/health/pace-chart"
+              className="font-medium text-foreground underline underline-offset-2"
+            >
+              Pace Chart &amp; Splits Calculator
+            </Link>
+            ; for clock spans between two times, the{" "}
             <Link
               href="/date-time/time-duration-calculator"
               className="font-medium text-foreground underline underline-offset-2"
             >
               Time Duration Calculator
             </Link>
-            ; for general length units, use the{" "}
+            ; for general length units, the{" "}
             <Link
               href="/math/unit-converter"
               className="font-medium text-foreground underline underline-offset-2"
@@ -550,10 +557,33 @@ export default function PaceCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Steps to distance, clock durations, and everyday unit conversion.
+                Race pace charts, predictions, steps to distance, clock
+                durations, and unit conversion.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <a
+                href="/health/pace-chart"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-health/45 hover:bg-cat-health-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Pace Chart &amp; Splits Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Marathon to 5K charts and goal-time splits
+                </span>
+              </a>
+              <a
+                href="/health/race-time-predictor"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-health/45 hover:bg-cat-health-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Race Time Predictor
+                </span>
+                <span className="text-sm text-muted">
+                  Equivalent times from a recent race (Riegel formula)
+                </span>
+              </a>
               <a
                 href="/health/steps-to-distance-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-health/45 hover:bg-cat-health-soft"

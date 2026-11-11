@@ -16,7 +16,7 @@ const theme = getCategoryTheme("health");
 
 const PAGE_TITLE = "Health & Fitness Calculators — CalcDaily";
 const PAGE_DESCRIPTION =
-  "Free health calculators for BMI, calories (TDEE/BMR), running pace, steps to distance, ovulation fertile window, and pregnancy due dates — with formulas and limits explained.";
+  "Free health calculators for BMI, calories (TDEE/BMR), running pace, race-time predictions, steps to distance, ovulation fertile window, and pregnancy due dates.";
 
 export const metadata: Metadata = {
   title: {
@@ -119,10 +119,10 @@ export default function HealthCategoryPage() {
               The health calculators on CalcDaily are screening and planning
               helpers. They apply published formulas — adult BMI cut-offs,
               Mifflin–St Jeor for calorie needs, exact mile-to-kilometre pace
-              conversion, steps-to-distance with step length, calendar-method
-              ovulation dates, and common pregnancy dating methods — then show
-              the arithmetic on the page. They are not a clinic visit, a
-              diagnosis, or a prescription.
+              conversion, Riegel race-time scaling, steps-to-distance with step
+              length, calendar-method ovulation dates, and common pregnancy
+              dating methods — then show the arithmetic on the page. They are
+              not a clinic visit, a diagnosis, or a prescription.
             </p>
             <p className="mt-3">
               Use{" "}
@@ -150,6 +150,13 @@ export default function HealthCategoryPage() {
               </Link>{" "}
               for running or walking pace, finish time, distance, and
               min/km–min/mile conversion. Use the{" "}
+              <Link
+                href="/health/race-time-predictor"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                race time predictor
+              </Link>{" "}
+              for equivalent times at other distances from one finish. Use the{" "}
               <Link
                 href="/health/steps-to-distance-calculator"
                 className="font-medium text-zinc-950 underline underline-offset-2"
