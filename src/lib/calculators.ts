@@ -21,6 +21,8 @@ import {
   Ruler,
   Scale,
   Sigma,
+  Footprints,
+  Timer,
   Wallet,
 } from "lucide-react";
 import { isPalworldVerified } from "@/lib/palworld/load";
@@ -457,7 +459,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
 
     title: "Health & Fitness",
     description:
-      "BMI, calorie needs, ovulation and fertile-window estimates, pregnancy due dates, and wellness screening tools.",
+      "BMI, calorie needs, running and walking pace, steps to distance, ovulation and fertile-window estimates, pregnancy due dates, and wellness screening tools.",
     icon: HeartPulse,
     theme: "health",
     calculators: [
@@ -484,6 +486,28 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         status: "live",
         addedAt: "2026-09-18",
         reviewedAt: "2026-09-18",
+      },
+      {
+        id: "pace",
+        slug: "pace-calculator",
+        name: "Pace Calculator",
+        description:
+          "Running and walking pace from distance and time — convert min/km and min/mile, find finish time or distance, and see splits.",
+        href: "/health/pace-calculator",
+        icon: Timer,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
+        id: "steps-to-distance",
+        slug: "steps-to-distance-calculator",
+        name: "Steps to Distance Calculator",
+        description:
+          "Convert steps to km, miles, meters, and feet — or distance back to steps — with step length and optional walk-time from cadence.",
+        href: "/health/steps-to-distance-calculator",
+        icon: Footprints,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
       },
       {
         id: "ovulation",

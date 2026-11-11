@@ -16,7 +16,7 @@ const theme = getCategoryTheme("health");
 
 const PAGE_TITLE = "Health & Fitness Calculators — CalcDaily";
 const PAGE_DESCRIPTION =
-  "Free health calculators for BMI, calories (TDEE/BMR), ovulation fertile window, and pregnancy due dates — with formulas and limits explained.";
+  "Free health calculators for BMI, calories (TDEE/BMR), running pace, steps to distance, ovulation fertile window, and pregnancy due dates — with formulas and limits explained.";
 
 export const metadata: Metadata = {
   title: {
@@ -118,10 +118,11 @@ export default function HealthCategoryPage() {
             <p className="mt-3">
               The health calculators on CalcDaily are screening and planning
               helpers. They apply published formulas — adult BMI cut-offs,
-              Mifflin–St Jeor for calorie needs, calendar-method ovulation
-              dates, and common pregnancy dating methods — then show the
-              arithmetic on the page. They are not a clinic visit, a diagnosis,
-              or a prescription.
+              Mifflin–St Jeor for calorie needs, exact mile-to-kilometre pace
+              conversion, steps-to-distance with step length, calendar-method
+              ovulation dates, and common pregnancy dating methods — then show
+              the arithmetic on the page. They are not a clinic visit, a
+              diagnosis, or a prescription.
             </p>
             <p className="mt-3">
               Use{" "}
@@ -141,6 +142,21 @@ export default function HealthCategoryPage() {
               </Link>{" "}
               for an estimated BMR and TDEE from age, sex, height, weight, and
               activity. Use the{" "}
+              <Link
+                href="/health/pace-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                pace calculator
+              </Link>{" "}
+              for running or walking pace, finish time, distance, and
+              min/km–min/mile conversion. Use the{" "}
+              <Link
+                href="/health/steps-to-distance-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                steps to distance calculator
+              </Link>{" "}
+              to turn steps into km or miles (or the reverse). Use the{" "}
               <Link
                 href="/health/ovulation-calculator"
                 className="font-medium text-zinc-950 underline underline-offset-2"

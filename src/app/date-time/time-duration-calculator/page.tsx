@@ -518,6 +518,28 @@ export default function TimeDurationCalculatorPage() {
                   Spread a total across days, or find a daily rate
                 </span>
               </Link>
+              <Link
+                href="/health/pace-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Pace Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Running and walking pace, speed, and race splits
+                </span>
+              </Link>
+              <Link
+                href="/health/steps-to-distance-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Steps to Distance Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Convert steps to km and miles, or estimate walk time
+                </span>
+              </Link>
             </div>
           </section>
         </article>
