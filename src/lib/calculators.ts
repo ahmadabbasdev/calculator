@@ -23,7 +23,10 @@ import {
   Sigma,
   Flag,
   Footprints,
+  Home,
+  Sun,
   Table2,
+  Thermometer,
   Timer,
   Wallet,
 } from "lucide-react";
@@ -31,7 +34,13 @@ import { isPalworldVerified } from "@/lib/palworld/load";
 import { SHOW_STATE_TAX_PILOT } from "@/lib/state-tax/config";
 
 /** Theme keys map to `--cat-*` tokens in globals.css */
-export type CategoryTheme = "date" | "finance" | "health" | "math" | "games";
+export type CategoryTheme =
+  | "date"
+  | "finance"
+  | "health"
+  | "math"
+  | "home"
+  | "games";
 
 /** Category slug → theme key (use for route-based calculator pages). */
 export type CategorySlug =
@@ -39,6 +48,7 @@ export type CategorySlug =
   | "finance"
   | "health"
   | "math"
+  | "home-energy"
   | "games";
 
 /**
@@ -83,6 +93,13 @@ export const CATEGORY_COLORS: Record<
     softHex: "#F5F0FE",
     cssVar: "--cat-math",
     softCssVar: "--cat-math-soft",
+  },
+  "home-energy": {
+    theme: "home",
+    hex: "#B45309",
+    softHex: "#FEF3C7",
+    cssVar: "--cat-home",
+    softCssVar: "--cat-home-soft",
   },
   games: {
     theme: "games",
@@ -182,6 +199,18 @@ export const CATEGORY_THEME = {
     ring: "focus:border-cat-math focus:ring-cat-math/20",
     toggle: "peer-checked:bg-cat-math peer-focus-visible:ring-cat-math/40",
     borderSoft: "border-cat-math/30",
+  },
+  home: {
+    icon: "bg-cat-home-soft text-cat-home",
+    badge: "bg-cat-home-soft text-cat-home",
+    hoverBorder: "hover:border-cat-home",
+    soft: "bg-cat-home-soft",
+    text: "text-cat-home",
+    solid: "bg-cat-home",
+    border: "border-cat-home",
+    ring: "focus:border-cat-home focus:ring-cat-home/20",
+    toggle: "peer-checked:bg-cat-home peer-focus-visible:ring-cat-home/40",
+    borderSoft: "border-cat-home/30",
   },
   games: {
     icon: "bg-cat-games-soft text-cat-games",
@@ -642,6 +671,38 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     ],
   },
   {
+    id: "home-energy",
+    title: "Home & Energy",
+    description:
+      "Room heating and cooling capacity estimates, solar system sizing and production helpers.",
+    icon: Home,
+    theme: "home",
+    calculators: [
+      {
+        id: "btu",
+        slug: "btu-calculator",
+        name: "BTU Calculator",
+        description:
+          "Estimate air-conditioner or heater BTU/h from room size — cooling tonnage, kW thermal, and next common size.",
+        href: "/home-energy/btu-calculator",
+        icon: Thermometer,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
+        id: "solar-panel",
+        slug: "solar-panel-calculator",
+        name: "Solar Panel Calculator",
+        description:
+          "Estimate solar system size in kW and panels from electricity use, sun hours and losses — with optional cost, savings and payback.",
+        href: "/home-energy/solar-panel-calculator",
+        icon: Sun,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+    ],
+  },
+  {
     id: "games",
     title: "Games",
     description: "Fan tools for game mechanics — unofficial and data-gated.",
@@ -700,7 +761,7 @@ export function buildLlmsTxt(options: BuildLlmsTxtOptions): string {
   const lines: string[] = [
     `# ${siteName}`,
     "",
-    `${siteName} publishes ${count} browser-based calculator${count === 1 ? "" : "s"} for dates, finance, health, and math. Calculations run in the browser; selecting a country on business-day tools loads a static holiday file for that country.`,
+    `${siteName} publishes ${count} browser-based calculator${count === 1 ? "" : "s"} for dates, finance, health, home energy, and math. Calculations run in the browser; selecting a country on business-day tools loads a static holiday file for that country.`,
     "",
   ];
 

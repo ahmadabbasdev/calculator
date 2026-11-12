@@ -22,7 +22,7 @@ const PAGE_DESCRIPTION =
   "Who builds CalcDaily, how the calculators are checked, where data comes from, and how to report an error.";
 
 /** Hand-counted from Vitest it() cases under src/lib in the repository. */
-const UNIT_TEST_COUNT = 275;
+const UNIT_TEST_COUNT = 293;
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -125,7 +125,7 @@ export default function AboutPage() {
               one worked example with real numbers, limits where the estimate
               breaks down, and an FAQ written for that tool — not a reused
               template paragraph with the name swapped. Related tools are linked
-              so you can move between date, finance, health, and math helpers
+              so you can move between date, finance, health, home energy, and math helpers
               without hunting through a directory of near-identical clones.
             </p>
           </section>

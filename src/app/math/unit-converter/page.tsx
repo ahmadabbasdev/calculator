@@ -423,6 +423,17 @@ export default function UnitConverterPage() {
                   Convert steps to km, miles, meters, and feet
                 </span>
               </Link>
+              <Link
+                href="/home-energy/btu-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  BTU Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Room AC and heater BTU/h, tons, and thermal kW
+                </span>
+              </Link>
             </div>
           </section>
         </article>

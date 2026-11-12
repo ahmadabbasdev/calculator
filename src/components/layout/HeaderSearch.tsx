@@ -46,6 +46,8 @@ const CATEGORY_TAG: Record<string, string> = {
   finance: "Finance",
   health: "Health",
   math: "Math",
+  "home-energy": "Home",
+  games: "Games",
 };
 
 const SECTION_TITLE: Record<string, string> = {
@@ -53,6 +55,8 @@ const SECTION_TITLE: Record<string, string> = {
   finance: "Finance & Mathematics",
   health: "Health Calculators",
   math: "Finance & Mathematics",
+  "home-energy": "Home & Energy Calculators",
+  games: "Games Calculators",
 };
 
 function isMacPlatform(): boolean {

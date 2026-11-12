@@ -360,6 +360,13 @@ export default function HomePage() {
               >
                 health
               </Link>
+              ,{" "}
+              <Link
+                href="/home-energy"
+                className="font-medium text-zinc-900 underline underline-offset-2"
+              >
+                home energy
+              </Link>
               , or{" "}
               <Link
                 href="/math"
