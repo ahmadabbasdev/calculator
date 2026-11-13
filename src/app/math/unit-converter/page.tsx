@@ -434,6 +434,17 @@ export default function UnitConverterPage() {
                   Room AC and heater BTU/h, tons, and thermal kW
                 </span>
               </Link>
+              <Link
+                href="/home-energy/battery-backup-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Battery Backup Time Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  UPS and inverter runtime from volts, Ah and load
+                </span>
+              </Link>
             </div>
           </section>
         </article>
