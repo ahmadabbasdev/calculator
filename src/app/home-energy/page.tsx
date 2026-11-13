@@ -18,7 +18,7 @@ const theme = getCategoryTheme("home-energy");
 
 const PAGE_TITLE = "Home & Energy Calculators — CalcDaily";
 const PAGE_DESCRIPTION =
-  "Free home and energy calculators for BTU room sizing and solar panel system size, production and payback estimates — results stay in your browser.";
+  "Free home and energy calculators for BTU room sizing, solar panel sizing, and battery backup runtime estimates — results stay in your browser.";
 
 export const metadata: Metadata = {
   title: {
@@ -135,9 +135,18 @@ export default function HomeEnergyCategoryPage() {
                 solar panel calculator
               </Link>{" "}
               sizes an array from electricity use, sun hours and losses, with
-              optional cost and payback. Neither tool replaces a professional
-              heat-load design or a qualified solar installer — ask someone
-              qualified before you buy or install equipment.
+              optional cost and payback. The{" "}
+              <Link
+                href="/home-energy/battery-backup-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                battery backup time calculator
+              </Link>{" "}
+              estimates UPS or inverter runtime from volts, amp-hours and load.
+              None of these tools replace a professional heat-load design, a
+              qualified solar installer, or a qualified electrician for battery
+              systems — ask someone qualified before you buy or install
+              equipment.
             </p>
           </section>
 
