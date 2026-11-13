@@ -497,7 +497,8 @@ export default function BtuCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Unit conversion, solar sizing, and battery backup runtime.
+                Unit conversion, solar sizing, electricity cost, and battery
+                backup.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -521,6 +522,17 @@ export default function BtuCalculatorPage() {
                 </span>
                 <span className="text-sm text-muted">
                   System size, panel count, production and payback
+                </span>
+              </a>
+              <a
+                href="/home-energy/electricity-cost-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Electricity Cost Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Watts to kWh and appliance or bill cost estimates
                 </span>
               </a>
               <a

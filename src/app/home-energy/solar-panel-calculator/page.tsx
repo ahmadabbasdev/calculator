@@ -517,10 +517,22 @@ export default function SolarPanelCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Battery backup runtime, heating capacity, and unit conversion.
+                Electricity cost, battery backup, heating capacity, and unit
+                conversion.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <a
+                href="/home-energy/electricity-cost-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Electricity Cost Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Watts to kWh and appliance or bill cost estimates
+                </span>
+              </a>
               <a
                 href="/home-energy/battery-backup-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"

@@ -30,6 +30,7 @@ import {
   Thermometer,
   Timer,
   Wallet,
+  Zap,
 } from "lucide-react";
 import { isPalworldVerified } from "@/lib/palworld/load";
 import { SHOW_STATE_TAX_PILOT } from "@/lib/state-tax/config";
@@ -675,7 +676,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     id: "home-energy",
     title: "Home & Energy",
     description:
-      "Room heating and cooling capacity, solar sizing, and battery backup runtime estimates.",
+      "Room capacity, solar sizing, battery backup runtime, and electricity cost estimates.",
     icon: Home,
     theme: "home",
     calculators: [
@@ -709,6 +710,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
           "Estimate UPS or inverter battery runtime from volts, amp-hours and load, or size how many batteries you need for a target backup time.",
         href: "/home-energy/battery-backup-calculator",
         icon: Battery,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
+        id: "electricity-cost",
+        slug: "electricity-cost-calculator",
+        name: "Electricity Cost Calculator",
+        description:
+          "Convert watts to kWh, estimate appliance running cost from your price per kWh, and model a simple flat or tiered bill.",
+        href: "/home-energy/electricity-cost-calculator",
+        icon: Zap,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
       },
