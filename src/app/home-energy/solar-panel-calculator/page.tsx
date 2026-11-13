@@ -517,10 +517,21 @@ export default function SolarPanelCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Heating and cooling capacity, loan payments, and percent math.
+                Battery backup runtime, heating capacity, and unit conversion.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <a
+                href="/home-energy/battery-backup-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Battery Backup Time Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  UPS and inverter runtime from volts, Ah and load
+                </span>
+              </a>
               <a
                 href="/home-energy/btu-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
@@ -533,25 +544,14 @@ export default function SolarPanelCalculatorPage() {
                 </span>
               </a>
               <a
-                href="/finance/loan-calculator"
+                href="/math/unit-converter"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
               >
                 <span className="text-[15px] font-semibold text-foreground">
-                  Loan Calculator
+                  Unit Converter
                 </span>
                 <span className="text-sm text-muted">
-                  Payment schedules and interest breakdown
-                </span>
-              </a>
-              <a
-                href="/math/percentage-calculator"
-                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
-              >
-                <span className="text-[15px] font-semibold text-foreground">
-                  Percentage Calculator
-                </span>
-                <span className="text-sm text-muted">
-                  Percent of, change, and increase or decrease
+                  Length, mass, volume, temperature and more
                 </span>
               </a>
             </div>
