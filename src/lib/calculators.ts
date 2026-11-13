@@ -23,6 +23,7 @@ import {
   Sigma,
   Flag,
   Footprints,
+  Battery,
   Home,
   Sun,
   Table2,
@@ -674,7 +675,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     id: "home-energy",
     title: "Home & Energy",
     description:
-      "Room heating and cooling capacity estimates, solar system sizing and production helpers.",
+      "Room heating and cooling capacity, solar sizing, and battery backup runtime estimates.",
     icon: Home,
     theme: "home",
     calculators: [
@@ -697,6 +698,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
           "Estimate solar system size in kW and panels from electricity use, sun hours and losses — with optional cost, savings and payback.",
         href: "/home-energy/solar-panel-calculator",
         icon: Sun,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
+        id: "battery-backup",
+        slug: "battery-backup-calculator",
+        name: "Battery Backup Time Calculator",
+        description:
+          "Estimate UPS or inverter battery runtime from volts, amp-hours and load, or size how many batteries you need for a target backup time.",
+        href: "/home-energy/battery-backup-calculator",
+        icon: Battery,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
       },
