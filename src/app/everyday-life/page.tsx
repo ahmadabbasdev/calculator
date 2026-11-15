@@ -18,7 +18,7 @@ const theme = getCategoryTheme("everyday-life");
 
 const PAGE_TITLE = "Everyday Life Calculators — CalcDaily";
 const PAGE_DESCRIPTION =
-  "Free everyday life calculators for land and plot area estimates, marla and kanal conversions, and irregular shapes — results stay in your browser.";
+  "Free everyday life calculators for land area, trip fuel cost, and efficiency conversions — results stay in your browser.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -118,10 +118,16 @@ export default function EverydayLifeCategoryPage() {
                 land area calculator
               </Link>{" "}
               estimates plot area from common shapes or a polygon, and converts
-              between square feet, marla, kanal, acres and related units. It is
-              a calculation aid, not a survey or legal record — local
-              definitions and measured boundaries decide. For general unit
-              conversion outside land area, use the{" "}
+              between square feet, marla, kanal, acres and related units. The{" "}
+              <Link
+                href="/everyday-life/fuel-cost-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                fuel cost calculator
+              </Link>{" "}
+              estimates trip fuel from distance and efficiency, or measures
+              km/L and MPG from a fill-up — without looking up fuel prices. For
+              general unit conversion, use the{" "}
               <Link
                 href="/math/unit-converter"
                 className="font-medium text-zinc-950 underline underline-offset-2"

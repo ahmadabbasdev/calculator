@@ -56,7 +56,7 @@ export type TargetPriceResult =
     }
   | {
       ok: false;
-      error: "unreachable" | "invalid" | "negative" | "empty";
+      error: AveragePriceErrorCode;
       message: string;
     };
 
@@ -374,14 +374,21 @@ export function markToMarket(
   };
 }
 
+function isAveragePriceFailure(
+  value: AveragePriceBreakdown | AveragePriceFailure | BuyMoreResult | MarkResult,
+): value is AveragePriceFailure {
+  return "ok" in value && value.ok === false;
+}
+
 /**
  * Full average-price calculation from purchase rows and optional scenarios.
  */
 export function calculateAveragePrice(
   input: AveragePriceInput,
 ): AveragePriceResult {
-  const base = weightedAverageFromRows(input.rows, input.includeFees);
-  if ("ok" in base && base.ok === false) return base;
+  const baseResult = weightedAverageFromRows(input.rows, input.includeFees);
+  if (isAveragePriceFailure(baseResult)) return baseResult;
+  const base: AveragePriceBreakdown = baseResult;
 
   let buyMore: BuyMoreResult | null = null;
   if (input.buyMoreQuantity !== null && input.buyMorePrice !== null) {
@@ -390,8 +397,8 @@ export function calculateAveragePrice(
       input.buyMoreQuantity,
       input.buyMorePrice,
     );
-    if ("ok" in more && more.ok === false) return more;
-    buyMore = more as BuyMoreResult;
+    if (isAveragePriceFailure(more)) return more;
+    buyMore = more;
   }
 
   let target: TargetPriceResult | null = null;
@@ -406,8 +413,8 @@ export function calculateAveragePrice(
   let mark: MarkResult | null = null;
   if (input.currentPrice !== null) {
     const m = markToMarket(base, input.currentPrice);
-    if ("ok" in m && m.ok === false) return m;
-    mark = m as MarkResult;
+    if (isAveragePriceFailure(m)) return m;
+    mark = m;
   }
 
   return {
@@ -426,7 +433,7 @@ export function averagePriceReferenceRow(
   includeFees: boolean,
 ): AveragePriceBreakdown & { includeFees: boolean } {
   const result = weightedAverageFromRows(rows, includeFees);
-  if ("ok" in result && result.ok === false) {
+  if (isAveragePriceFailure(result)) {
     return {
       includeFees,
       totalQuantity: 0,

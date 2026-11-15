@@ -617,6 +617,17 @@ export default function PaceCalculatorPage() {
                   Convert length, mass, and other everyday units
                 </span>
               </a>
+              <a
+                href="/everyday-life/fuel-cost-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-health/45 hover:bg-cat-health-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Fuel Cost Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Trip fuel cost, km/L, L/100 km and MPG
+                </span>
+              </a>
             </div>
           </section>
         </article>

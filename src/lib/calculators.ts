@@ -24,6 +24,7 @@ import {
   Flag,
   Footprints,
   Battery,
+  Fuel,
   Home,
   LandPlot,
   Sun,
@@ -764,7 +765,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     id: "everyday-life",
     title: "Everyday Life",
     description:
-      "Practical helpers for everyday measurements — plot and land area estimates and conversions.",
+      "Practical helpers for everyday measurements — plot and land area, trip fuel cost, and efficiency conversions.",
     icon: LandPlot,
     theme: "everyday",
     calculators: [
@@ -776,6 +777,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
           "Estimate plot area from rectangle, triangle, trapezoid, four-sided or polygon measurements, and convert marla, kanal, acres and more.",
         href: "/everyday-life/land-area-calculator",
         icon: LandPlot,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
+        id: "fuel-cost",
+        slug: "fuel-cost-calculator",
+        name: "Fuel Cost Calculator",
+        description:
+          "Estimate trip fuel and cost from distance and efficiency, measure km/L or MPG from a fill-up, and convert L/100 km, km/L and MPG.",
+        href: "/everyday-life/fuel-cost-calculator",
+        icon: Fuel,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
       },
