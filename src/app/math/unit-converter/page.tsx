@@ -456,6 +456,17 @@ export default function UnitConverterPage() {
                   Watts to kWh and appliance or bill cost estimates
                 </span>
               </Link>
+              <a
+                href="/everyday-life/land-area-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Land Area Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Plot area, marla, kanal, acres and hectares
+                </span>
+              </a>
             </div>
           </section>
         </article>

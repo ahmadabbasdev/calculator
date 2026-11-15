@@ -25,6 +25,7 @@ import {
   Footprints,
   Battery,
   Home,
+  LandPlot,
   Sun,
   Table2,
   Thermometer,
@@ -42,6 +43,7 @@ export type CategoryTheme =
   | "health"
   | "math"
   | "home"
+  | "everyday"
   | "games";
 
 /** Category slug → theme key (use for route-based calculator pages). */
@@ -51,6 +53,7 @@ export type CategorySlug =
   | "health"
   | "math"
   | "home-energy"
+  | "everyday-life"
   | "games";
 
 /**
@@ -102,6 +105,13 @@ export const CATEGORY_COLORS: Record<
     softHex: "#FEF3C7",
     cssVar: "--cat-home",
     softCssVar: "--cat-home-soft",
+  },
+  "everyday-life": {
+    theme: "everyday",
+    hex: "#0F766E",
+    softHex: "#F0FDFA",
+    cssVar: "--cat-everyday",
+    softCssVar: "--cat-everyday-soft",
   },
   games: {
     theme: "games",
@@ -213,6 +223,19 @@ export const CATEGORY_THEME = {
     ring: "focus:border-cat-home focus:ring-cat-home/20",
     toggle: "peer-checked:bg-cat-home peer-focus-visible:ring-cat-home/40",
     borderSoft: "border-cat-home/30",
+  },
+  everyday: {
+    icon: "bg-cat-everyday-soft text-cat-everyday",
+    badge: "bg-cat-everyday-soft text-cat-everyday",
+    hoverBorder: "hover:border-cat-everyday",
+    soft: "bg-cat-everyday-soft",
+    text: "text-cat-everyday",
+    solid: "bg-cat-everyday",
+    border: "border-cat-everyday",
+    ring: "focus:border-cat-everyday focus:ring-cat-everyday/20",
+    toggle:
+      "peer-checked:bg-cat-everyday peer-focus-visible:ring-cat-everyday/40",
+    borderSoft: "border-cat-everyday/30",
   },
   games: {
     icon: "bg-cat-games-soft text-cat-games",
@@ -727,6 +750,27 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     ],
   },
   {
+    id: "everyday-life",
+    title: "Everyday Life",
+    description:
+      "Practical helpers for everyday measurements — plot and land area estimates and conversions.",
+    icon: LandPlot,
+    theme: "everyday",
+    calculators: [
+      {
+        id: "land-area",
+        slug: "land-area-calculator",
+        name: "Land Area Calculator",
+        description:
+          "Estimate plot area from rectangle, triangle, trapezoid, four-sided or polygon measurements, and convert marla, kanal, acres and more.",
+        href: "/everyday-life/land-area-calculator",
+        icon: LandPlot,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+    ],
+  },
+  {
     id: "games",
     title: "Games",
     description: "Fan tools for game mechanics — unofficial and data-gated.",
@@ -785,7 +829,7 @@ export function buildLlmsTxt(options: BuildLlmsTxtOptions): string {
   const lines: string[] = [
     `# ${siteName}`,
     "",
-    `${siteName} publishes ${count} browser-based calculator${count === 1 ? "" : "s"} for dates, finance, health, home energy, and math. Calculations run in the browser; selecting a country on business-day tools loads a static holiday file for that country.`,
+    `${siteName} publishes ${count} browser-based calculator${count === 1 ? "" : "s"} for dates, finance, health, home energy, everyday life, and math. Calculations run in the browser; selecting a country on business-day tools loads a static holiday file for that country.`,
     "",
   ];
 
