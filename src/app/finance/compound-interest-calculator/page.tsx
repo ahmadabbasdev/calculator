@@ -530,6 +530,17 @@ export default function CompoundInterestCalculatorPage() {
                   Percent of a number, percent change, and more
                 </span>
               </Link>
+              <a
+                href="/finance/average-price-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Average Price Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Weighted average cost from multiple purchases
+                </span>
+              </a>
               <Link
                 href="/date-time/add-subtract-days"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"

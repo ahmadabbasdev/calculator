@@ -7,6 +7,7 @@ export const NO_ANALYTICS_PATHS = [
   "/health/ovulation-calculator",
   "/finance/zakat-calculator",
   "/finance/debt-payoff-calculator",
+  "/finance/average-price-calculator",
 ] as const;
 
 /**

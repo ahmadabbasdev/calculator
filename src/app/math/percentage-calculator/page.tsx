@@ -475,6 +475,17 @@ export default function PercentageCalculatorPage() {
                   Plot area, marla, kanal, acres and hectares
                 </span>
               </a>
+              <a
+                href="/finance/average-price-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Average Price Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Weighted average cost from multiple purchases
+                </span>
+              </a>
               <Link
                 href="/home-energy/solar-panel-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"

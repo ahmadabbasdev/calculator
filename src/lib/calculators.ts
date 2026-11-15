@@ -399,10 +399,21 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     id: "finance",
     title: "Finance",
     description:
-      "Plan loans, debt payoff, freelance rates, budgets, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
+      "Plan loans, debt payoff, average purchase price, freelance rates, budgets, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
     icon: DollarSign,
     theme: "finance",
     calculators: [
+      {
+        id: "average-price",
+        slug: "average-price-calculator",
+        name: "Average Price Calculator",
+        description:
+          "Weighted average purchase price from multiple buys — with fees, a further purchase, target-average price, and a current-price comparison.",
+        href: "/finance/average-price-calculator",
+        icon: ChartColumn,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
       {
         id: "loan-payment",
         slug: "loan-calculator",
