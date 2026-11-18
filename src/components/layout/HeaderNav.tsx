@@ -57,6 +57,7 @@ function isActive(match: string, pathname: string) {
   if (match === "finance") return pathname.startsWith("/finance");
   if (match === "home-energy") return pathname.startsWith("/home-energy");
   if (match === "everyday-life") return pathname.startsWith("/everyday-life");
+  if (match === "creators") return pathname.startsWith("/creators");
   if (match === "games") return pathname.startsWith("/games");
   if (match === "about") return pathname.startsWith("/about");
   if (match === "contact") return pathname.startsWith("/contact");

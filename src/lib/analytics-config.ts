@@ -27,6 +27,8 @@ const NO_ADS_EXACT_PATHS = new Set([
   "/health",
   "/math",
   "/home-energy",
+  "/everyday-life",
+  "/creators",
   "/games",
   "/finance/state-income-tax-calculator",
 ]);
@@ -51,6 +53,8 @@ export function isAdsAllowedPath(pathname: string): boolean {
     "/health/",
     "/math/",
     "/home-energy/",
+    "/everyday-life/",
+    "/creators/",
     "/games/",
   ] as const;
 

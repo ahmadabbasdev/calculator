@@ -481,6 +481,17 @@ export default function AverageCalculatorPage() {
                   Working days with weekends and holidays
                 </span>
               </Link>
+              <a
+                href="/creators/youtube-watch-time-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  YouTube Watch Time Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Views needed, hours from views, and months to a target
+                </span>
+              </a>
             </div>
           </section>
         </article>

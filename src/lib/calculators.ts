@@ -31,6 +31,7 @@ import {
   Table2,
   Thermometer,
   Timer,
+  Video,
   Wallet,
   Zap,
 } from "lucide-react";
@@ -45,6 +46,7 @@ export type CategoryTheme =
   | "math"
   | "home"
   | "everyday"
+  | "creators"
   | "games";
 
 /** Category slug → theme key (use for route-based calculator pages). */
@@ -55,6 +57,7 @@ export type CategorySlug =
   | "math"
   | "home-energy"
   | "everyday-life"
+  | "creators"
   | "games";
 
 /**
@@ -113,6 +116,13 @@ export const CATEGORY_COLORS: Record<
     softHex: "#F0FDFA",
     cssVar: "--cat-everyday",
     softCssVar: "--cat-everyday-soft",
+  },
+  creators: {
+    theme: "creators",
+    hex: "#18181B",
+    softHex: "#F5F5F4",
+    cssVar: "--cat-creators",
+    softCssVar: "--cat-creators-soft",
   },
   games: {
     theme: "games",
@@ -237,6 +247,19 @@ export const CATEGORY_THEME = {
     toggle:
       "peer-checked:bg-cat-everyday peer-focus-visible:ring-cat-everyday/40",
     borderSoft: "border-cat-everyday/30",
+  },
+  creators: {
+    icon: "bg-cat-creators-soft text-cat-creators",
+    badge: "bg-cat-creators-soft text-cat-creators",
+    hoverBorder: "hover:border-cat-creators",
+    soft: "bg-cat-creators-soft",
+    text: "text-cat-creators",
+    solid: "bg-cat-creators",
+    border: "border-cat-creators",
+    ring: "focus:border-cat-creators focus:ring-cat-creators/20",
+    toggle:
+      "peer-checked:bg-cat-creators peer-focus-visible:ring-cat-creators/40",
+    borderSoft: "border-cat-creators/30",
   },
   games: {
     icon: "bg-cat-games-soft text-cat-games",
@@ -794,6 +817,28 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     ],
   },
   {
+    id: "creators",
+    title: "Creators",
+    description:
+      "Arithmetic helpers for watch time, views and average view duration — not programme eligibility advice.",
+    icon: Video,
+    theme: "creators",
+    calculators: [
+      {
+        id: "youtube-watch-time",
+        slug: "youtube-watch-time-calculator",
+        name: "YouTube Watch Time Calculator",
+        description:
+          "Estimate views needed for a watch-hours target, project months to a target with optional growth, or turn one video’s views into hours.",
+        href: "/creators/youtube-watch-time-calculator",
+        icon: Video,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+        reviewedAt: new Date().toISOString().slice(0, 10),
+      },
+    ],
+  },
+  {
     id: "games",
     title: "Games",
     description: "Fan tools for game mechanics — unofficial and data-gated.",
@@ -852,7 +897,7 @@ export function buildLlmsTxt(options: BuildLlmsTxtOptions): string {
   const lines: string[] = [
     `# ${siteName}`,
     "",
-    `${siteName} publishes ${count} browser-based calculator${count === 1 ? "" : "s"} for dates, finance, health, home energy, everyday life, and math. Calculations run in the browser; selecting a country on business-day tools loads a static holiday file for that country.`,
+    `${siteName} publishes ${count} browser-based calculator${count === 1 ? "" : "s"} for dates, finance, health, home energy, everyday life, creators, and math. Calculations run in the browser; selecting a country on business-day tools loads a static holiday file for that country.`,
     "",
   ];
 

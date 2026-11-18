@@ -1,0 +1,137 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { CalculatorCard } from "@/components/home/CalculatorCard";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
+import {
+  CALCULATOR_CATEGORIES,
+  getCategoryTheme,
+} from "@/lib/calculators";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
+
+const category = CALCULATOR_CATEGORIES.find((item) => item.id === "creators")!;
+const theme = getCategoryTheme("creators");
+
+const PAGE_TITLE = "Creators Calculators — CalcDaily";
+const PAGE_DESCRIPTION =
+  "Free creator calculators for watch hours, views needed and average view duration — arithmetic only, results stay in your browser.";
+
+export const metadata: Metadata = {
+  title: { absolute: PAGE_TITLE },
+  description: PAGE_DESCRIPTION,
+  alternates: { canonical: `${SITE_URL}/creators` },
+  openGraph: {
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    type: "website",
+    url: `${SITE_URL}/creators`,
+    siteName: SITE_NAME,
+  },
+  twitter: {
+    card: "summary",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+  },
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Creators",
+      item: `${SITE_URL}/creators`,
+    },
+  ],
+};
+
+export default function CreatorsCategoryPage() {
+  const Icon = category.icon;
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+      />
+      <Header />
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
+        <Breadcrumbs
+          theme={theme}
+          items={[{ label: "Home", href: "/" }, { label: "Creators" }]}
+        />
+
+        <header className="mb-8 max-w-2xl">
+          <div className="mb-3 flex items-center gap-3">
+            <span className="flex size-10 items-center justify-center rounded-xl bg-zinc-950 text-stone-200 shadow-xs">
+              <Icon className="size-5" aria-hidden="true" />
+            </span>
+            <h1 className="text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl">
+              {category.title} Calculators
+            </h1>
+          </div>
+          <p className="text-base text-muted sm:text-lg">{category.description}</p>
+        </header>
+
+        <section aria-labelledby="creators-tools-heading">
+          <h2 id="creators-tools-heading" className="sr-only">
+            Available creators calculators
+          </h2>
+          <div className="grid auto-rows-fr grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {category.calculators.map((calculator) => (
+              <CalculatorCard
+                key={calculator.id}
+                calculator={calculator}
+                theme={theme}
+              />
+            ))}
+          </div>
+        </section>
+
+        <article className="mt-16 max-w-3xl space-y-10 text-[15px] leading-relaxed text-zinc-700">
+          <section aria-labelledby="creators-guide-heading">
+            <h2
+              id="creators-guide-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950"
+            >
+              Watch-time arithmetic, not programme advice
+            </h2>
+            <p className="mt-3">
+              Creators tools on CalcDaily do arithmetic on the numbers you
+              enter. The{" "}
+              <Link
+                href="/creators/youtube-watch-time-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                YouTube watch time calculator
+              </Link>{" "}
+              estimates views needed for a watch-hours target, projects months
+              to a target with optional monthly growth, or converts one
+              video&apos;s views into hours. Targets are editable — check the
+              platform&apos;s official help pages for any current rules. The
+              page does not estimate earnings or recommend ways to get views.
+            </p>
+          </section>
+        </article>
+
+        <div className="mt-12 border-t border-border/80 pt-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 rounded-lg border border-stone-200 bg-white px-3.5 py-2 text-[13px] font-medium text-zinc-900 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
+          >
+            <ArrowLeft className="size-4 text-muted" aria-hidden="true" />
+            Back to all calculators
+          </Link>
+        </div>
+      </main>
+      <Footer />
+    </>
+  );
+}
