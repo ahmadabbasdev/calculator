@@ -12,6 +12,7 @@ import {
   calculateDebtPayoff,
   fromCents,
   strategyLabel,
+  type DebtPayoffMonthDebt,
   type DebtPayoffStrategyId,
 } from "@/lib/utils/debt-payoff";
 
@@ -68,14 +69,18 @@ if (!singlePayoff.ok || !zeroPayoff.ok || !pairPayoff.ok) {
   throw new Error("Debt payoff reference examples failed to calculate.");
 }
 
-const singlePlan = singlePayoff.strategies.minimums;
-const zeroPlan = zeroPayoff.strategies.minimums;
+const singleSuccess = singlePayoff;
+const zeroSuccess = zeroPayoff;
+const pairSuccess = pairPayoff;
+
+const singlePlan = singleSuccess.strategies.minimums;
+const zeroPlan = zeroSuccess.strategies.minimums;
 const singleFinal = singlePlan.schedule[singlePlan.schedule.length - 1];
 const zeroFinal = zeroPlan.schedule[zeroPlan.schedule.length - 1];
 
 function pairMonthDebt(strategy: DebtPayoffStrategyId, debtId: string) {
-  const row = pairPayoff.strategies[strategy].schedule[0]?.debts.find(
-    (debt) => debt.debtId === debtId,
+  const row = pairSuccess.strategies[strategy].schedule[0]?.debts.find(
+    (debt: DebtPayoffMonthDebt) => debt.debtId === debtId,
   );
   if (!row) {
     throw new Error(`Missing month-1 row for ${strategy} ${debtId}.`);

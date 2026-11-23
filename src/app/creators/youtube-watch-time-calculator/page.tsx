@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronDown, Video } from "lucide-react";
 import { YoutubeWatchTimeCalculator } from "@/components/calculators/YoutubeWatchTimeCalculator";
+import { CalculatorEeAtSections } from "@/components/seo/CalculatorEeAtSections";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { LastReviewed } from "@/components/layout/LastReviewed";
+import { getCalculatorEeAt } from "@/lib/calculator-eeat";
 import { findCalculatorByHref } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import {
@@ -19,6 +21,7 @@ import {
 
 const PAGE_PATH = "/creators/youtube-watch-time-calculator";
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
+const EEAT = getCalculatorEeAt(PAGE_PATH);
 
 const PAGE_TITLE = "YouTube Watch Time Calculator";
 const PAGE_DESCRIPTION =
@@ -386,6 +389,8 @@ export default function YoutubeWatchTimeCalculatorPage() {
               </table>
             </div>
           </section>
+
+          {EEAT ? <CalculatorEeAtSections content={EEAT} /> : null}
 
           <section aria-labelledby="faq-heading" className="max-w-3xl">
             <h2

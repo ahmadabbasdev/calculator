@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronDown, Sun } from "lucide-react";
 import { SolarPanelCalculator } from "@/components/calculators/SolarPanelCalculator";
+import { CalculatorEeAtSections } from "@/components/seo/CalculatorEeAtSections";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { LastReviewed } from "@/components/layout/LastReviewed";
+import { getCalculatorEeAt } from "@/lib/calculator-eeat";
 import { findCalculatorByHref } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import {
@@ -18,6 +20,7 @@ import {
 
 const PAGE_PATH = "/home-energy/solar-panel-calculator";
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
+const EEAT = getCalculatorEeAt(PAGE_PATH);
 
 const PAGE_TITLE = "Solar Panel Calculator — Size & Savings";
 const PAGE_DESCRIPTION =
@@ -459,6 +462,8 @@ export default function SolarPanelCalculatorPage() {
               </p>
             </div>
           </section>
+
+          {EEAT ? <CalculatorEeAtSections content={EEAT} /> : null}
 
           <section aria-labelledby="faq-heading">
             <div className="mb-6 max-w-3xl">

@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronDown, Receipt } from "lucide-react";
 import { VatGstCalculator } from "@/components/calculators/VatGstCalculator";
+import { CalculatorEeAtSections } from "@/components/seo/CalculatorEeAtSections";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { LastReviewed } from "@/components/layout/LastReviewed";
+import { getCalculatorEeAt } from "@/lib/calculator-eeat";
 import { findCalculatorByHref } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import {
@@ -16,6 +18,7 @@ import {
 
 const PAGE_PATH = "/finance/vat-gst-calculator";
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
+const EEAT = getCalculatorEeAt(PAGE_PATH);
 
 const PAGE_TITLE = "VAT, GST & Sales Tax Calculator";
 const PAGE_DESCRIPTION =
@@ -477,6 +480,8 @@ export default function VatGstCalculatorPage() {
               .
             </p>
           </section>
+
+          {EEAT ? <CalculatorEeAtSections content={EEAT} /> : null}
 
           <section aria-labelledby="reference-heading">
             <div className="mb-4 max-w-3xl">

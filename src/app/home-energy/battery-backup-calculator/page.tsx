@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Battery, ChevronDown } from "lucide-react";
 import { BatteryBackupCalculator } from "@/components/calculators/BatteryBackupCalculator";
+import { CalculatorEeAtSections } from "@/components/seo/CalculatorEeAtSections";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { LastReviewed } from "@/components/layout/LastReviewed";
+import { getCalculatorEeAt } from "@/lib/calculator-eeat";
 import { findCalculatorByHref } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import {
@@ -18,6 +20,7 @@ import {
 
 const PAGE_PATH = "/home-energy/battery-backup-calculator";
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
+const EEAT = getCalculatorEeAt(PAGE_PATH);
 
 const PAGE_TITLE = "Battery Backup Time Calculator — UPS & Ah";
 const PAGE_DESCRIPTION =
@@ -452,6 +455,8 @@ export default function BatteryBackupCalculatorPage() {
               </table>
             </div>
           </section>
+
+          {EEAT ? <CalculatorEeAtSections content={EEAT} /> : null}
 
           <section aria-labelledby="faq-heading" className="max-w-3xl">
             <h2

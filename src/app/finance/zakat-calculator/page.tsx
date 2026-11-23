@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronDown, HandCoins } from "lucide-react";
 import { ZakatCalculator } from "@/components/calculators/ZakatCalculator";
+import { CalculatorEeAtSections } from "@/components/seo/CalculatorEeAtSections";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { LastReviewed } from "@/components/layout/LastReviewed";
+import { getCalculatorEeAt } from "@/lib/calculator-eeat";
 import { findCalculatorByHref } from "@/lib/calculators";
 import {
   GOLD_NISAB_GRAMS_ALT,
@@ -17,6 +19,7 @@ import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const PAGE_PATH = "/finance/zakat-calculator";
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
+const EEAT = getCalculatorEeAt(PAGE_PATH);
 
 const PAGE_TITLE = "Zakat Calculator - Nisab, Gold, Silver & Savings";
 const PAGE_DESCRIPTION =
@@ -422,6 +425,8 @@ export default function ZakatCalculatorPage() {
               </p>
             </div>
           </section>
+
+          {EEAT ? <CalculatorEeAtSections content={EEAT} /> : null}
 
           <section
             aria-labelledby="faq-heading"

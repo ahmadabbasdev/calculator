@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, Landmark } from "lucide-react";
+import { CalculatorEeAtSections } from "@/components/seo/CalculatorEeAtSections";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { LastReviewed } from "@/components/layout/LastReviewed";
+import { getCalculatorEeAt } from "@/lib/calculator-eeat";
 import { findCalculatorByHref } from "@/lib/calculators";
 import {
   assertStateTaxBuildGates,
@@ -22,6 +24,7 @@ import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const PAGE_PATH = hubHref();
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
+const EEAT = getCalculatorEeAt(PAGE_PATH);
 
 const PAGE_TITLE = "US State Income Tax Calculator - Verified States";
 const PAGE_DESCRIPTION =
@@ -466,6 +469,8 @@ export default function StateIncomeTaxHubPage() {
               revenue department or a tax professional.
             </p>
           </section>
+
+          {EEAT ? <CalculatorEeAtSections content={EEAT} /> : null}
 
           <section aria-labelledby="related-heading">
             <h2
