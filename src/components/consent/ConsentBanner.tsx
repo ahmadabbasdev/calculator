@@ -10,10 +10,12 @@ import {
   subscribe,
   type ConsentStatus,
 } from "@/lib/consent";
+import { updateGtagAnalyticsConsent } from "@/lib/gtag-consent";
 
 /**
  * Fixed bottom consent bar. Renders only after hydration.
- * Does not load analytics itself — Analytics.tsx reacts to setConsent.
+ * Accept/Reject update Consent Mode v2 (analytics_storage) via gtag;
+ * Analytics.tsx always loads gtag with default denied storage.
  */
 export function ConsentBanner() {
   const [hydrated, setHydrated] = useState(false);
@@ -61,6 +63,7 @@ export function ConsentBanner() {
             className="min-h-10 flex-1 rounded-md border border-zinc-400 bg-white px-3 py-2 text-sm font-semibold text-zinc-900 hover:bg-zinc-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:flex-none sm:min-w-[9.5rem]"
             onClick={() => {
               setConsent("denied");
+              updateGtagAnalyticsConsent("denied");
               setForcedOpen(false);
             }}
           >
@@ -70,7 +73,9 @@ export function ConsentBanner() {
             type="button"
             className="min-h-10 flex-1 rounded-md border border-zinc-900 bg-zinc-900 px-3 py-2 text-sm font-semibold text-white hover:bg-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 sm:flex-none sm:min-w-[9.5rem]"
             onClick={() => {
+              // Persist first so Analytics subscribers update Consent Mode + page_view.
               setConsent("granted");
+              updateGtagAnalyticsConsent("granted");
               setForcedOpen(false);
             }}
           >

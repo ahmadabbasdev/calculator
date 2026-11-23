@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { Analytics } from "@/components/analytics/Analytics";
 import { GoogleAdSense } from "@/components/analytics/GoogleAdSense";
+import { GtagBootstrap } from "@/components/analytics/GtagBootstrap";
 import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground selection:bg-zinc-900 selection:text-white">
+        <GtagBootstrap />
         <ScrollToTop />
         <aside
           aria-label="Announcement"

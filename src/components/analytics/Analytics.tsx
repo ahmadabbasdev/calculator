@@ -1,37 +1,28 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Script from "next/script";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import {
-  getConsent,
-  subscribe,
-  type ConsentStatus,
-} from "@/lib/consent";
+import { getConsent, subscribe } from "@/lib/consent";
 import {
   isCanonicalHostname,
   isNoAnalyticsPath,
 } from "@/lib/analytics-config";
+import { updateGtagAnalyticsConsent } from "@/lib/gtag-consent";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-
-declare global {
-  interface Window {
-    dataLayer?: unknown[];
-    gtag?: (...args: unknown[]) => void;
-    [key: `ga-disable-${string}`]: boolean | undefined;
-  }
-}
 
 function setGaDisabled(disabled: boolean) {
   if (!GA_ID || typeof window === "undefined") return;
   window[`ga-disable-${GA_ID}`] = disabled;
 }
 
+/**
+ * Send a page_view under Consent Mode. Fires cookieless pings when storage
+ * is denied (gcs=G100) and full hits when analytics_storage is granted (G110).
+ */
 function sendPageView(pathname: string) {
   if (!GA_ID || typeof window.gtag !== "function") return;
   if (isNoAnalyticsPath(pathname)) return;
-  if (getConsent() !== "granted") return;
   if (!isCanonicalHostname()) return;
   if (window[`ga-disable-${GA_ID}`]) return;
 
@@ -45,76 +36,87 @@ function sendPageView(pathname: string) {
 }
 
 /**
- * Consent-gated GA4. Loads only when consent is granted, host matches
- * NEXT_PUBLIC_SITE_URL, and the path is not in NO_ANALYTICS_PATHS.
+ * Client GA4 wiring on top of GtagBootstrap (Consent Mode v2).
+ * Syncs Accept/Reject to gtag consent updates and sends SPA page_views.
  */
 export function Analytics() {
   const pathname = usePathname();
   const pathnameRef = useRef(pathname);
-  const [consent, setConsentState] = useState<ConsentStatus>("unset");
-  const [hydrated, setHydrated] = useState(false);
-
   pathnameRef.current = pathname;
 
+  const pathBlocked = isNoAnalyticsPath(pathname);
+
   useEffect(() => {
-    setHydrated(true);
-    setConsentState(getConsent());
+    if (!GA_ID) return;
+
+    const sync = () => {
+      const status = getConsent();
+      if (status === "granted") updateGtagAnalyticsConsent("granted");
+      else if (status === "denied") updateGtagAnalyticsConsent("denied");
+    };
+
+    sync();
     return subscribe((next) => {
-      setConsentState(next);
-      if (next !== "granted" && GA_ID) {
-        setGaDisabled(true);
-      }
-      if (next === "granted" && GA_ID) {
-        setGaDisabled(false);
+      if (next === "granted") {
+        updateGtagAnalyticsConsent("granted");
+        // Re-send page_view so the hit upgrades from cookieless (G100) to granted (G110).
+        if (
+          !isNoAnalyticsPath(pathnameRef.current) &&
+          isCanonicalHostname()
+        ) {
+          setGaDisabled(false);
+          sendPageView(pathnameRef.current);
+        }
+      } else if (next === "denied") {
+        updateGtagAnalyticsConsent("denied");
       }
     });
   }, []);
 
-  const pathBlocked = isNoAnalyticsPath(pathname);
-  const mayLoad =
-    hydrated &&
-    Boolean(GA_ID) &&
-    consent === "granted" &&
-    isCanonicalHostname() &&
-    !pathBlocked;
-
   useEffect(() => {
-    if (!hydrated || !GA_ID) return;
+    if (!GA_ID) return;
 
-    if (consent !== "granted" || pathBlocked || !isCanonicalHostname()) {
+    if (pathBlocked || !isCanonicalHostname()) {
       setGaDisabled(true);
       return;
     }
 
     setGaDisabled(false);
-    // Client navigations after gtag is already present
     sendPageView(pathname);
-  }, [hydrated, consent, pathname, pathBlocked]);
+  }, [pathname, pathBlocked]);
 
-  if (!mayLoad || !GA_ID) return null;
+  // Initial hit once gtag.js finishes (bootstrap loads it in layout).
+  useEffect(() => {
+    if (!GA_ID || typeof window === "undefined") return;
 
-  return (
-    <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="afterInteractive"
-        onLoad={() => {
-          setGaDisabled(false);
-          sendPageView(pathnameRef.current);
-        }}
-      />
-      <Script id="ga4-consent-init" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_ID}', {
-            send_page_view: false,
-            allow_google_signals: false,
-            allow_ad_personalization_signals: false
-          });
-        `}
-      </Script>
-    </>
-  );
+    const onReady = () => {
+      const status = getConsent();
+      if (status === "granted") updateGtagAnalyticsConsent("granted");
+      else if (status === "denied") updateGtagAnalyticsConsent("denied");
+      if (!isNoAnalyticsPath(pathnameRef.current) && isCanonicalHostname()) {
+        setGaDisabled(false);
+        sendPageView(pathnameRef.current);
+      }
+    };
+
+    if (typeof window.gtag === "function") {
+      onReady();
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      if (typeof window.gtag === "function") {
+        window.clearInterval(timer);
+        onReady();
+      }
+    }, 50);
+
+    const stop = window.setTimeout(() => window.clearInterval(timer), 8000);
+    return () => {
+      window.clearInterval(timer);
+      window.clearTimeout(stop);
+    };
+  }, []);
+
+  return null;
 }
