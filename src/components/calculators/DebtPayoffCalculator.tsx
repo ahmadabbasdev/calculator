@@ -501,7 +501,7 @@ function ResultsPanel({
             Strategy comparison
           </caption>
           <thead>
-            <tr className="border-b border-border text-[11px] uppercase tracking-wide text-zinc-500">
+            <tr className="border-b border-border text-[12px] text-zinc-600">
               <th scope="col" className="py-2 pr-3 font-semibold">
                 Strategy
               </th>

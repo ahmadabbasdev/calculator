@@ -480,6 +480,17 @@ export default function BudgetCalculatorPage() {
                 </span>
               </Link>
               <Link
+                href="/finance/debt-payoff-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Debt Payoff Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Snowball, avalanche, selected order, and minimums only
+                </span>
+              </Link>
+              <Link
                 href="/math/percentage-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >

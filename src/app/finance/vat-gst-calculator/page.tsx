@@ -8,13 +8,132 @@ import { Header } from "@/components/layout/Header";
 import { LastReviewed } from "@/components/layout/LastReviewed";
 import { findCalculatorByHref } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import {
+  calculateVatGst,
+  splitTaxEvenly,
+  type VatGstSuccess,
+} from "@/lib/utils/vat-gst";
 
 const PAGE_PATH = "/finance/vat-gst-calculator";
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
 
 const PAGE_TITLE = "VAT, GST & Sales Tax Calculator";
 const PAGE_DESCRIPTION =
-  "Add or remove VAT, GST or sales tax from a price, or find the tax rate. Inclusive and exclusive prices with a clear worked step — not income tax advice.";
+  "Add or remove VAT, GST or sales tax, or find the rate from a net and a gross price. Inclusive and exclusive amounts with a worked step — not tax advice.";
+
+function plainAmount(amount: number): string {
+  return amount.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+function plainRate(rate: number): string {
+  return Number(rate.toFixed(4)).toLocaleString("en-US", {
+    maximumFractionDigits: 4,
+  });
+}
+
+function exampleResult(input: {
+  mode: "add" | "remove" | "find-rate";
+  net: number | null;
+  gross: number | null;
+  ratePercent: number | null;
+}): VatGstSuccess {
+  const result = calculateVatGst({ ...input, splitTax: false });
+  if (!result.ok) {
+    throw new Error("VAT reference example failed to calculate.");
+  }
+  return result;
+}
+
+const REFERENCE_ROWS = [
+  {
+    key: "add-18",
+    label: "Add 18% to 1,000",
+    result: exampleResult({
+      mode: "add",
+      net: 1000,
+      gross: null,
+      ratePercent: 18,
+    }),
+  },
+  {
+    key: "remove-18",
+    label: "Remove 18% from 1,180",
+    result: exampleResult({
+      mode: "remove",
+      net: null,
+      gross: 1180,
+      ratePercent: 18,
+    }),
+  },
+  {
+    key: "add-5",
+    label: "Add 5% to 99.99",
+    result: exampleResult({
+      mode: "add",
+      net: 99.99,
+      gross: null,
+      ratePercent: 5,
+    }),
+  },
+  {
+    key: "remove-5",
+    label: "Remove 5% from 104.99",
+    result: exampleResult({
+      mode: "remove",
+      net: null,
+      gross: 104.99,
+      ratePercent: 5,
+    }),
+  },
+  {
+    key: "remove-20",
+    label: "Remove 20% from 120",
+    result: exampleResult({
+      mode: "remove",
+      net: null,
+      gross: 120,
+      ratePercent: 20,
+    }),
+  },
+  {
+    key: "remove-7-5",
+    label: "Remove 7.5% from 107.50",
+    result: exampleResult({
+      mode: "remove",
+      net: null,
+      gross: 107.5,
+      ratePercent: 7.5,
+    }),
+  },
+  {
+    key: "find-15",
+    label: "Net 250 and gross 287.50",
+    result: exampleResult({
+      mode: "find-rate",
+      net: 250,
+      gross: 287.5,
+      ratePercent: null,
+    }),
+  },
+  {
+    key: "zero",
+    label: "Add 0% to 1,000",
+    result: exampleResult({
+      mode: "add",
+      net: 1000,
+      gross: null,
+      ratePercent: 0,
+    }),
+  },
+];
+
+const REMOVE_20 = REFERENCE_ROWS.find((row) => row.key === "remove-20")!.result;
+const WRONG_REMOVE_NET = 120 * (1 - 0.2);
+const SPLIT_180 = splitTaxEvenly(180);
+const SPLIT_005 = splitTaxEvenly(0.05);
 
 export const FAQ_ITEMS = [
   {
@@ -48,9 +167,9 @@ export const FAQ_ITEMS = [
       "Yes. Turn on “Split the tax into two equal parts.” The two parts are rounded in minor units so they add up exactly to the total tax (for example 90 + 90 for 180, or parts that sum to 0.05).",
   },
   {
-    question: "Does this calculator handle income tax, discounts or tips?",
+    question: "When should I use a different calculator?",
     answer:
-      "No. Use the Percentage Calculator for general percent-of and percent-change math, including discounts. This page only adds tax, removes tax, or finds a single rate from net and gross prices.",
+      "This page only adds tax, removes tax, or finds one rate from a net and a gross price. For other percent-of and percent-change calculations, use the Percentage Calculator.",
   },
 ] as const;
 
@@ -180,14 +299,14 @@ export default function VatGstCalculatorPage() {
             is for display only — enter the rate that applies to you.
           </p>
           <p className="mt-3 text-[15px] leading-relaxed text-zinc-700 sm:text-base">
-            For discounts, tips or general percent-of math, use the{" "}
+            For other percent-of math, use the{" "}
             <Link
               href="/math/percentage-calculator"
               className="font-medium text-zinc-900 underline underline-offset-2"
             >
               Percentage Calculator
             </Link>
-            . This page is not an income-tax tool.
+            .
           </p>
         </header>
 
@@ -254,10 +373,12 @@ export default function VatGstCalculatorPage() {
             <div className="max-w-3xl space-y-4 text-[15px] leading-relaxed text-muted">
               <p>
                 People sometimes compute “remove 20%” as gross × (1 − 0.20). On a
-                tax-inclusive 120 that gives 96. The correct reverse of a 20%
-                add-on is 120 ÷ 1.20 = 100, with tax 20. The wrong method treats
-                the rate as a share of the gross; VAT/GST math treats it as a
-                share of the net that was built into the gross.
+                tax-inclusive 120 that gives {plainAmount(WRONG_REMOVE_NET)}. The
+                correct reverse of a 20% add-on is 120 ÷ 1.20 ={" "}
+                {plainAmount(REMOVE_20.net)}, with tax {plainAmount(REMOVE_20.tax)}.
+                The shortcut treats the rate as a share of the gross. VAT, GST
+                and sales-tax math treats it as a share of the net that was built
+                into the gross.
               </p>
               <p>
                 Tax-exclusive prices show the net and add tax at checkout.
@@ -292,13 +413,11 @@ export default function VatGstCalculatorPage() {
                 the same word “GST” with different rate tables.
               </p>
               <p>
-                This calculator does not encode country schedules: enter the
-                percent that applies to your product and date. Quick chips for
-                5%, 10%, 15% and 20% are shortcuts only — not recommendations.
-                Common mistakes include using the wrong base (net versus gross),
-                rounding every line item differently from the invoice total, and
-                applying one rate when an invoice mixes several. For general
-                percentage increase or decrease outside tax, use the{" "}
+                This calculator does not store country schedules. Enter the
+                percent that applies to your product and date. The chips for 5%,
+                10%, 15% and 20% only fill the rate field. They are not a list of
+                official rates. For percent math outside a single tax rate, use
+                the{" "}
                 <Link
                   href="/math/percentage-calculator"
                   className="font-medium text-zinc-900 underline underline-offset-2"
@@ -328,8 +447,18 @@ export default function VatGstCalculatorPage() {
               <li>Reverse-charge mechanisms</li>
               <li>Local rounding rules that differ from half-up to the cent</li>
               <li>Registration thresholds and filing calendars</li>
-              <li>Income tax, payroll tax, discounts or tipping</li>
             </ul>
+            <div className="mt-6 max-w-3xl space-y-4 text-[15px] leading-relaxed text-muted">
+              <p>
+                Two mistakes change the result before any of those limits apply.
+                The first is the wrong base: adding the rate to a price that
+                already includes tax, or removing tax with gross × (1 − rate).
+                The second is rounding. This page rounds the tax and the net to
+                the nearest cent, half up, once for the amounts you type. An
+                invoice that rounds each line and then adds those lines can
+                differ by a cent from rounding the invoice total once.
+              </p>
+            </div>
             <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-muted">
               Related planning tools:{" "}
               <Link
@@ -347,6 +476,125 @@ export default function VatGstCalculatorPage() {
               </Link>
               .
             </p>
+          </section>
+
+          <section aria-labelledby="reference-heading">
+            <div className="mb-4 max-w-3xl">
+              <h2
+                id="reference-heading"
+                className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+              >
+                Reference Figures
+              </h2>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted">
+                Each row is produced by the same function as the calculator, when
+                the page is built. Amounts are in currency units, with no symbol,
+                because the selector only changes display.
+              </p>
+            </div>
+            <div className="overflow-x-auto rounded-xl border border-border/80 bg-panel shadow-card">
+              <table className="min-w-full text-left text-[13px]">
+                <caption className="sr-only">
+                  Add, remove and find-rate examples from the tax function
+                </caption>
+                <thead className="border-b border-border bg-stone-50 text-[12px] text-zinc-600">
+                  <tr>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Example
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Net
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Tax
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Gross
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Rate
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {REFERENCE_ROWS.map((row) => (
+                    <tr
+                      key={row.key}
+                      className="border-b border-border/70 last:border-0"
+                    >
+                      <th
+                        scope="row"
+                        className="px-4 py-2.5 font-medium text-foreground"
+                      >
+                        {row.label}
+                      </th>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {plainAmount(row.result.net)}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {plainAmount(row.result.tax)}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {plainAmount(row.result.gross)}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {plainRate(row.result.ratePercent)}%
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-4 overflow-x-auto rounded-xl border border-border/80 bg-panel shadow-card">
+              <table className="min-w-full text-left text-[13px]">
+                <caption className="sr-only">
+                  Equal tax splits that add back to the total tax
+                </caption>
+                <thead className="border-b border-border bg-stone-50 text-[12px] text-zinc-600">
+                  <tr>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Tax
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Part A
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Part B
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Sum
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { key: "180", tax: 180, split: SPLIT_180 },
+                    { key: "005", tax: 0.05, split: SPLIT_005 },
+                  ].map((row) => (
+                    <tr
+                      key={row.key}
+                      className="border-b border-border/70 last:border-0"
+                    >
+                      <th
+                        scope="row"
+                        className="px-4 py-2.5 font-medium tabular-nums text-foreground"
+                      >
+                        {plainAmount(row.tax)}
+                      </th>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {plainAmount(row.split.partA)}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {plainAmount(row.split.partB)}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {plainAmount(row.split.partA + row.split.partB)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </section>
 
           <section aria-labelledby="faq-heading">
@@ -419,7 +667,7 @@ export default function VatGstCalculatorPage() {
                   Percentage Calculator
                 </span>
                 <span className="text-sm text-muted">
-                  Percent of a number, change, and discounts
+                  Percent of a number and percent change
                 </span>
               </Link>
               <Link

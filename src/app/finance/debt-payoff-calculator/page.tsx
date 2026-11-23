@@ -8,6 +8,12 @@ import { Header } from "@/components/layout/Header";
 import { LastReviewed } from "@/components/layout/LastReviewed";
 import { findCalculatorByHref } from "@/lib/calculators";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import {
+  calculateDebtPayoff,
+  fromCents,
+  strategyLabel,
+  type DebtPayoffStrategyId,
+} from "@/lib/utils/debt-payoff";
 
 const PAGE_PATH = "/finance/debt-payoff-calculator";
 const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
@@ -15,6 +21,122 @@ const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
 const PAGE_TITLE = "Debt Payoff Calculator - Snowball & Avalanche";
 const PAGE_DESCRIPTION =
   "Compare debt snowball, avalanche, selected order, and minimums-only plans. See months to debt-free, interest totals, and a schedule — not financial advice.";
+
+function plainAmount(cents: number): string {
+  return fromCents(cents).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+const singlePayoff = calculateDebtPayoff({
+  debts: [
+    {
+      id: "single",
+      name: "Single",
+      balance: 1000,
+      aprPercent: 12,
+      minimumPayment: 100,
+    },
+  ],
+  monthlyBudget: 100,
+});
+
+const zeroPayoff = calculateDebtPayoff({
+  debts: [
+    {
+      id: "zero",
+      name: "Zero",
+      balance: 600,
+      aprPercent: 0,
+      minimumPayment: 100,
+    },
+  ],
+  monthlyBudget: 100,
+});
+
+const pairPayoff = calculateDebtPayoff({
+  debts: [
+    { id: "A", name: "A", balance: 500, aprPercent: 6, minimumPayment: 25 },
+    { id: "B", name: "B", balance: 3000, aprPercent: 24, minimumPayment: 75 },
+  ],
+  monthlyBudget: 300,
+  selectedOrderIds: ["A", "B"],
+});
+
+if (!singlePayoff.ok || !zeroPayoff.ok || !pairPayoff.ok) {
+  throw new Error("Debt payoff reference examples failed to calculate.");
+}
+
+const singlePlan = singlePayoff.strategies.minimums;
+const zeroPlan = zeroPayoff.strategies.minimums;
+const singleFinal = singlePlan.schedule[singlePlan.schedule.length - 1];
+const zeroFinal = zeroPlan.schedule[zeroPlan.schedule.length - 1];
+
+function pairMonthDebt(strategy: DebtPayoffStrategyId, debtId: string) {
+  const row = pairPayoff.strategies[strategy].schedule[0]?.debts.find(
+    (debt) => debt.debtId === debtId,
+  );
+  if (!row) {
+    throw new Error(`Missing month-1 row for ${strategy} ${debtId}.`);
+  }
+  return row;
+}
+
+const snowA = pairMonthDebt("snowball", "A");
+const snowB = pairMonthDebt("snowball", "B");
+const avalancheA = pairMonthDebt("avalanche", "A");
+const avalancheB = pairMonthDebt("avalanche", "B");
+
+const SUMMARY_ROWS = [
+  {
+    key: "single",
+    scenario: "1,000 at 12%, minimum 100, total 100",
+    months: String(singlePlan.months),
+    interest: plainAmount(singlePlan.totalInterestCents),
+    paid: plainAmount(singlePlan.totalPaidCents),
+    finalPayment: singleFinal
+      ? plainAmount(singleFinal.totalPaymentCents)
+      : "—",
+  },
+  {
+    key: "zero",
+    scenario: "600 at 0%, minimum 100, total 100",
+    months: String(zeroPlan.months),
+    interest: plainAmount(zeroPlan.totalInterestCents),
+    paid: plainAmount(zeroPlan.totalPaidCents),
+    finalPayment: zeroFinal ? plainAmount(zeroFinal.totalPaymentCents) : "—",
+  },
+];
+
+const PAIR_STRATEGY_IDS: DebtPayoffStrategyId[] = [
+  "minimums",
+  "snowball",
+  "avalanche",
+  "selected",
+];
+
+const PAIR_ROWS = PAIR_STRATEGY_IDS.map((id) => {
+  const plan = pairPayoff.strategies[id];
+  return {
+    key: id,
+    strategy: strategyLabel(id),
+    months: plan.paidOff ? String(plan.months) : "Not within 100 years",
+    interest: plan.paidOff ? plainAmount(plan.totalInterestCents) : "—",
+    paid: plan.paidOff ? plainAmount(plan.totalPaidCents) : "—",
+  };
+});
+
+const MONTH1_ROWS = (["snowball", "avalanche"] as const).flatMap((id) =>
+  [pairMonthDebt(id, "A"), pairMonthDebt(id, "B")].map((debt) => ({
+    key: `${id}-${debt.debtId}`,
+    strategy: strategyLabel(id),
+    debt: debt.debtId,
+    interest: plainAmount(debt.interestCents),
+    payment: plainAmount(debt.paymentCents),
+    balance: plainAmount(debt.balanceAfterCents),
+  })),
+);
 
 export const FAQ_ITEMS = [
   {
@@ -40,7 +162,7 @@ export const FAQ_ITEMS = [
   {
     question: "Is this the same as a loan calculator?",
     answer:
-      "No. This page compares payoff order across multiple existing debts. For a single loan’s payment, amortization schedule or EMI estimate, use the Loan Calculator.",
+      "No. This page compares payoff order across several existing debts. For one loan’s monthly payment, use the Loan Calculator.",
   },
   {
     question: "What does the calculator not model?",
@@ -180,7 +302,7 @@ export default function DebtPayoffCalculatorPage() {
             your browser.
           </p>
           <p className="mt-3 text-[15px] leading-relaxed text-zinc-700 sm:text-base">
-            For a single loan payment or amortization schedule, use the{" "}
+            For one loan’s monthly payment, use the{" "}
             <Link
               href="/finance/loan-calculator"
               className="font-medium text-zinc-900 underline underline-offset-2"
@@ -204,9 +326,6 @@ export default function DebtPayoffCalculatorPage() {
               >
                 How Snowball and Avalanche Work
               </h2>
-              <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Same monthly total — different order for the leftover.
-              </p>
             </div>
             <div className="max-w-3xl space-y-4 text-[15px] leading-relaxed text-muted">
               <p>
@@ -214,8 +333,7 @@ export default function DebtPayoffCalculatorPage() {
                 and minimum payment, then enter the total you can put toward all
                 debt payments each month. That total must be at least the sum of
                 the minimums. Every strategy first covers those minimums; what
-                remains is the “extra.” Names are optional — leave them blank if
-                you only care about the numbers.
+                remains is the “extra.” Names are optional.
               </p>
               <p>
                 Snowball sends extra to the smallest balance first. Avalanche
@@ -229,12 +347,15 @@ export default function DebtPayoffCalculatorPage() {
               <p>
                 Worked month-1 example: debt A is 500 at 6% with a 25 minimum;
                 debt B is 3,000 at 24% with a 75 minimum; the total monthly
-                amount is 300. Interest that month is 2.50 on A and 60.00 on B.
-                Under snowball, A receives 225 (balance 277.50) and B receives
-                75 (balance 2,985.00). Under avalanche, B receives 275 (balance
-                2,785.00) and A receives 25 (balance 477.50). The comparison
-                table then shows months to debt-free, total interest and total
-                paid for each strategy side by side.
+                amount is 300. Interest that month is {plainAmount(snowA.interestCents)} on
+                A and {plainAmount(snowB.interestCents)} on B. Under snowball, A receives{" "}
+                {plainAmount(snowA.paymentCents)} (balance {plainAmount(snowA.balanceAfterCents)})
+                and B receives {plainAmount(snowB.paymentCents)} (balance{" "}
+                {plainAmount(snowB.balanceAfterCents)}). Under avalanche, B receives{" "}
+                {plainAmount(avalancheB.paymentCents)} (balance{" "}
+                {plainAmount(avalancheB.balanceAfterCents)}) and A receives{" "}
+                {plainAmount(avalancheA.paymentCents)} (balance{" "}
+                {plainAmount(avalancheA.balanceAfterCents)}).
               </p>
               <p>
                 Avalanche usually costs the least interest in this model. Some
@@ -255,7 +376,7 @@ export default function DebtPayoffCalculatorPage() {
                 Interest, Minimums and Rolling Payments
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Why early months can feel slow — and how freed minimums help.
+                Why the first months can move slowly.
               </p>
             </div>
             <div className="max-w-3xl space-y-4 text-[15px] leading-relaxed text-muted">
@@ -264,38 +385,34 @@ export default function DebtPayoffCalculatorPage() {
                 cents, then applies payments. On a large or high-rate balance, a
                 minimum may cover little more than that month’s interest, so the
                 principal moves slowly at first. Extra above the minimums is
-                what shortens the timeline. A simple one-debt check: 1,000 at
-                12% with a 100 payment takes 11 months and about 58.98 in
-                interest in this model — most of the early payment still leaves
-                a sizeable balance.
+                what shortens the timeline. A one-debt check from the same
+                function: 1,000 at 12% with a 100 payment takes {singlePlan.months}{" "}
+                months, interest is {plainAmount(singlePlan.totalInterestCents)}, and the
+                last payment is{" "}
+                {singleFinal ? plainAmount(singleFinal.totalPaymentCents) : "—"}.
               </p>
               <p>
                 If a minimum does not cover a debt’s monthly interest and you
                 have no extra in the total, the balance cannot fall in this
                 model — the tool states that clearly. Raising the total monthly
                 amount (or the minimum on that debt) is how the simulation can
-                progress. Zero-percent debts are supported: a 600 balance with
-                100 per month clears in six months with no interest.
+                progress. A 0% balance of 600 with 100 per month clears in{" "}
+                {zeroPlan.months} months with {plainAmount(zeroPlan.totalInterestCents)}{" "}
+                interest in this model.
               </p>
               <p>
                 Rolling means the monthly total stays fixed after a debt is
                 cleared under snowball, avalanche or selected order. The payment
                 that used to satisfy that debt’s minimum becomes additional
-                principal for the next target. Over time the focused payment on
-                the remaining debts grows without you raising the overall
-                budget. Minimums-only does not do that roll — when a debt ends,
-                that minimum simply stops.
+                principal for the next target. Minimums-only does not do that
+                roll — when a debt ends, that minimum simply stops.
               </p>
               <p>
-                Choosing a strategy is personal. If seeing accounts reach zero
-                helps you stay consistent, snowball or a custom order may fit.
-                If minimizing modelled interest matters most, compare avalanche
-                in the table. Neutral difference lines (for example how much
-                less interest avalanche costs than snowball in your scenario)
-                are there for comparison, not as instructions about what you
-                must do. You can switch focus between strategies without
-                re-entering the debts, expand yearly schedule rows, or download
-                a CSV built in the browser.
+                Choosing a strategy is personal. If seeing a balance reach zero
+                helps you stay consistent, snowball or your own order may fit.
+                If the interest total matters most, compare avalanche in the
+                table. Those difference lines are for comparison. They are not
+                instructions about what you must do.
               </p>
             </div>
           </section>
@@ -309,28 +426,27 @@ export default function DebtPayoffCalculatorPage() {
                 What This Calculator Does Not Cover
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                A simplified monthly model for comparison, not a lender statement.
+                A monthly model for comparison, not a lender statement.
               </p>
             </div>
             <div className="max-w-3xl space-y-4 text-[15px] leading-relaxed text-muted">
               <p>
                 The calculator does not model variable rates, new purchases on a
-                card, fees, promotional or deferred-interest periods, or
-                differences in how lenders calculate interest (including daily
-                compounding). Real statements can diverge from these estimates.
-                Runs stop at 1,200 months; if balances remain, the result says
-                the debts are not paid off within 100 years at that payment.
+                card, fees, promotional rates, or differences in how lenders
+                calculate interest. Real statements can diverge from these
+                estimates. Runs stop at 1,200 months; if balances remain, the
+                result says the debts are not paid off within 100 years at that
+                payment.
               </p>
               <p>
-                It also does not price a new loan or show amortization for a
-                single advance — use the{" "}
+                It also does not price a new loan — use the{" "}
                 <Link
                   href="/finance/loan-calculator"
                   className="font-medium text-zinc-900 underline underline-offset-2"
                 >
                   Loan Calculator
                 </Link>{" "}
-                for that. Growth of savings is covered by the{" "}
+                for a single payment estimate. Growth of savings is covered by the{" "}
                 <Link
                   href="/finance/compound-interest-calculator"
                   className="font-medium text-zinc-900 underline underline-offset-2"
@@ -344,6 +460,13 @@ export default function DebtPayoffCalculatorPage() {
                 >
                   Savings Goal Calculator
                 </Link>
+                . A monthly split of after-tax income is on the{" "}
+                <Link
+                  href="/finance/budget-calculator"
+                  className="font-medium text-zinc-900 underline underline-offset-2"
+                >
+                  Budget Calculator
+                </Link>
                 . Inputs never go into the URL, storage, cookies, analytics or
                 logs, and this page does not load analytics.
               </p>
@@ -352,6 +475,199 @@ export default function DebtPayoffCalculatorPage() {
                 to contact your lender or a not-for-profit credit counselling
                 service in your country.
               </p>
+            </div>
+          </section>
+
+          <section aria-labelledby="mistakes-heading">
+            <div className="mb-6 max-w-3xl">
+              <h2
+                id="mistakes-heading"
+                className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+              >
+                Common Mistakes
+              </h2>
+            </div>
+            <div className="max-w-3xl space-y-4 text-[15px] leading-relaxed text-muted">
+              <p>
+                An APR of 0.12 is 0.12 percent, not 12 percent. A blank APR is
+                treated as zero. A row with no balance is skipped, so a
+                half-finished line does not change the result. If the total
+                monthly amount is under the sum of the minimums, the page shows
+                a calm message and no schedule.
+              </p>
+              <p>
+                Minimums-only does not roll a cleared payment forward. Snowball,
+                avalanche and selected order keep the same total and send that
+                amount to the next debt. A gap versus a statement often comes
+                from a fee, a rate that changed, or a lender method this monthly
+                model does not use.
+              </p>
+            </div>
+          </section>
+
+          <section aria-labelledby="reference-heading">
+            <div className="mb-4 max-w-3xl">
+              <h2
+                id="reference-heading"
+                className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+              >
+                Reference Figures
+              </h2>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted">
+                Rows below come from the same payoff function as the form, at
+                build time. They are checks, not a suggested payment.
+              </p>
+            </div>
+            <div className="overflow-x-auto rounded-xl border border-border/80 bg-panel shadow-card">
+              <table className="min-w-full text-left text-[13px]">
+                <caption className="sr-only">
+                  One-debt examples from the payoff function
+                </caption>
+                <thead className="border-b border-border bg-stone-50 text-[12px] text-zinc-600">
+                  <tr>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Example
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Months
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Interest
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Total paid
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Final payment
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {SUMMARY_ROWS.map((row) => (
+                    <tr
+                      key={row.key}
+                      className="border-b border-border/70 last:border-0"
+                    >
+                      <th
+                        scope="row"
+                        className="px-4 py-2.5 font-medium text-foreground"
+                      >
+                        {row.scenario}
+                      </th>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {row.months}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {row.interest}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {row.paid}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {row.finalPayment}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-4 overflow-x-auto rounded-xl border border-border/80 bg-panel shadow-card">
+              <table className="min-w-full text-left text-[13px]">
+                <caption className="sr-only">
+                  Month 1 for debt A and debt B under snowball and avalanche
+                </caption>
+                <thead className="border-b border-border bg-stone-50 text-[12px] text-zinc-600">
+                  <tr>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Strategy
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Debt
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Interest
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Payment
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Balance after
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {MONTH1_ROWS.map((row) => (
+                    <tr
+                      key={row.key}
+                      className="border-b border-border/70 last:border-0"
+                    >
+                      <th
+                        scope="row"
+                        className="px-4 py-2.5 font-medium text-foreground"
+                      >
+                        {row.strategy}
+                      </th>
+                      <td className="px-4 py-2.5 text-zinc-700">{row.debt}</td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {row.interest}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {row.payment}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {row.balance}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-4 overflow-x-auto rounded-xl border border-border/80 bg-panel shadow-card">
+              <table className="min-w-full text-left text-[13px]">
+                <caption className="sr-only">
+                  Full run for debts A and B with a total monthly amount of 300
+                </caption>
+                <thead className="border-b border-border bg-stone-50 text-[12px] text-zinc-600">
+                  <tr>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Strategy for A and B
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Months
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Interest
+                    </th>
+                    <th scope="col" className="px-4 py-3 font-semibold">
+                      Total paid
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {PAIR_ROWS.map((row) => (
+                    <tr
+                      key={row.key}
+                      className="border-b border-border/70 last:border-0"
+                    >
+                      <th
+                        scope="row"
+                        className="px-4 py-2.5 font-medium text-foreground"
+                      >
+                        {row.strategy}
+                      </th>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {row.months}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {row.interest}
+                      </td>
+                      <td className="px-4 py-2.5 tabular-nums text-zinc-700">
+                        {row.paid}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </section>
 
@@ -433,7 +749,7 @@ export default function DebtPayoffCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Single-loan payments, growth estimates and savings timelines.
+                A single loan payment, growth estimates, a savings timeline, and a monthly budget.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -445,7 +761,7 @@ export default function DebtPayoffCalculatorPage() {
                   Loan Calculator
                 </span>
                 <span className="text-sm text-muted">
-                  Monthly payment (EMI) and amortization
+                  Monthly payment for a single loan
                 </span>
               </Link>
               <Link
@@ -468,6 +784,17 @@ export default function DebtPayoffCalculatorPage() {
                 </span>
                 <span className="text-sm text-muted">
                   Monthly amount or time needed to reach a goal
+                </span>
+              </Link>
+              <Link
+                href="/finance/budget-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Budget Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Monthly 50/30/20 split, custom percentages, or your own list
                 </span>
               </Link>
             </div>

@@ -412,7 +412,7 @@ export function calculateDebtPayoff(input: {
         ok: false,
         error: "interest_not_covered",
         message:
-          "At least one minimum payment does not cover that debt’s monthly interest, and there is no extra amount in the total to reduce the balance. Raise the minimum or the total monthly amount.",
+          "A minimum does not cover interest on at least one debt, and the total monthly amount has no extra beyond the minimums to bring that balance down.",
       };
     }
     warnings.push(

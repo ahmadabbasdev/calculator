@@ -192,6 +192,38 @@ describe("calculateVatGst — hand-checked cases", () => {
     if (!rate.ok) expect(rate.error).toBe("rate_out_of_range");
   });
 
+  it("rejects a number too large to display and ignores timezone", () => {
+    const huge = calculateVatGst({
+      mode: "add",
+      net: Number.MAX_VALUE,
+      gross: null,
+      ratePercent: 20,
+      splitTax: false,
+    });
+    expect(huge.ok).toBe(false);
+    if (!huge.ok) expect(huge.error).toBe("invalid");
+
+    const before = process.env.TZ;
+    process.env.TZ = "Pacific/Kiritimati";
+    const a = calculateVatGst({
+      mode: "remove",
+      net: null,
+      gross: 107.5,
+      ratePercent: 7.5,
+      splitTax: true,
+    });
+    process.env.TZ = "America/New_York";
+    const b = calculateVatGst({
+      mode: "remove",
+      net: null,
+      gross: 107.5,
+      ratePercent: 7.5,
+      splitTax: true,
+    });
+    process.env.TZ = before;
+    expect(a).toEqual(b);
+  });
+
   it("returns empty state when inputs are missing", () => {
     const r = calculateVatGst({
       mode: "add",

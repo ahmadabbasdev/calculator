@@ -52,7 +52,7 @@ export function VatGstCalculator() {
   const [mode, setMode] = useState<VatGstMode>("add");
   const [netRaw, setNetRaw] = useState("");
   const [grossRaw, setGrossRaw] = useState("");
-  const [rateRaw, setRateRaw] = useState("18");
+  const [rateRaw, setRateRaw] = useState("");
   const [currencyId, setCurrencyId] = useState("USD");
   const [splitTax, setSplitTax] = useState(false);
 
@@ -86,7 +86,7 @@ export function VatGstCalculator() {
     setMode("add");
     setNetRaw("");
     setGrossRaw("");
-    setRateRaw("18");
+    setRateRaw("");
     setCurrencyId("USD");
     setSplitTax(false);
   }
@@ -298,8 +298,7 @@ export function VatGstCalculator() {
                 className="mt-0.5 size-4 rounded border-border text-cat-finance focus:ring-cat-finance/30"
               />
               <label htmlFor={splitId} className="text-[13px] leading-snug text-zinc-700">
-                Split the tax into two equal parts (for example CGST and SGST in
-                India)
+                Split the tax into two equal parts (for example CGST and SGST)
               </label>
             </div>
 
