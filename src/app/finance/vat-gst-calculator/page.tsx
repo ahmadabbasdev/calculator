@@ -658,7 +658,7 @@ export default function VatGstCalculatorPage() {
                 Percent math, pay conversion, and loan payments.
               </p>
             </div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
               <Link
                 href="/math/percentage-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
@@ -668,6 +668,17 @@ export default function VatGstCalculatorPage() {
                 </span>
                 <span className="text-sm text-muted">
                   Percent of a number and percent change
+                </span>
+              </Link>
+              <Link
+                href="/finance/profit-margin-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Profit Margin Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Margin, markup, and selling price from cost
                 </span>
               </Link>
               <Link

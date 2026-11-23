@@ -390,6 +390,17 @@ export default function SalaryToHourlyCalculatorPage() {
                 </span>
               </Link>
               <Link
+                href="/finance/profit-margin-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Profit Margin Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Margin, markup, and selling price from cost
+                </span>
+              </Link>
+              <Link
                 href="/finance/savings-goal-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >

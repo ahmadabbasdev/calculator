@@ -532,6 +532,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
         addedAt: new Date().toISOString().slice(0, 10),
       },
       {
+        id: "profit-margin",
+        slug: "profit-margin-calculator",
+        name: "Profit Margin Calculator",
+        description:
+          "Find profit, margin and markup from cost and price, or solve for selling price and cost — with optional fees and units.",
+        href: "/finance/profit-margin-calculator",
+        icon: ChartColumn,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
         id: "zakat",
         slug: "zakat-calculator",
         name: "Zakat Calculator",
