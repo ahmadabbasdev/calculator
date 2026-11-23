@@ -79,6 +79,7 @@ function NavLink({
   return (
     <Link
       href={item.href}
+      prefetch={false}
       className={`${active ? linkActive : linkIdle} ${className}`}
       aria-current={active ? "page" : undefined}
       onClick={onNavigate}
@@ -212,6 +213,7 @@ export function HeaderNav({
                   key={item.href}
                   role="menuitem"
                   href={item.href}
+                  prefetch={false}
                   className={`block rounded-lg px-3 py-2 text-sm ${
                     active
                       ? "bg-stone-200/70 font-semibold text-zinc-950"

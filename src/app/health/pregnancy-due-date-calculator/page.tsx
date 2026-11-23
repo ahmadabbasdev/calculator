@@ -492,6 +492,7 @@ export default function PregnancyDueDateCalculatorPage() {
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Link
+                prefetch={false}
                 href="/health/ovulation-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
@@ -503,6 +504,7 @@ export default function PregnancyDueDateCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/date-time/add-subtract-days"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >

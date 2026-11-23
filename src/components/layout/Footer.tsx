@@ -60,6 +60,7 @@ export function Footer() {
                   <li key={tool.id}>
                     <Link
                       href={tool.href!}
+                      prefetch={false}
                       className="transition-colors hover:text-zinc-950"
                     >
                       {tool.name}
@@ -78,6 +79,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/calculators"
+                  prefetch={false}
                   className="transition-colors hover:text-zinc-950"
                 >
                   All calculators
@@ -86,6 +88,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/about"
+                  prefetch={false}
                   className="transition-colors hover:text-zinc-950"
                 >
                   About
@@ -94,6 +97,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/contact"
+                  prefetch={false}
                   className="transition-colors hover:text-zinc-950"
                 >
                   Contact
@@ -102,6 +106,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/privacy"
+                  prefetch={false}
                   className="transition-colors hover:text-zinc-950"
                 >
                   Privacy
@@ -110,6 +115,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/terms"
+                  prefetch={false}
                   className="transition-colors hover:text-zinc-950"
                 >
                   Terms
@@ -118,18 +124,19 @@ export function Footer() {
               <li>
                 <Link
                   href="/disclaimer"
+                  prefetch={false}
                   className="transition-colors hover:text-zinc-950"
                 >
                   Disclaimer
                 </Link>
               </li>
               <li>
-                <Link
+                <a
                   href="/sitemap.xml"
                   className="transition-colors hover:text-zinc-950"
                 >
                   Sitemap
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -142,6 +149,7 @@ export function Footer() {
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <Link
               href="/privacy"
+              prefetch={false}
               className="transition-colors hover:text-zinc-900"
             >
               Privacy
@@ -149,6 +157,7 @@ export function Footer() {
             <span aria-hidden="true">•</span>
             <Link
               href="/terms"
+              prefetch={false}
               className="transition-colors hover:text-zinc-900"
             >
               Terms
@@ -156,6 +165,7 @@ export function Footer() {
             <span aria-hidden="true">•</span>
             <Link
               href="/disclaimer"
+              prefetch={false}
               className="transition-colors hover:text-zinc-900"
             >
               Disclaimer
@@ -163,12 +173,12 @@ export function Footer() {
             <span aria-hidden="true">•</span>
             <CookieSettingsButton />
             <span aria-hidden="true">•</span>
-            <Link
+            <a
               href="/sitemap.xml"
               className="transition-colors hover:text-zinc-900"
             >
               Sitemap
-            </Link>
+            </a>
           </div>
         </div>
       </div>

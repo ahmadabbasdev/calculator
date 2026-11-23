@@ -96,6 +96,7 @@ export default function CalculatorsDirectoryPage() {
                   </h2>
                   <Link
                     href={`/${category.id}`}
+                    prefetch={false}
                     className="text-sm font-medium text-zinc-700 underline underline-offset-2"
                   >
                     Category page

@@ -665,6 +665,7 @@ export default function VatGstCalculatorPage() {
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
               <Link
+                prefetch={false}
                 href="/math/percentage-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -676,6 +677,7 @@ export default function VatGstCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/profit-margin-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -687,6 +689,7 @@ export default function VatGstCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/salary-to-hourly-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -698,6 +701,7 @@ export default function VatGstCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/loan-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >

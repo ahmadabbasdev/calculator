@@ -358,6 +358,7 @@ export default function UnitConverterPage() {
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <Link
+                prefetch={false}
                 href="/math/percentage-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -369,6 +370,7 @@ export default function UnitConverterPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/zakat-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -380,6 +382,7 @@ export default function UnitConverterPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/health/bmi-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -391,6 +394,7 @@ export default function UnitConverterPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/health/calorie-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -402,6 +406,7 @@ export default function UnitConverterPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/health/pace-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -413,6 +418,7 @@ export default function UnitConverterPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/health/steps-to-distance-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -424,6 +430,7 @@ export default function UnitConverterPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/home-energy/btu-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -435,6 +442,7 @@ export default function UnitConverterPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/home-energy/battery-backup-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -446,6 +454,7 @@ export default function UnitConverterPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/home-energy/electricity-cost-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >

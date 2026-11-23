@@ -368,6 +368,7 @@ export default function SalaryToHourlyCalculatorPage() {
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <Link
+                prefetch={false}
                 href="/math/percentage-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -379,6 +380,7 @@ export default function SalaryToHourlyCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/vat-gst-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -390,6 +392,7 @@ export default function SalaryToHourlyCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/profit-margin-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -401,6 +404,7 @@ export default function SalaryToHourlyCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/savings-goal-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -412,6 +416,7 @@ export default function SalaryToHourlyCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/budget-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -423,6 +428,7 @@ export default function SalaryToHourlyCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/freelance-rate-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -434,6 +440,7 @@ export default function SalaryToHourlyCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/loan-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -445,6 +452,7 @@ export default function SalaryToHourlyCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/date-time/time-duration-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
@@ -457,6 +465,7 @@ export default function SalaryToHourlyCalculatorPage() {
               </Link>
               {SHOW_STATE_TAX_PILOT ? (
                 <Link
+                prefetch={false}
                   href="/finance/state-income-tax-calculator"
                   className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
                 >

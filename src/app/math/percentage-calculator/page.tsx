@@ -409,6 +409,7 @@ export default function PercentageCalculatorPage() {
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <Link
+                prefetch={false}
                 href="/math/grade-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -420,6 +421,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/math/gpa-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -431,6 +433,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/math/average-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -442,6 +445,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/math/average-per-day-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -454,6 +458,7 @@ export default function PercentageCalculatorPage() {
               </Link>
 
               <Link
+                prefetch={false}
                 href="/math/unit-converter"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -509,6 +514,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </a>
               <Link
+                prefetch={false}
                 href="/home-energy/solar-panel-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -520,6 +526,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/home-energy/electricity-cost-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -531,6 +538,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/zakat-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -542,6 +550,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/vat-gst-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -553,6 +562,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/profit-margin-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -564,6 +574,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/budget-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -575,6 +586,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/freelance-rate-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -586,6 +598,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/loan-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -597,6 +610,7 @@ export default function PercentageCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/salary-to-hourly-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >
@@ -609,6 +623,7 @@ export default function PercentageCalculatorPage() {
               </Link>
               {SHOW_STATE_TAX_PILOT ? (
                 <Link
+                prefetch={false}
                   href="/finance/state-income-tax-calculator"
                   className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
                 >
@@ -621,6 +636,7 @@ export default function PercentageCalculatorPage() {
                 </Link>
               ) : null}
               <Link
+                prefetch={false}
                 href="/finance/compound-interest-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-math/45 hover:bg-cat-math-soft"
               >

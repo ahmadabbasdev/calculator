@@ -466,6 +466,7 @@ export default function SavingsGoalCalculatorPage() {
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
               <Link
+                prefetch={false}
                 href="/finance/compound-interest-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
@@ -488,6 +489,7 @@ export default function SavingsGoalCalculatorPage() {
                 </span>
               </a>
               <Link
+                prefetch={false}
                 href="/finance/budget-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
@@ -499,6 +501,7 @@ export default function SavingsGoalCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/loan-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
@@ -510,6 +513,7 @@ export default function SavingsGoalCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/debt-payoff-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
@@ -521,6 +525,7 @@ export default function SavingsGoalCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/salary-to-hourly-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
@@ -532,6 +537,7 @@ export default function SavingsGoalCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/math/percentage-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
@@ -544,6 +550,7 @@ export default function SavingsGoalCalculatorPage() {
               </Link>
 
               <Link
+                prefetch={false}
                 href="/date-time/add-subtract-days"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >

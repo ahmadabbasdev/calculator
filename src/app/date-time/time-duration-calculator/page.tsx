@@ -464,6 +464,7 @@ export default function TimeDurationCalculatorPage() {
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <Link
+                prefetch={false}
                 href="/date-time/days-between-dates"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >
@@ -475,6 +476,7 @@ export default function TimeDurationCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/date-time/add-subtract-days"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >
@@ -486,6 +488,7 @@ export default function TimeDurationCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/date-time/business-days-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >
@@ -497,6 +500,7 @@ export default function TimeDurationCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/finance/salary-to-hourly-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >
@@ -508,6 +512,7 @@ export default function TimeDurationCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/math/average-per-day-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >
@@ -519,6 +524,7 @@ export default function TimeDurationCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/health/pace-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >
@@ -530,6 +536,7 @@ export default function TimeDurationCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/health/pace-chart"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >
@@ -541,6 +548,7 @@ export default function TimeDurationCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/health/steps-to-distance-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >
@@ -552,6 +560,7 @@ export default function TimeDurationCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/health/race-time-predictor"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-date/45 hover:bg-cat-date-soft"
               >

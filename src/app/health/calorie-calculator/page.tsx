@@ -438,6 +438,7 @@ export default function CalorieCalculatorPage() {
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
               <Link
+                prefetch={false}
                 href="/health/bmi-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
@@ -449,6 +450,7 @@ export default function CalorieCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/math/unit-converter"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
@@ -460,6 +462,7 @@ export default function CalorieCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/date-time/age-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
@@ -471,6 +474,7 @@ export default function CalorieCalculatorPage() {
                 </span>
               </Link>
               <Link
+                prefetch={false}
                 href="/math/percentage-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-zinc-400 hover:bg-stone-50"
               >
