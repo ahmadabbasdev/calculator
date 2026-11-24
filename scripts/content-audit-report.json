@@ -27,7 +27,15 @@
     {
       "href": "/date-time/time-duration-calculator",
       "name": "Time Duration Calculator",
-      "wordCount": 1161,
+      "wordCount": 1300,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/average-price-calculator",
+      "name": "Average Price Calculator",
+      "wordCount": 820,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -35,7 +43,15 @@
     {
       "href": "/finance/loan-calculator",
       "name": "Loan Calculator",
-      "wordCount": 1244,
+      "wordCount": 1347,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/debt-payoff-calculator",
+      "name": "Debt Payoff Calculator",
+      "wordCount": 1326,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -43,7 +59,7 @@
     {
       "href": "/finance/compound-interest-calculator",
       "name": "Compound Interest Calculator",
-      "wordCount": 1263,
+      "wordCount": 1308,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -51,7 +67,15 @@
     {
       "href": "/finance/savings-goal-calculator",
       "name": "Savings Goal Calculator",
-      "wordCount": 1288,
+      "wordCount": 1359,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/budget-calculator",
+      "name": "Budget Calculator",
+      "wordCount": 1413,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -59,7 +83,31 @@
     {
       "href": "/finance/salary-to-hourly-calculator",
       "name": "Salary to Hourly Calculator",
-      "wordCount": 1040,
+      "wordCount": 1154,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/freelance-rate-calculator",
+      "name": "Freelance Rate Calculator",
+      "wordCount": 1300,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/vat-gst-calculator",
+      "name": "VAT, GST & Sales Tax Calculator",
+      "wordCount": 1165,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/finance/profit-margin-calculator",
+      "name": "Profit Margin Calculator",
+      "wordCount": 983,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -89,6 +137,38 @@
       "thin": false
     },
     {
+      "href": "/health/pace-calculator",
+      "name": "Pace Calculator",
+      "wordCount": 1283,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/health/pace-chart",
+      "name": "Pace Chart & Splits Calculator",
+      "wordCount": 1131,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/health/race-time-predictor",
+      "name": "Race Time Predictor",
+      "wordCount": 901,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/health/steps-to-distance-calculator",
+      "name": "Steps to Distance Calculator",
+      "wordCount": 1026,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
       "href": "/health/ovulation-calculator",
       "name": "Ovulation Calculator",
       "wordCount": 915,
@@ -107,7 +187,7 @@
     {
       "href": "/math/percentage-calculator",
       "name": "Percentage Calculator",
-      "wordCount": 1122,
+      "wordCount": 1396,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -123,7 +203,7 @@
     {
       "href": "/math/average-calculator",
       "name": "Average Calculator",
-      "wordCount": 1116,
+      "wordCount": 1147,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -139,7 +219,7 @@
     {
       "href": "/math/unit-converter",
       "name": "Unit Converter",
-      "wordCount": 828,
+      "wordCount": 1020,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -148,6 +228,62 @@
       "href": "/math/gpa-calculator",
       "name": "GPA & CGPA Calculator",
       "wordCount": 1417,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/home-energy/btu-calculator",
+      "name": "BTU Calculator",
+      "wordCount": 1108,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/home-energy/solar-panel-calculator",
+      "name": "Solar Panel Calculator",
+      "wordCount": 1331,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/home-energy/battery-backup-calculator",
+      "name": "Battery Backup Time Calculator",
+      "wordCount": 1366,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/home-energy/electricity-cost-calculator",
+      "name": "Electricity Cost Calculator",
+      "wordCount": 1342,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/everyday-life/land-area-calculator",
+      "name": "Land Area Calculator",
+      "wordCount": 1064,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/everyday-life/fuel-cost-calculator",
+      "name": "Fuel Cost Calculator",
+      "wordCount": 858,
+      "sharedTemplate": false,
+      "kind": "calculator",
+      "thin": false
+    },
+    {
+      "href": "/creators/youtube-watch-time-calculator",
+      "name": "YouTube Watch Time Calculator",
+      "wordCount": 953,
       "sharedTemplate": false,
       "kind": "calculator",
       "thin": false
@@ -179,7 +315,7 @@
     {
       "href": "/",
       "name": "/",
-      "wordCount": 506,
+      "wordCount": 510,
       "sharedTemplate": false,
       "kind": "site",
       "thin": false
@@ -187,7 +323,7 @@
     {
       "href": "/about",
       "name": "/about",
-      "wordCount": 292,
+      "wordCount": 294,
       "sharedTemplate": false,
       "kind": "site",
       "thin": true
@@ -219,7 +355,7 @@
     {
       "href": "/finance",
       "name": "/finance",
-      "wordCount": 158,
+      "wordCount": 173,
       "sharedTemplate": false,
       "kind": "site",
       "thin": true
@@ -227,7 +363,7 @@
     {
       "href": "/health",
       "name": "/health",
-      "wordCount": 263,
+      "wordCount": 292,
       "sharedTemplate": false,
       "kind": "site",
       "thin": true
