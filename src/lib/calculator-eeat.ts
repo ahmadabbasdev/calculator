@@ -280,6 +280,82 @@ export const CALCULATOR_EEAT: Record<string, CalculatorEeAtContent> = {
     ],
   },
 
+  "/finance/gold-value-calculator": {
+    href: "/finance/gold-value-calculator",
+    theme: "finance",
+    formula: {
+      title: "Formula and Methodology",
+      intro:
+        "Pure gold grams come from net weight and purity; gold value multiplies by the 24K price you enter. Making, wastage and tax are optional add-ons.",
+      notation:
+        "net_g = gross_g − stone_g\npurity = karat ÷ 24   (or custom % ÷ 100)\npure_g = net_g × purity\ngold_value = pure_g × price_24k_per_gram\nwastage = gold_value × wastage_%\nmaking = none | % of gold | per gram × net_g | fixed\ntax = tax_% × (gold+wastage+making  or  making only)\ntotal = gold_value + wastage + making + tax",
+      edgeCases: [
+        "Stone weight cannot exceed gross weight.",
+        "24K price is never prefilled or fetched.",
+        "Not a zakat calculation.",
+      ],
+    },
+    examples: [
+      {
+        id: "gv-22k",
+        title: "10 g of 22K at 200 / g of 24K",
+        inputs: [
+          { label: "Weight", value: "10 g" },
+          { label: "Karat", value: "22K" },
+          { label: "24K price", value: "200 / g" },
+          { label: "Making", value: "8%" },
+        ],
+        result: "Pure ≈ 9.1667 g; gold 1,833.33; making 146.67; total 1,980",
+        steps:
+          "10 × 22/24 ≈ 9.1667 g pure × 200 = 1,833.33; + 8% making → 1,980.",
+      },
+      {
+        id: "gv-stones",
+        title: "12 g gross with 2 g stones at 18K",
+        inputs: [
+          { label: "Gross / stones", value: "12 g / 2 g" },
+          { label: "Karat", value: "18K" },
+          { label: "24K price", value: "200 / g" },
+        ],
+        result: "Net 10 g; pure 7.5 g; value 1,500",
+        steps: "Net 10 × 18/24 = 7.5; × 200 = 1,500.",
+      },
+      {
+        id: "gv-old",
+        title: "Old gold with 5% deduction",
+        inputs: [
+          { label: "Weight", value: "10 g of 22K" },
+          { label: "24K price", value: "200 / g" },
+          { label: "Deduction", value: "5%" },
+        ],
+        result: "≈ 1,741.67",
+        steps: "Gross gold value ≈ 1,833.33 × 0.95 ≈ 1,741.67.",
+      },
+    ],
+    related: [
+      {
+        href: "/finance/zakat-calculator",
+        anchor: "Zakat Calculator",
+        description: "Zakat estimates with metal prices you enter",
+      },
+      {
+        href: "/math/unit-converter",
+        anchor: "Unit Converter",
+        description: "Convert everyday mass and length units",
+      },
+      {
+        href: "/math/percentage-calculator",
+        anchor: "Percentage Calculator",
+        description: "Percent of a number and percent change",
+      },
+      {
+        href: "/finance/vat-gst-calculator",
+        anchor: "VAT, GST & Sales Tax Calculator",
+        description: "Add or remove tax from an invoice amount",
+      },
+    ],
+  },
+
   "/finance/zakat-calculator": {
     href: "/finance/zakat-calculator",
     theme: "finance",
@@ -412,19 +488,19 @@ export const CALCULATOR_EEAT: Record<string, CalculatorEeAtContent> = {
         description: "Convert salary and other pay periods to hourly equivalents",
       },
       {
-        href: "/finance/profit-margin-calculator",
-        anchor: "Profit Margin Calculator",
-        description: "Margin and markup when pricing a product or package",
-      },
-      {
         href: "/math/percentage-calculator",
         anchor: "Percentage Calculator",
         description: "Percent of a number, change, and related math",
       },
       {
-        href: "/finance/budget-calculator",
-        anchor: "Budget Calculator",
-        description: "Plan monthly spending against income",
+        href: "/finance/profit-margin-calculator",
+        anchor: "Profit Margin Calculator",
+        description: "Margin and markup when pricing a product or package",
+      },
+      {
+        href: "/finance/vat-gst-calculator",
+        anchor: "VAT, GST & Sales Tax Calculator",
+        description: "Add or remove tax from an invoice amount",
       },
     ],
   },
