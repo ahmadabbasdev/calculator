@@ -18,7 +18,7 @@ const EEAT = getCalculatorEeAt(PAGE_PATH);
 
 const PAGE_TITLE = "Freelance Rate Calculator - Hourly & Day Rate";
 const PAGE_DESCRIPTION =
-  "Find a freelance hourly rate for your take-home goal, or estimate take-home from a rate. Includes expenses, tax, fees and billable hours — not tax advice.";
+  "Freelance rate calculator: find an hourly rate to hit your income goal, or estimate take-home from a rate. Covers expenses, tax on profit, platform fees and billable hours — not tax advice.";
 
 export const FAQ_ITEMS = [
   {
@@ -180,9 +180,10 @@ export default function FreelanceRateCalculatorPage() {
             Freelance Rate Calculator
           </h1>
           <p className="mt-2 text-base leading-relaxed text-muted sm:text-lg">
-            Work out a minimum hourly rate that supports your after-tax income
-            goal, or see what an existing rate may leave after expenses, tax and
-            fees. Numbers stay in your browser.
+            Work out a minimum freelance hourly rate (and a day or project
+            quote from it) that supports your after-tax income goal, or see what
+            an existing rate may leave after expenses, tax and fees. Numbers
+            stay in your browser.
           </p>
           <p className="mt-3 text-[15px] leading-relaxed text-zinc-700 sm:text-base">
             For employed pay-period conversions, use the{" "}
@@ -192,7 +193,7 @@ export default function FreelanceRateCalculatorPage() {
             >
               Salary to Hourly Calculator
             </Link>
-            .
+            — this page is for freelance capacity and costs, not salary ÷ hours.
           </p>
         </header>
 
@@ -331,12 +332,19 @@ export default function FreelanceRateCalculatorPage() {
                 >
                   Percentage Calculator
                 </Link>
-                . For a monthly spending split see the{" "}
+                . For margin and markup on a job see the{" "}
                 <Link
-                  href="/finance/budget-calculator"
+                  href="/finance/profit-margin-calculator"
                   className="font-medium text-zinc-900 underline underline-offset-2"
                 >
-                  Budget Calculator
+                  Profit Margin Calculator
+                </Link>
+                . For invoice tax arithmetic see the{" "}
+                <Link
+                  href="/finance/vat-gst-calculator"
+                  className="font-medium text-zinc-900 underline underline-offset-2"
+                >
+                  VAT, GST &amp; Sales Tax Calculator
                 </Link>
                 . Inputs never go into the URL, storage, cookies, analytics or
                 logs.
@@ -419,7 +427,7 @@ export default function FreelanceRateCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Employed pay conversion, percent math and monthly budgets.
+                Employed pay conversion, percent math, margins and sales tax.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -461,14 +469,14 @@ export default function FreelanceRateCalculatorPage() {
               </Link>
               <Link
                 prefetch={false}
-                href="/finance/budget-calculator"
+                href="/finance/vat-gst-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-finance/45 hover:bg-cat-finance-soft"
               >
                 <span className="text-[15px] font-semibold text-foreground">
-                  Budget Calculator
+                  VAT, GST &amp; Sales Tax Calculator
                 </span>
                 <span className="text-sm text-muted">
-                  Monthly 50/30/20, custom percentages, or your own list
+                  Add or remove tax from an invoice amount
                 </span>
               </Link>
             </div>

@@ -185,7 +185,15 @@ export default function FinanceCategoryPage() {
               hub only lists states we have verified against revenue sources for
               the published tax year. Each state page carries its own brackets,
               deductions, worked examples, and official links — we do not invent
-              rates or clone one page across fifty URLs. The{" "}
+              rates or clone one page across fifty URLs.               The{" "}
+              <Link
+                href="/finance/gold-value-calculator"
+                className="font-medium text-zinc-950 underline underline-offset-2"
+              >
+                gold value calculator
+              </Link>{" "}
+              prices jewellery or old gold from the 24K rate you type — not live
+              quotes. The{" "}
               <Link
                 href="/finance/zakat-calculator"
                 className="font-medium text-zinc-950 underline underline-offset-2"

@@ -25,6 +25,7 @@ import {
   Footprints,
   Battery,
   Fuel,
+  Gem,
   Home,
   LandPlot,
   Sun,
@@ -423,7 +424,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     id: "finance",
     title: "Finance",
     description:
-      "Plan loans, debt payoff, average purchase price, freelance rates, budgets, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
+      "Plan loans, debt payoff, average purchase price, gold jewellery value, freelance rates, budgets, interest, savings goals, VAT/GST sales tax, zakat, and verified US state income tax estimates.",
     icon: DollarSign,
     theme: "finance",
     calculators: [
@@ -435,6 +436,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
           "Weighted average purchase price from multiple buys — with fees, a further purchase, target-average price, and a current-price comparison.",
         href: "/finance/average-price-calculator",
         icon: ChartColumn,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
+        id: "gold-value",
+        slug: "gold-value-calculator",
+        name: "Gold Value Calculator",
+        description:
+          "Jewellery price or old-gold value from weight, karat or purity, making charges, wastage and tax — using the 24K price you enter.",
+        href: "/finance/gold-value-calculator",
+        icon: Gem,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
       },

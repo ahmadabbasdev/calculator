@@ -20,7 +20,7 @@ const CANONICAL_URL = `${SITE_URL}${PAGE_PATH}`;
 
 const PAGE_TITLE = "Average Price Calculator — Cost Basis";
 const PAGE_DESCRIPTION =
-  "Free average price calculator: weighted cost from purchases with optional fees, model another buy, find a target-average price, and compare to a current price.";
+  "Free average price calculator and weighted average price tool for stocks, crypto, or any units: average cost basis from purchases with optional fees, a further purchase, target-average price, and current-price comparison.";
 
 const SAMPLE_ROWS = [
   { quantity: 10, price: 100, fee: null as number | null },
@@ -212,9 +212,12 @@ export default function AveragePriceCalculatorPage() {
           </h1>
           <p className="mt-2 text-base leading-relaxed text-muted sm:text-lg">
             Enter purchases with quantity and price per unit to get a weighted
-            average cost. Optionally include fees, model another purchase, find
-            the price needed for a target average, or compare with a current
-            price. For growth with contributions over time, use the{" "}
+            average price — the same arithmetic people look for in a stock
+            average calculator, crypto average price calculator, or average
+            cost basis calculator. Optionally include fees, model another
+            purchase, find the price needed for a target average, or compare
+            with a current price. For growth with contributions over time, use
+            the{" "}
             <Link
               href="/finance/compound-interest-calculator"
               className="font-medium text-foreground underline underline-offset-2"
@@ -240,9 +243,11 @@ export default function AveragePriceCalculatorPage() {
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
               A simple average treats every purchase price as equal. For prices
               100 and 85 that is (100 + 85) ÷ 2 = {SIMPLE_AVG.toFixed(2)}. A
-              weighted average multiplies each price by how many units you
-              bought, sums those costs, then divides by total quantity. Buying
-              10 at 100 and 20 at 85 costs{" "}
+              weighted average price multiplies each price by how many units you
+              bought, sums those costs, then divides by total quantity. The
+              formula this page uses is Σ(quantity × price + fee) ÷ Σ quantity
+              when fees are included, or the same sum without fees when the
+              toggle is off. Buying 10 at 100 and 20 at 85 costs{" "}
               {!("ok" in SAMPLE_BASE)
                 ? SAMPLE_BASE.totalCost.toLocaleString("en-US", {
                     minimumFractionDigits: 2,
@@ -255,7 +260,10 @@ export default function AveragePriceCalculatorPage() {
               {!("ok" in SAMPLE_BASE)
                 ? SAMPLE_BASE.averagePrice.toFixed(2)
                 : "90.00"}
-              — closer to 85 because more units were bought at that price.
+              — closer to 85 because more units were bought at that price. The
+              simple average of 92.50 would misstate the cost of the combined
+              lot; that gap is why a stock average calculator or crypto average
+              price calculator should weight by quantity.
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
               If you then add 30 units at 70, total quantity becomes{" "}
@@ -269,7 +277,11 @@ export default function AveragePriceCalculatorPage() {
               , and the new average is{" "}
               {buyMoreOk ? buyMoreOk.averagePrice.toFixed(2) : "80.00"}. The
               “If I buy more” fields run that same arithmetic without changing
-              your saved purchase list in the browser.
+              your purchase list in the browser. Searches for an “average down
+              calculator” usually want this weighted update after another
+              purchase at a different price — the tool only reports the new
+              quantity, total cost, and average; it does not recommend buying or
+              selling.
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
               Fees matter when you turn on “Include fees in the average.” Each
@@ -287,7 +299,15 @@ export default function AveragePriceCalculatorPage() {
                 ? SAMPLE_WITH_FEES.averagePrice.toFixed(2)
                 : "91.00"}
               . Leave the toggle off if you want the average of unit prices
-              alone.
+              alone. Commission, spread, or network fees can be entered per row;
+              empty fees count as zero when the toggle is on.
+            </p>
+            <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
+              Fractional units are supported (up to eight decimal places), which
+              covers partial shares and crypto amounts. Rows with zero quantity
+              are ignored so blank leftover rows do not skew the math. Negative
+              quantities, prices, or fees are blocked. Optional labels or dates
+              on each row are for your notes only and never enter the formula.
             </p>
           </section>
 
@@ -301,34 +321,35 @@ export default function AveragePriceCalculatorPage() {
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
               In everyday language, “average cost” or “average cost basis” is
               the total you paid for a position divided by how many units you
-              hold. Brokers and tax rules may instead use first-in first-out
-              (FIFO), last-in first-out, specific lot identification, or a
-              mandated average-cost method. Which one applies depends on the
-              country, the asset type, and the account. This calculator does not
-              choose a method for you and does not file or report anything.
+              hold. That is arithmetic, not a filing method. Brokers and tax
+              rules may instead use first-in first-out (FIFO), last-in
+              first-out, specific lot identification, or a mandated average-cost
+              method. Names and rules differ by country and account type. An
+              average cost basis calculator on a public website cannot know which
+              method your account uses, and this page does not choose one for
+              you, does not name brokers, and does not file or report anything.
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
-              Fractional units are fine in the quantity fields — useful for
-              partial shares or crypto amounts. Rows with zero quantity are
-              ignored so blank leftover rows do not skew the math. Negative
-              quantities or prices are blocked. Common mistakes include
-              averaging prices without weighting by quantity, forgetting fees
-              when you meant to include them, mixing currencies in one list, and
-              treating this average as a tax figure without checking local
-              rules.
+              Common mistakes include averaging prices without weighting by
+              quantity, forgetting fees when you meant to include them, mixing
+              currencies in one list, treating a browser average as the official
+              tax figure, and reading a current-price comparison as a forecast.
+              The optional current price only multiplies quantity by the price
+              you type: market value and the difference versus total cost in
+              currency and as a percent of cost, in neutral language. It does
+              not predict future prices or suggest a trade.
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
               The “price needed for a target average” box rearranges the same
-              weighted formula. From 30 units at an average of 90, a target of
-              85 with 30 more units requires a purchase price of{" "}
+              weighted formula: required price = (target × (quantity + extra) −
+              total cost) ÷ extra. From 30 units at an average of 90, a target
+              of 85 with 30 more units requires a purchase price of{" "}
               {SAMPLE_TARGET && SAMPLE_TARGET.ok
                 ? SAMPLE_TARGET.requiredPrice.toFixed(2)
                 : "80.00"}
               . If the required price would be zero or negative, the target
               cannot be reached with that extra quantity — the page says so in
-              plain words instead of showing a misleading number. An optional
-              current price shows market value and how far that value sits above
-              or below total cost, as currency and as a percent of cost. For
+              plain words instead of showing a misleading number. For
               percent-only math without purchases, use the{" "}
               <Link
                 href="/math/percentage-calculator"
@@ -343,6 +364,14 @@ export default function AveragePriceCalculatorPage() {
                 className="font-medium text-foreground underline underline-offset-2"
               >
                 Savings Goal Calculator
+              </Link>
+              . For growth with recurring contributions over time — not average
+              purchase price — use the{" "}
+              <Link
+                href="/finance/compound-interest-calculator"
+                className="font-medium text-foreground underline underline-offset-2"
+              >
+                Compound Interest Calculator
               </Link>
               .
             </p>
