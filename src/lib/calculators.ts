@@ -157,6 +157,11 @@ export type CalculatorListing = {
   /** ISO date (YYYY-MM-DD) when the tool was added. Used for the optional New badge. */
   addedAt: string;
   /**
+   * Optional ISO date (YYYY-MM-DD). When set, the tool stays hidden from live
+   * surfaces until that calendar day (UTC date comparison).
+   */
+  publishAt?: string;
+  /**
    * ISO date (YYYY-MM-DD) of the last human content/data review.
    * Shown on the tool page when set — not the build date.
    */
@@ -283,7 +288,13 @@ const MS_PER_DAY = 86_400_000;
 export function isCalculatorLive(
   calculator: CalculatorListing,
 ): calculator is CalculatorListing & { href: string } {
-  return calculator.status === "live" && Boolean(calculator.href);
+  if (calculator.status !== "live" || !calculator.href) return false;
+  if (calculator.publishAt) {
+    const publishDay = Date.parse(`${calculator.publishAt}T00:00:00.000Z`);
+    if (!Number.isFinite(publishDay)) return false;
+    if (Date.now() < publishDay) return false;
+  }
+  return true;
 }
 
 /** Live or coming-soon — shown on public catalog surfaces. Drafts are omitted. */

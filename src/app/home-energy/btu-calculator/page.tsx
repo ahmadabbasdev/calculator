@@ -312,7 +312,7 @@ export default function BtuCalculatorPage() {
                   Cooling reference rows from coolingReferenceRow()
                 </caption>
                 <thead>
-                  <tr className="border-b border-border text-[12px] font-semibold uppercase tracking-wide text-muted">
+                  <tr className="border-b border-border text-[12px] font-semibold tracking-wide text-muted">
                     <th scope="col" className="py-2 pr-3">
                       Room (ft²)
                     </th>
@@ -497,8 +497,7 @@ export default function BtuCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Unit conversion, solar sizing, electricity cost, and battery
-                backup.
+                Unit conversion and other Home &amp; Energy tools.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -544,17 +543,6 @@ export default function BtuCalculatorPage() {
                 </span>
                 <span className="text-sm text-muted">
                   UPS and inverter runtime from volts, Ah and load
-                </span>
-              </a>
-              <a
-                href="/everyday-life/land-area-calculator"
-                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
-              >
-                <span className="text-[15px] font-semibold text-foreground">
-                  Land Area Calculator
-                </span>
-                <span className="text-sm text-muted">
-                  Plot area, marla, kanal, acres and hectares
                 </span>
               </a>
             </div>
