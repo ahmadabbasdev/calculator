@@ -194,8 +194,14 @@ export default function SolarPanelCalculatorPage() {
           <p className="mt-2 text-base leading-relaxed text-muted sm:text-lg">
             Estimate how many panels and kilowatts cover a share of your
             electricity use, then optionally add a price and cost per watt for
-            savings and simple payback. For room heating and cooling capacity,
-            see the{" "}
+            savings and simple payback. For appliance or bill kWh math, see the{" "}
+            <Link
+              href="/home-energy/electricity-cost-calculator"
+              className="font-medium text-foreground underline underline-offset-2"
+            >
+              Electricity Cost Calculator
+            </Link>
+            ; for room heating and cooling capacity, the{" "}
             <Link
               href="/home-energy/btu-calculator"
               className="font-medium text-foreground underline underline-offset-2"
@@ -349,7 +355,7 @@ export default function SolarPanelCalculatorPage() {
                   Annual kWh = installed kW × sun hours × 365 × (1 − losses)
                 </caption>
                 <thead>
-                  <tr className="border-b border-border text-[12px] font-semibold uppercase tracking-wide text-muted">
+                  <tr className="border-b border-border text-[12px] font-semibold tracking-wide text-muted">
                     <th scope="col" className="py-2 pr-3">
                       System (kW)
                     </th>
@@ -522,8 +528,8 @@ export default function SolarPanelCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Electricity cost, battery backup, heating capacity, and unit
-                conversion.
+                Electricity cost, battery runtime, loan payments, and percent
+                math.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -550,36 +556,25 @@ export default function SolarPanelCalculatorPage() {
                 </span>
               </a>
               <a
-                href="/home-energy/btu-calculator"
+                href="/finance/loan-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
               >
                 <span className="text-[15px] font-semibold text-foreground">
-                  BTU Calculator
+                  Loan Calculator
                 </span>
                 <span className="text-sm text-muted">
-                  Room AC and heater BTU/h, tons, and thermal kW
+                  Payment schedules from principal, rate and term
                 </span>
               </a>
               <a
-                href="/math/unit-converter"
+                href="/math/percentage-calculator"
                 className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
               >
                 <span className="text-[15px] font-semibold text-foreground">
-                  Unit Converter
+                  Percentage Calculator
                 </span>
                 <span className="text-sm text-muted">
-                  Length, mass, volume, temperature and more
-                </span>
-              </a>
-              <a
-                href="/everyday-life/land-area-calculator"
-                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
-              >
-                <span className="text-[15px] font-semibold text-foreground">
-                  Land Area Calculator
-                </span>
-                <span className="text-sm text-muted">
-                  Plot area, marla, kanal, acres and hectares
+                  Percent of, change, and increase or decrease
                 </span>
               </a>
             </div>
