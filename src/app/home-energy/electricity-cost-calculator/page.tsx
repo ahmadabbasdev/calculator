@@ -91,12 +91,7 @@ export const FAQ_ITEMS = [
   {
     question: "Does this match my utility bill exactly?",
     answer:
-      "Not necessarily. Real bills may include other charges, taxes, demand fees or seasonal rules beyond a simple flat or tiered energy rate. The calculator estimates only the figures you enter.",
-  },
-  {
-    question: "Can I use amps and volts instead of watts?",
-    answer:
-      "Yes. Watts equal amps × volts for a simple resistive estimate on the “One appliance” tab. For motors and electronics the true draw can differ; a plug-in meter is more accurate when you need measured watts.",
+      "Not necessarily. Real bills may include other charges, taxes, demand fees or seasonal rules beyond a simple flat or tiered energy rate. The calculator estimates only the figures you enter. Watts equal amps × volts on the One appliance tab when you prefer that input; a plug-in meter is more accurate when you need measured watts.",
   },
 ] as const;
 
@@ -214,19 +209,19 @@ export default function ElectricityCostCalculatorPage() {
           <p className="mt-2 text-base leading-relaxed text-muted sm:text-lg">
             Convert watts to kWh (units), estimate what it costs to run an
             appliance from the price on your bill, or add several devices and
-            optional tiered charges. For solar array sizing see the{" "}
+            optional tiered charges. For room cooling or heating capacity see the{" "}
             <Link
-              href="/home-energy/solar-panel-calculator"
+              href="/home-energy/btu-calculator"
               className="font-medium text-foreground underline underline-offset-2"
             >
-              Solar Panel Calculator
+              BTU Calculator
             </Link>
-            ; for backup runtime see the{" "}
+            ; for general unit conversion see the{" "}
             <Link
-              href="/home-energy/battery-backup-calculator"
+              href="/math/unit-converter"
               className="font-medium text-foreground underline underline-offset-2"
             >
-              Battery Backup Time Calculator
+              Unit Converter
             </Link>
             .
           </p>
@@ -323,26 +318,12 @@ export default function ElectricityCostCalculatorPage() {
               This calculator does not cover demand charges, time-of-use periods,
               seasonal adjustments, connection fees beyond a single fixed monthly
               amount, or comparing rates by place. It does not recommend products
-              or claim savings. For solar production and payback see the{" "}
-              <Link
-                href="/home-energy/solar-panel-calculator"
-                className="font-medium text-foreground underline underline-offset-2"
-              >
-                Solar Panel Calculator
-              </Link>
-              ; for room capacity the{" "}
+              or claim savings. For room capacity see the{" "}
               <Link
                 href="/home-energy/btu-calculator"
                 className="font-medium text-foreground underline underline-offset-2"
               >
                 BTU Calculator
-              </Link>
-              ; for backup runtime the{" "}
-              <Link
-                href="/home-energy/battery-backup-calculator"
-                className="font-medium text-foreground underline underline-offset-2"
-              >
-                Battery Backup Time Calculator
               </Link>
               ; for percent math the{" "}
               <Link
@@ -377,7 +358,7 @@ export default function ElectricityCostCalculatorPage() {
             </div>
             <div className="overflow-x-auto rounded-xl border border-border/80 bg-panel shadow-card">
               <table className="min-w-full text-left text-[13px]">
-                <thead className="border-b border-border bg-stone-50 text-[12px] uppercase tracking-wide text-zinc-600">
+                <thead className="border-b border-border bg-stone-50 text-[12px] tracking-wide text-zinc-600">
                   <tr>
                     <th scope="col" className="px-4 py-3 font-semibold">
                       Watts
@@ -468,7 +449,8 @@ export default function ElectricityCostCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Solar, capacity, backup, percent math, and unit conversion.
+                Solar sizing, battery runtime, room capacity, and unit
+                conversion.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -480,18 +462,7 @@ export default function ElectricityCostCalculatorPage() {
                   Solar Panel Calculator
                 </span>
                 <span className="text-sm text-muted">
-                  System size, production and simple payback
-                </span>
-              </a>
-              <a
-                href="/home-energy/btu-calculator"
-                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
-              >
-                <span className="text-[15px] font-semibold text-foreground">
-                  BTU Calculator
-                </span>
-                <span className="text-sm text-muted">
-                  Room AC and heater BTU/h, tons, and thermal kW
+                  System size, panel count, production and simple payback
                 </span>
               </a>
               <a
@@ -503,6 +474,17 @@ export default function ElectricityCostCalculatorPage() {
                 </span>
                 <span className="text-sm text-muted">
                   UPS and inverter runtime from volts, Ah and load
+                </span>
+              </a>
+              <a
+                href="/home-energy/btu-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  BTU Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Room AC and heater BTU/h, tons, and thermal kW
                 </span>
               </a>
               <a
