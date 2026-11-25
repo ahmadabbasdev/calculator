@@ -227,15 +227,22 @@ export default function BatteryBackupCalculatorPage() {
           </h1>
           <p className="mt-2 text-base leading-relaxed text-muted sm:text-lg">
             Estimate how long a battery pack lasts on a given load, or how many
-            batteries you need for a target backup time. For solar array sizing
-            see the{" "}
+            batteries you need for a target backup time. For appliance kWh and
+            bill math see the{" "}
+            <Link
+              href="/home-energy/electricity-cost-calculator"
+              className="font-medium text-foreground underline underline-offset-2"
+            >
+              Electricity Cost Calculator
+            </Link>
+            ; for array sizing the{" "}
             <Link
               href="/home-energy/solar-panel-calculator"
               className="font-medium text-foreground underline underline-offset-2"
             >
               Solar Panel Calculator
             </Link>
-            ; for room heating and cooling capacity see the{" "}
+            ; for room capacity the{" "}
             <Link
               href="/home-energy/btu-calculator"
               className="font-medium text-foreground underline underline-offset-2"
@@ -259,72 +266,53 @@ export default function BatteryBackupCalculatorPage() {
               How battery backup time is estimated
             </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
-              Backup time is an energy question: how many watt-hours the pack
-              can deliver after usable share, remaining health and inverter or
-              UPS losses, divided by the watts the load draws. Volts describe
-              electrical potential of the battery or pack. Amp-hours (Ah)
-              describe how much charge the battery is rated to hold under the
-              manufacturer&apos;s test conditions. Watt-hours (Wh) combine them
-              as volts × amp-hours. A twelve-volt battery rated one hundred
-              fifty amp-hours stores one thousand eight hundred watt-hours on
-              paper — before you apply usable share, remaining health and
-              conversion efficiency.               Thinking in watt-hours keeps series and parallel packs comparable.
+              Backup time is how many watt-hours the pack can deliver after
+              usable share, remaining health and inverter or UPS losses, divided
+              by the load in watts. Volts describe pack potential. Amp-hours (Ah)
+              are the rated charge under the manufacturer&apos;s test conditions.
+              Watt-hours (Wh) are volts × amp-hours. A 12 V, 150 Ah battery is
+              1,800 Wh on paper before usable share, health and efficiency.
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
-              The runtime formula on this page is written in one line in the
-              results panel: usable Wh = pack volts × pack Ah × usable share ×
+              Runtime uses: usable Wh = pack volts × pack Ah × usable share ×
               health; runtime hours = usable Wh × efficiency ÷ load watts. Pack
-              volts equal battery volts × batteries in series. Pack amp-hours
-              equal battery Ah × parallel strings. Usable share is labelled
-              “usable share of the battery” because many chemistries are not
-              planned to empty to zero nameplate capacity. Lead-acid systems
-              commonly plan around half the nameplate; many lithium packs allow
-              a larger share. Both presets on the form are editable planning
-              assumptions — check the battery datasheet and the inverter or UPS
-              cut-off settings rather than treating the preset as a guarantee.
-              Remaining health reduces delivered energy when a pack is no longer
-              at rated capacity. Efficiency accounts for inverter or UPS
-              conversion losses between DC storage and AC loads; the default
-              eighty-five percent is editable so you can match a figure from
-              your unit&apos;s documentation when you have one.
+              volts = battery volts × batteries in series; pack Ah = battery Ah ×
+              parallel strings. Usable share (labelled “usable share of the
+              battery”) is a planning fraction of nameplate capacity — lead-acid
+              setups commonly plan around 50%, many lithium packs around 80%.
+              Both presets are editable; check the datasheet and cut-off
+              settings. Health reduces energy when a pack is below rated
+              capacity. Efficiency covers DC-to-AC conversion; the default 85%
+              is editable from your unit&apos;s documentation when you have it.
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
-              Worked runtime example: one twelve-volt, one-hundred-fifty-amp-hour
-              battery, fifty percent usable share, one hundred percent health,
-              eighty-five percent efficiency and a three-hundred-watt load gives
-              nine hundred usable watt-hours and about two point five five hours
-              ({SAMPLE.ok && SAMPLE.mode === "runtime"
+              Worked example: one 12 V 150 Ah battery, 50% usable, 100% health,
+              85% efficiency and a 300 W load gives 900 usable Wh and about{" "}
+              {SAMPLE.ok && SAMPLE.mode === "runtime"
+                ? SAMPLE.runtimeHours.toFixed(2)
+                : "2.55"}{" "}
+              h (
+              {SAMPLE.ok && SAMPLE.mode === "runtime"
                 ? formatRuntimeLabel(SAMPLE.runtimeHours)
                 : "2 h 33 min"}
-              ). Raising usable share and efficiency both to one hundred percent
-              on the same pack and load yields six hours, which shows how strongly
-              those planning factors affect the answer. Reducing health to eighty
-              percent on the first case leaves seven hundred twenty usable
-              watt-hours and about two point zero four hours (
+              ). At 100% usable and 100% efficiency the same pack lasts 6.00 h.
+              At 80% health on the first case: 720 Wh and about 2.04 h (
               {formatRuntimeLabel(2.04)}).
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
-              Series batteries raise pack voltage while amp-hours stay the same.
-              Parallel strings raise amp-hours while voltage stays the same. Two
-              twelve-volt one-hundred-amp-hour batteries in series make a
-              twenty-four-volt one-hundred-amp-hour pack; the same two in
-              parallel make a twelve-volt two-hundred-amp-hour pack. Both
-              arrangements store two thousand four hundred nominal watt-hours.
-              With fifty percent usable share, full health, eighty-five percent
-              efficiency and a four-hundred-watt load, either arrangement
-              delivers one thousand two hundred usable watt-hours and about two
-              point five five hours — the same energy, different DC rail voltage
-              for the inverter.               Choose series or parallel to match the voltage your inverter or
-              UPS expects.
+              Series batteries raise voltage; parallel strings raise amp-hours.
+              Two 12 V 100 Ah batteries in series make 24 V / 100 Ah; the same
+              two in parallel make 12 V / 200 Ah. Both store 2,400 nominal Wh. At
+              50% usable, full health, 85% efficiency and a 400 W load, either
+              arrangement gives 1,200 usable Wh and about 2.55 h — same energy,
+              different DC voltage for the inverter.
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
-              Worked appliance example: four LED lights at forty watts, one
-              fifteen-watt router, one sixty-five-watt laptop and two
-              seventy-five-watt fans total{" "}
-              <span className="tabular-nums">{APPLIANCE_LOAD_W}</span> W. Against
-              a twelve-volt one-hundred-fifty-amp-hour battery at fifty percent
-              usable, full health and eighty-five percent efficiency, usable
-              energy is nine hundred watt-hours and runtime is about{" "}
+              Appliance-load example: four 40 W LED lights, one 15 W router, one
+              65 W laptop and two 75 W fans total{" "}
+              <span className="tabular-nums">{APPLIANCE_LOAD_W}</span> W. On a
+              12 V 150 Ah battery at 50% usable, full health and 85% efficiency,
+              usable energy is 900 Wh and runtime is about{" "}
               {(() => {
                 const row = runtimeReferenceRow({
                   batteryVoltage: 12,
@@ -333,52 +321,39 @@ export default function BatteryBackupCalculatorPage() {
                 });
                 return `${row.runtimeHours.toFixed(2)} h (${formatRuntimeLabel(row.runtimeHours)})`;
               })()}
-              . Add each device&apos;s running watts from its label or a meter;
-              quantity multiplies watts for identical devices. Do not invent
-              startup surge — motors and compressors can need much more power at
-              start than their running watts, and that surge is not modelled
-              here. If you enter an optional inverter or UPS watt rating and the
-              steady load exceeds it, the calculator shows a calm warning that
-              the unit may shut down or limit output before the battery is
-              empty.
+              . Use running watts from the label or a meter. Motors and
+              compressors can need much more power at startup; that surge is not
+              modelled. An optional inverter or UPS watt rating shows a calm
+              warning if the steady load exceeds it.
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
-              UPS nameplates often show VA (volt-amperes), not watts. Watts equal
-              VA × power factor, and VA equal watts ÷ power factor. The helper on
-              this page converts either way with an editable power factor; zero
-              point seven is only an example, not a claim about your equipment.
-              Use the watts result as the load for runtime or sizing. When you
-              size a pack instead of estimating runtime, required watt-hours
-              equal load × wanted hours ÷ (efficiency × usable share × health).
-              Required pack amp-hours equal that energy ÷ system voltage. Series
-              count is system voltage ÷ battery voltage and must divide evenly —
-              otherwise the page shows a calm message so you can adjust a
-              voltage. Parallel strings equal the ceiling of required pack Ah ÷
-              battery Ah. For five hundred watts over four hours at eighty-five
-              percent efficiency and fifty percent usable on a twenty-four-volt
-              system with twelve-volt one-hundred-fifty-amp-hour batteries, the
-              plan needs about four thousand seven hundred six watt-hours, two
-              batteries in series and two parallel strings (four total), which
-              then delivers about six point one two hours of actual runtime with
-              those settings.
+              VA versus watts: watts = VA × power factor (and the reverse). The
+              helper converts either way with an editable power factor; 0.7 is an
+              example only. Use watts as the load for runtime or sizing. To size
+              a pack: required Wh = load × hours ÷ (efficiency × usable ×
+              health); required pack Ah = required Wh ÷ system voltage; series =
+              system voltage ÷ battery voltage (must divide evenly); strings =
+              ceil(required pack Ah ÷ battery Ah). For 500 W over 4 h at 85%
+              efficiency and 50% usable on a 24 V system with 12 V 150 Ah
+              batteries: about 4,706 Wh, 2 in series and 2 strings (4 total),
+              giving about 6.12 h of actual runtime.
             </p>
             <p className="mt-3 text-[15px] leading-relaxed text-zinc-700">
-              This calculator does not model discharge-rate effects, temperature
-              derating, ageing curves beyond the health percentage you enter,
-              charging, solar input, or wiring. It does not claim lifespan,
-              cycle counts or savings. For array sizing use the{" "}
+              Not modelled: discharge-rate effects, temperature, ageing beyond
+              the health % you enter, charging, solar input or wiring. No claims
+              about lifespan, cycle counts or savings. For array sizing see the{" "}
               <Link
                 href="/home-energy/solar-panel-calculator"
                 className="font-medium text-foreground underline underline-offset-2"
               >
                 Solar Panel Calculator
               </Link>
-              ; for room capacity the{" "}
+              ; for kWh cost the{" "}
               <Link
-                href="/home-energy/btu-calculator"
+                href="/home-energy/electricity-cost-calculator"
                 className="font-medium text-foreground underline underline-offset-2"
               >
-                BTU Calculator
+                Electricity Cost Calculator
               </Link>
               ; for unit conversion the{" "}
               <Link
@@ -388,11 +363,10 @@ export default function BatteryBackupCalculatorPage() {
                 Unit Converter
               </Link>
               . Results are planning estimates; manufacturers&apos; discharge
-              tables remain the reference. Batteries can be dangerous — a
-              qualified electrician should install and check systems; batteries
-              need ventilation and proper protection; follow the
-              manufacturer&apos;s limits. This page does not give wiring,
-              charging or installation instructions.
+              tables are the reference. Batteries can be dangerous — a qualified
+              electrician should install and check systems; batteries need
+              ventilation and proper protection; follow manufacturer limits. This
+              page gives no wiring, charging or installation instructions.
             </p>
           </section>
 
@@ -413,7 +387,7 @@ export default function BatteryBackupCalculatorPage() {
             </div>
             <div className="overflow-x-auto rounded-xl border border-border/80 bg-panel shadow-card">
               <table className="min-w-full text-left text-[13px]">
-                <thead className="border-b border-border bg-stone-50 text-[12px] uppercase tracking-wide text-zinc-600">
+                <thead className="border-b border-border bg-stone-50 text-[12px] tracking-wide text-zinc-600">
                   <tr>
                     <th scope="col" className="px-4 py-3 font-semibold">
                       Battery
@@ -517,8 +491,7 @@ export default function BatteryBackupCalculatorPage() {
                 Related Calculators
               </h2>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">
-                Electricity cost, solar sizing, room capacity, and unit
-                conversion.
+                Electricity cost, solar sizing, and unit conversion.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -553,17 +526,6 @@ export default function BatteryBackupCalculatorPage() {
                 </span>
                 <span className="text-sm text-muted">
                   Length, mass, volume, temperature and more
-                </span>
-              </a>
-              <a
-                href="/home-energy/btu-calculator"
-                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
-              >
-                <span className="text-[15px] font-semibold text-foreground">
-                  BTU Calculator
-                </span>
-                <span className="text-sm text-muted">
-                  Room AC and heater BTU/h, tons, and thermal kW
                 </span>
               </a>
             </div>
