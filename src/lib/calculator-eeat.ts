@@ -114,21 +114,21 @@ export const CALCULATOR_EEAT: Record<string, CalculatorEeAtContent> = {
       {
         href: "/home-energy/battery-backup-calculator",
         anchor: "Battery Backup Time Calculator",
-        description: "Estimate UPS or inverter runtime from volts, Ah and load",
+        description: "UPS and inverter runtime from volts, Ah and load",
       },
       {
-        href: "/home-energy/btu-calculator",
-        anchor: "BTU Calculator",
-        description: "Room heating and cooling capacity in BTU/h and tons",
+        href: "/finance/loan-calculator",
+        anchor: "Loan Calculator",
+        description: "Payment schedules from principal, rate and term",
       },
       {
-        href: "/math/unit-converter",
-        anchor: "Unit Converter",
-        description: "Convert length, area and energy-related units",
+        href: "/math/percentage-calculator",
+        anchor: "Percentage Calculator",
+        description: "Percent of, change, and increase or decrease",
       },
     ],
     relatedSummary:
-      "Electricity cost, battery runtime, heating capacity, and unit conversion.",
+      "Electricity cost, battery runtime, loan payments, and percent math.",
   },
 
   "/home-energy/battery-backup-calculator": {
@@ -139,10 +139,10 @@ export const CALCULATOR_EEAT: Record<string, CalculatorEeAtContent> = {
       intro:
         "Runtime and pack sizing use usable watt-hours after depth-of-discharge, health and inverter efficiency.",
       notation:
-        "nominal_Wh = pack_voltage × pack_Ah\nusable_Wh = nominal_Wh × usable% × health%\nruntime_hours = usable_Wh × efficiency% ÷ load_watts\n\nFor sizing a target backup time:\nrequired_Wh = load_watts × hours ÷ efficiency%\nthen convert Wh to battery count at your system voltage and Ah.",
+        "nominal_Wh = pack_voltage × pack_Ah\nusable_Wh = nominal_Wh × usable% × health%\nruntime_hours = usable_Wh × efficiency% ÷ load_watts\n\nrequired_Wh = load × hours ÷ (efficiency × usable × health)\nrequired_pack_Ah = required_Wh ÷ system_voltage\nseries = system_voltage ÷ battery_voltage\nstrings = ceil(required_pack_Ah ÷ battery_Ah)",
       edgeCases: [
         "Zero or negative volts, Ah or load are blocked with a calm message.",
-        "Usable, health and efficiency percents must stay within 0–100.",
+        "Usable, health and efficiency percents must stay within 1–100.",
         "Results are estimates — real runtime depends on inverter curves, temperature and battery chemistry.",
       ],
     },
@@ -160,15 +160,16 @@ export const CALCULATOR_EEAT: Record<string, CalculatorEeAtContent> = {
           "Nominal 1,800 Wh; usable 900 Wh; runtime = 900 × 0.85 ÷ 300 = 2.55 h.",
       },
       {
-        id: "batt-light-load",
-        title: "Same pack at 100 W",
+        id: "batt-series",
+        title: "Two in series at 400 W",
         inputs: [
-          { label: "Usable Wh", value: "900" },
-          { label: "Efficiency", value: "85%" },
-          { label: "Load", value: "100 W" },
+          { label: "Batteries", value: "2 × 12 V 100 Ah in series" },
+          { label: "Usable / efficiency", value: "50% / 85%" },
+          { label: "Load", value: "400 W" },
         ],
-        result: "≈ 7.65 h",
-        steps: "Runtime = 900 × 0.85 ÷ 100 = 7.65 hours.",
+        result: "1,200 Wh usable; 2.55 h",
+        steps:
+          "Pack 24 V × 100 Ah = 2,400 Wh nominal; usable 1,200 Wh; runtime = 1,200 × 0.85 ÷ 400 = 2.55 h.",
       },
       {
         id: "batt-needed",
@@ -176,28 +177,23 @@ export const CALCULATOR_EEAT: Record<string, CalculatorEeAtContent> = {
         inputs: [
           { label: "Load", value: "500 W" },
           { label: "Target", value: "4 h" },
-          { label: "System", value: "24 V, 150 Ah, 50% usable, 85% eff." },
+          { label: "System", value: "24 V, 12 V 150 Ah, 50% usable, 85% eff." },
         ],
-        result: "Use the Needed mode to count batteries",
+        result: "4 batteries (2 series × 2 strings); ~6.12 h actual",
         steps:
-          "Required Wh ≈ 500 × 4 ÷ 0.85 ≈ 2,353 Wh before usable and voltage packing.",
+          "Required Wh = 500 × 4 ÷ (0.85 × 0.50) ≈ 4,706 Wh → ~196 Ah at 24 V → 2 × 2 = 4 batteries.",
       },
     ],
     related: [
-      {
-        href: "/home-energy/solar-panel-calculator",
-        anchor: "Solar Panel Calculator",
-        description: "Estimate array size, panel count and simple payback",
-      },
       {
         href: "/home-energy/electricity-cost-calculator",
         anchor: "Electricity Cost Calculator",
         description: "kWh and cost from appliance watts or a bill rate",
       },
       {
-        href: "/home-energy/btu-calculator",
-        anchor: "BTU Calculator",
-        description: "Heating and cooling capacity for a room",
+        href: "/home-energy/solar-panel-calculator",
+        anchor: "Solar Panel Calculator",
+        description: "Estimate array size, panel count and simple payback",
       },
       {
         href: "/math/unit-converter",
@@ -205,6 +201,7 @@ export const CALCULATOR_EEAT: Record<string, CalculatorEeAtContent> = {
         description: "Convert energy and electrical units",
       },
     ],
+    relatedSummary: "Electricity cost, solar sizing, and unit conversion.",
   },
 
   "/creators/youtube-watch-time-calculator": {

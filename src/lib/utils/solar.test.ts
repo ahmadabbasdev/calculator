@@ -279,6 +279,48 @@ describe("edge cases / TZ", () => {
     expect(b).toEqual(c);
   });
 
+  it("share above 200% or losses above 60% add calm notes", () => {
+    const highShare = calculateSolar({
+      mode: "size",
+      useKwh: 7300,
+      usePeriod: "year",
+      sunHours: 5,
+      lossesPercent: 20,
+      sharePercent: 250,
+      panelWatts: 500,
+      panelAreaM2: null,
+      pricePerKwh: null,
+      costPerWatt: null,
+      excessValuePercent: 0,
+      degradationPercent: 0,
+      priceIncreasePercent: 0,
+      lifetimeYears: 25,
+    });
+    expect(highShare.ok).toBe(true);
+    if (!highShare.ok) return;
+    expect(highShare.notes.some((n) => n.includes("200%"))).toBe(true);
+
+    const highLoss = calculateSolar({
+      mode: "size",
+      useKwh: 7300,
+      usePeriod: "year",
+      sunHours: 5,
+      lossesPercent: 65,
+      sharePercent: 100,
+      panelWatts: 500,
+      panelAreaM2: null,
+      pricePerKwh: null,
+      costPerWatt: null,
+      excessValuePercent: 0,
+      degradationPercent: 0,
+      priceIncreasePercent: 0,
+      lifetimeYears: 25,
+    });
+    expect(highLoss.ok).toBe(true);
+    if (!highLoss.ok) return;
+    expect(highLoss.notes.some((n) => n.includes("60%"))).toBe(true);
+  });
+
   it("produce mode and reference helper use same yield", () => {
     expect(yieldPerKw(5, 0.2)).toBe(1460);
     const produced = calculateSolar({
