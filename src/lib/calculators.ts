@@ -768,7 +768,7 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
     id: "home-energy",
     title: "Home & Energy",
     description:
-      "Room capacity, solar sizing, battery backup runtime, and electricity cost estimates.",
+      "Room capacity, solar sizing, battery backup, electricity cost, and watts-to-amps conversions.",
     icon: Home,
     theme: "home",
     calculators: [
@@ -813,6 +813,17 @@ export const CALCULATOR_CATEGORIES: CalculatorCategory[] = [
           "Convert watts to kWh, estimate appliance running cost from your price per kWh, and model a simple flat or tiered bill.",
         href: "/home-energy/electricity-cost-calculator",
         icon: Zap,
+        status: "live",
+        addedAt: new Date().toISOString().slice(0, 10),
+      },
+      {
+        id: "watts-to-amps",
+        slug: "watts-to-amps-calculator",
+        name: "Watts to Amps Calculator",
+        description:
+          "Convert watts and amps for DC, single-phase and three-phase, plus kVA ↔ kW and Ohm’s law for resistive circuits.",
+        href: "/home-energy/watts-to-amps-calculator",
+        icon: Activity,
         status: "live",
         addedAt: new Date().toISOString().slice(0, 10),
       },
