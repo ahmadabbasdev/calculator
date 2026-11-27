@@ -509,6 +509,17 @@ export default function ElectricityCostCalculatorPage() {
                   Length, mass, volume, temperature and more
                 </span>
               </a>
+              <a
+                href="/home-energy/watts-to-amps-calculator"
+                className="inline-flex flex-col gap-1 rounded-xl border border-border/80 bg-panel px-5 py-4 shadow-card transition hover:border-cat-home/45 hover:bg-cat-home-soft"
+              >
+                <span className="text-[15px] font-semibold text-foreground">
+                  Watts to Amps Calculator
+                </span>
+                <span className="text-sm text-muted">
+                  Watts ↔ amps, kVA ↔ kW, and Ohm’s law
+                </span>
+              </a>
             </div>
           </section>
         </article>
