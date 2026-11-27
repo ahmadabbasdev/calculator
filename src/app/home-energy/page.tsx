@@ -18,7 +18,7 @@ const theme = getCategoryTheme("home-energy");
 
 const PAGE_TITLE = "Home & Energy Calculators — CalcDaily";
 const PAGE_DESCRIPTION =
-  "Free home and energy calculators for BTU room sizing, solar panel sizing, battery backup runtime, and electricity cost estimates — results stay in your browser.";
+  "Free home and energy calculators for BTU room sizing, solar panel sizing, battery backup runtime, electricity cost, and watts-to-amps conversions — results stay in your browser.";
 
 export const metadata: Metadata = {
   title: {
